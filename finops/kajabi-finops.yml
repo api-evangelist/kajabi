@@ -1,0 +1,96 @@
+name: Kajabi FinOps
+description: >
+  FinOps Framework 1.0 FOCUS-aligned cost and usage model for Kajabi API
+  and platform consumption. Kajabi charges a flat SaaS subscription fee per
+  plan tier with no separate API call fees. Additional costs arise from
+  contact add-ons and payment processing fees via Kajabi Payments.
+specificationVersion: "1.0"
+
+provider: Kajabi
+serviceName: Kajabi Platform and Public API
+billingModel: subscription
+currency: USD
+
+costCategories:
+  - name: Platform Subscription
+    description: >
+      Fixed monthly or annual subscription fee for the Kajabi plan. API access
+      is only available on the Pro tier. Annual billing provides approximately
+      20% savings.
+    billingDimension: plan-tier
+    unit: month
+    tiers:
+      - tier: Kickstarter
+        monthlyRate: 89.00
+        annualMonthlyRate: 71.00
+        annualTotalRate: 852.00
+        apiIncluded: false
+      - tier: Basic
+        monthlyRate: 179.00
+        annualMonthlyRate: 143.00
+        annualTotalRate: 1716.00
+        apiIncluded: false
+      - tier: Growth
+        monthlyRate: 249.00
+        annualMonthlyRate: 199.00
+        annualTotalRate: 2388.00
+        apiIncluded: false
+      - tier: Pro
+        monthlyRate: 499.00
+        annualMonthlyRate: 399.00
+        annualTotalRate: 4788.00
+        apiIncluded: true
+
+  - name: Payment Processing Fees
+    description: >
+      Per-transaction fees applied when using Kajabi Payments. Fee rates vary
+      by plan tier. Creators using external Stripe accounts may incur a
+      surcharge.
+    billingDimension: per-transaction
+    tiers:
+      - tier: Basic
+        rate: "2.9% + $0.30"
+      - tier: Growth
+        rate: "2.8% + $0.30"
+      - tier: Pro
+        rate: "2.7% + $0.30"
+
+  - name: Additional Contacts
+    description: >
+      Contacts beyond each plan's included limit can be purchased as an add-on
+      in blocks of 5,000 contacts.
+    billingDimension: per-5000-contacts
+    unit: month
+    rate: 25.00
+    notes: >
+      Price increased from $20 to $25 per 5,000 contacts in the January 2026
+      pricing restructure.
+
+costOptimization:
+  - recommendation: >
+      Use annual billing to save approximately 20% versus month-to-month
+      pricing across all plan tiers.
+  - recommendation: >
+      Cache OAuth tokens and reuse them across API calls to avoid unnecessary
+      token refresh overhead and potential rate limit pressure on authentication
+      endpoints.
+  - recommendation: >
+      Use webhook subscriptions instead of polling API endpoints to reduce
+      unnecessary API requests and lower the risk of hitting rate limits.
+  - recommendation: >
+      Monitor contact counts carefully; the Pro plan includes 100,000 contacts
+      before add-on fees apply.
+  - recommendation: >
+      Route payments through Kajabi Payments on the Pro tier (2.7% + $0.30)
+      to benefit from the lowest processing rate.
+
+focusAlignment:
+  serviceCategory: SaaS Platform
+  chargeType: recurring-subscription
+  pricingUnit: month
+  commitmentDiscountType: annual
+  references:
+    - url: https://www.kajabi.com/pricing
+      description: Kajabi Official Pricing Page
+    - url: https://www.kajabi.com/updates/2025-pricing-updates
+      description: Kajabi Q4 2025 Pricing Update Announcement

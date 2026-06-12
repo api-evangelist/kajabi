@@ -1,0 +1,54 @@
+name: Kajabi API Rate Limits
+description: >
+  Kajabi's Public API enforces rate limits to ensure platform stability. Kajabi
+  has not publicly disclosed specific numeric rate limit thresholds in their
+  official documentation as of June 2026. The API is only accessible on the Pro
+  plan. Developers should implement exponential back-off when receiving 429
+  Too Many Requests responses and monitor the rate-limit headers returned with
+  each API response. Third-party MCP integrations note that burst usage from
+  automated agents can drain a daily API quota quickly, suggesting a daily
+  quota model is in use.
+specificationVersion: "0.1"
+rateLimits:
+  - name: API Requests
+    description: >
+      Per-key request quota enforced by Kajabi. Specific numeric limits are not
+      publicly documented. Requests exceeding the quota receive a 429 Too Many
+      Requests HTTP response. Implement exponential back-off and retry logic in
+      integrations.
+    limit: unknown
+    period: daily
+    unit: requests
+    scope: api-key
+    notes: >
+      Kajabi has not published explicit numeric rate limit values in their
+      public API documentation. Developers should refer to response headers
+      and the official documentation at help.kajabi.com/api-reference for
+      the latest rate limit policies.
+
+  - name: OAuth Token Requests
+    description: >
+      Rate limits may apply to the OAuth token issuance endpoint. Tokens
+      should be cached and reused rather than fetched on every request.
+    limit: unknown
+    period: per-operation
+    unit: requests
+    scope: application
+
+headers:
+  - name: X-RateLimit-Limit
+    description: Maximum number of requests allowed in the current window (if returned)
+  - name: X-RateLimit-Remaining
+    description: Number of requests remaining in the current window (if returned)
+  - name: Retry-After
+    description: Seconds to wait before retrying after a 429 response
+
+statusCodes:
+  - code: 429
+    description: Too Many Requests — rate limit exceeded; apply back-off and retry
+
+references:
+  - url: https://help.kajabi.com/api-reference/introduction
+    description: Kajabi Public API Introduction
+  - url: https://github.com/Kajabi/public_api_docs
+    description: Kajabi Public API Documentation Repository

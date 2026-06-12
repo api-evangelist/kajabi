@@ -1,0 +1,78 @@
+aid: kajabi
+name: Kajabi
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
+created: 2026-06-12
+modified: 2026-06-12
+specificationVersion: "0.19"
+description: >
+  Kajabi is an all-in-one creator platform that enables entrepreneurs and
+  knowledge creators to build, market, and sell digital products including
+  online courses, membership sites, coaching programs, and communities. The
+  Kajabi Public API provides a RESTful interface for managing contacts,
+  products, offers, purchases, orders, transactions, forms, webhooks, and
+  more. API access requires OAuth 2.0 authentication and is available
+  exclusively on the Pro plan. The API base URL is https://api.kajabi.com
+  with versioned endpoints under /v1, and an OpenAPI specification is
+  published in the public_api_docs GitHub repository.
+tags:
+  - Creator Economy
+  - Online Courses
+  - Memberships
+  - E-Commerce
+  - Digital Products
+  - Contacts
+  - Webhooks
+  - Payments
+
+apis:
+  - name: Kajabi Public API
+    description: >
+      RESTful API for managing contacts, products, offers, purchases, orders,
+      transactions, courses, forms, landing pages, websites, webhooks, and
+      Kajabi Payments payouts. Supports OAuth 2.0 for authentication.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://help.kajabi.com/api-reference/introduction
+    baseURL: https://api.kajabi.com
+    tags:
+      - Contacts
+      - Products
+      - Offers
+      - Purchases
+      - Orders
+      - Webhooks
+      - Payments
+    properties:
+      - type: Documentation
+        url: https://help.kajabi.com/api-reference/introduction
+      - type: OpenAPI
+        url: https://github.com/Kajabi/public_api_docs/blob/main/openapi.yaml
+
+common:
+  - type: Website
+    url: https://www.kajabi.com
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: GitHubOrganization
+    url: https://github.com/Kajabi
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/kajabi
+  - type: Blog
+    url: https://www.kajabi.com/blog
+  - type: Pricing
+    url: https://www.kajabi.com/pricing
+  - type: StatusPage
+    url: https://status.kajabi.com
+  - type: X
+    url: https://x.com/Kajabi
+  - type: Plans
+    url: plans/kajabi-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/kajabi-rate-limits.yml
+  - type: FinOps
+    url: finops/kajabi-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
