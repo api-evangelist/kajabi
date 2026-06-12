@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/podcasts_attributes.json",
+  "title": "Podcasts",
+  "description": "Schema for Kajabi podcasts",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "owner_email": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "importing",
+        "failed"
+      ]
+    },
+    "show_type": {
+      "type": "string",
+      "enum": [
+        "episodic",
+        "serial"
+      ]
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "nullable": true
+    },
+    "cover_art_url": {
+      "type": "string",
+      "nullable": true
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "directories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "migrated_to_url": {
+      "type": "string",
+      "nullable": true
+    },
+    "migrated": {
+      "type": "boolean"
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "distribution_ready": {
+      "type": "boolean"
+    },
+    "url": {
+      "type": "string",
+      "description": "Public URL for the podcast"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/offers_attributes.json",
+  "title": "Offers",
+  "description": "Schema for Kajabi offers",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "internal_title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "currency": {
+      "type": "string"
+    },
+    "price_in_cents": {
+      "type": "integer"
+    },
+    "payment_type": {
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    },
+    "payment_method": {
+      "type": "string"
+    },
+    "price_description": {
+      "type": "string"
+    },
+    "checkout_url": {
+      "type": "string"
+    },
+    "recurring_offer": {
+      "type": "boolean"
+    },
+    "subscription": {
+      "type": "boolean"
+    },
+    "one_time": {
+      "type": "boolean"
+    },
+    "single": {
+      "type": "boolean"
+    },
+    "free": {
+      "type": "boolean"
+    },
+    "image_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

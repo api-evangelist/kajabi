@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/orders_attributes.json",
+  "title": "Orders",
+  "description": "Schema for Kajabi orders",
+  "type": "object",
+  "properties": {
+    "order_number": {
+      "type": "integer"
+    },
+    "currency_code": {
+      "type": "string"
+    },
+    "fulfilled_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "total_price_in_cents": {
+      "type": "integer"
+    },
+    "subtotal_in_cents": {
+      "type": "integer"
+    },
+    "sales_tax_amount_in_cents": {
+      "type": "integer"
+    },
+    "discount_amount_in_cents": {
+      "type": "integer"
+    },
+    "formatted_total_price": {
+      "type": "string"
+    },
+    "formatted_subtotal": {
+      "type": "string"
+    },
+    "currency_symbol": {
+      "type": "string"
+    }
+  }
+}

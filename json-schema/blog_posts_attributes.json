@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/blog_posts_attributes.json",
+  "title": "Blog Posts",
+  "description": "Schema for Kajabi blog posts",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "page_title": {
+      "type": "string"
+    },
+    "page_description": {
+      "type": "string"
+    },
+    "published_at": {
+      "type": "string",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/products_attributes.json",
+  "title": "Products",
+  "description": "Schema for Kajabi products",
+  "type": "object",
+  "properties": {
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "members_aggregate_count": {
+      "type": "integer"
+    },
+    "product_type_name": {
+      "type": "string"
+    },
+    "product_type_id": {
+      "type": "integer"
+    },
+    "publish_status": {
+      "type": "string"
+    },
+    "thumbnail_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/customers_attributes.json",
+  "title": "Customers",
+  "description": "Schema for Kajabi customers",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "external_user_id": {
+      "type": "string",
+      "nullable": true,
+      "description": "Supported once contact is granted an offer or makes a purchase"
+    },
+    "public_bio": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "public_location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "public_website": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "socials": {
+      "type": "object",
+      "nullable": true,
+      "properties": {
+        "twitter": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebook": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instagram": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "net_revenue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sign_in_count": {
+      "type": "integer",
+      "nullable": true,
+      "description": "Read only"
+    },
+    "last_request_at": {
+      "type": "string",
+      "nullable": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "bounced_at": {
+      "type": "string",
+      "nullable": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

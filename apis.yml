@@ -48,6 +48,32 @@ apis:
         url: https://help.kajabi.com/api-reference/introduction
       - type: OpenAPI
         url: https://github.com/Kajabi/public_api_docs/blob/main/openapi.yaml
+      - type: OpenAPI
+        url: openapi/kajabi-public-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/contacts_attributes.json
+      - type: JSONSchema
+        url: json-schema/products_attributes.json
+      - type: JSONSchema
+        url: json-schema/offers_attributes.json
+      - type: JSONSchema
+        url: json-schema/purchases_attributes.json
+      - type: JSONSchema
+        url: json-schema/orders_attributes.json
+      - type: JSONSchema
+        url: json-schema/transactions_attributes.json
+      - type: JSONSchema
+        url: json-schema/hooks_attributes.json
+      - type: JSONSchema
+        url: json-schema/courses_attributes.json
+      - type: JSONSchema
+        url: json-schema/forms_attributes.json
+      - type: JSONSchema
+        url: json-schema/blog_posts_attributes.json
+      - type: Vocabulary
+        url: vocabulary/kajabi-vocabulary.yml
+      - type: JSONLDContext
+        url: json-ld/kajabi-context.jsonld
 
 common:
   - type: Website

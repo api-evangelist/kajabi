@@ -1,0 +1,253 @@
+vocabulary:
+  name: Kajabi API Vocabulary
+  description: >
+    Controlled vocabulary of terms used across the Kajabi Public API, drawn from
+    schema properties in the OpenAPI specification (v1.1.0). Covers contacts,
+    products, offers, purchases, orders, transactions, courses, forms, webhooks,
+    landing pages, blog posts, podcasts, and Kajabi Payments.
+  version: "1.0.0"
+  source: https://raw.githubusercontent.com/Kajabi/public_api_docs/main/openapi.yaml
+  terms:
+
+    # Authentication
+    - term: access_token
+      type: string
+      description: OAuth 2.0 access token used to authenticate API requests.
+
+    - term: refresh_token
+      type: string
+      description: OAuth 2.0 token used to obtain a new access token when the current one expires.
+
+    - term: token_type
+      type: string
+      description: The type of the token, typically "Bearer".
+
+    - term: expires_in
+      type: integer
+      description: The number of seconds until the access token expires.
+
+    # Common resource fields
+    - term: id
+      type: string
+      description: Unique identifier of the resource.
+
+    - term: type
+      type: string
+      description: The resource type label (JSON:API convention).
+
+    - term: created_at
+      type: string
+      description: ISO 8601 timestamp when the resource was created.
+
+    - term: updated_at
+      type: string
+      description: ISO 8601 timestamp when the resource was last updated.
+
+    - term: published_at
+      type: string
+      description: ISO 8601 timestamp when the resource was published.
+
+    - term: title
+      type: string
+      description: Human-readable title of the resource.
+
+    - term: name
+      type: string
+      description: Display name of the resource (contacts, tags, forms, etc.).
+
+    - term: slug
+      type: string
+      description: URL-safe identifier used in public-facing links.
+
+    - term: url
+      type: string
+      description: Full URL associated with the resource (page, webhook endpoint, etc.).
+
+    - term: content
+      type: string
+      description: Body content of a resource such as a blog post or note.
+
+    - term: page_title
+      type: string
+      description: SEO page title for landing pages, blog posts, and website pages.
+
+    - term: page_description
+      type: string
+      description: SEO meta description for publicly-accessible pages.
+
+    # Contact fields
+    - term: email
+      type: string
+      description: Email address of a contact or customer.
+
+    - term: phone_number
+      type: string
+      description: Primary phone number of a contact.
+
+    - term: business_number
+      type: string
+      description: Business phone number of a contact.
+
+    - term: subscribed
+      type: boolean
+      description: Whether the contact is subscribed to email communications.
+
+    - term: first_name
+      type: string
+      description: First name of a contact or customer.
+
+    - term: last_name
+      type: string
+      description: Last name of a contact or customer.
+
+    - term: full_name
+      type: string
+      description: Full display name of a contact or customer.
+
+    # Offers and purchases
+    - term: offer_id
+      type: string
+      description: Identifier of the associated offer.
+
+    - term: price
+      type: integer
+      description: Price amount in cents.
+
+    - term: currency
+      type: string
+      description: ISO 4217 currency code (e.g., "USD").
+
+    - term: status
+      type: string
+      description: Current lifecycle status of a resource (active, cancelled, expired, etc.).
+
+    - term: active
+      type: boolean
+      description: Whether the resource (purchase, offer, product) is currently active.
+
+    - term: cancelled_at
+      type: string
+      description: ISO 8601 timestamp when the resource was cancelled.
+
+    - term: expires_at
+      type: string
+      description: ISO 8601 timestamp when the resource expires.
+
+    # Orders and transactions
+    - term: amount
+      type: integer
+      description: Monetary amount in cents for an order or transaction.
+
+    - term: contact_id
+      type: string
+      description: Identifier of the associated contact.
+
+    - term: order_id
+      type: string
+      description: Identifier of the associated order.
+
+    - term: transaction_id
+      type: string
+      description: Identifier of the associated transaction.
+
+    - term: payment_method
+      type: string
+      description: Payment method used (e.g., card, paypal).
+
+    - term: payment_status
+      type: string
+      description: Current payment status (paid, refunded, failed, etc.).
+
+    # Webhooks
+    - term: event
+      type: string
+      description: The event type that triggers the webhook (e.g., purchase.created).
+
+    - term: target_url
+      type: string
+      description: The URL to which webhook payloads are delivered.
+
+    - term: enabled
+      type: boolean
+      description: Whether the webhook is active and receiving events.
+
+    # Courses and products
+    - term: product_id
+      type: string
+      description: Identifier of the associated product.
+
+    - term: description
+      type: string
+      description: Human-readable description of a resource.
+
+    - term: thumbnail_url
+      type: string
+      description: URL of the resource thumbnail image.
+
+    - term: position
+      type: integer
+      description: Sort order position of the resource within a collection.
+
+    # Forms and submissions
+    - term: form_id
+      type: string
+      description: Identifier of the associated form.
+
+    - term: fields
+      type: array
+      description: Array of field definitions or submission values on a form.
+
+    - term: field_key
+      type: string
+      description: Machine-readable key for a custom or form field.
+
+    - term: field_value
+      type: string
+      description: Submitted value for a form field.
+
+    # Pagination and JSON:API
+    - term: data
+      type: array
+      description: Primary data payload in JSON:API response envelope.
+
+    - term: links
+      type: object
+      description: Pagination and self-link object in JSON:API responses.
+
+    - term: meta
+      type: object
+      description: Metadata object in JSON:API responses (e.g., total count, pagination).
+
+    - term: relationships
+      type: object
+      description: JSON:API relationships object linking to related resources.
+
+    - term: attributes
+      type: object
+      description: JSON:API attributes object containing resource properties.
+
+    # Sites / pages
+    - term: site_id
+      type: string
+      description: Identifier of the associated Kajabi site.
+
+    - term: locale
+      type: string
+      description: Locale/language code for the resource (e.g., en, fr).
+
+    # Payouts
+    - term: payout_id
+      type: string
+      description: Identifier of a Kajabi Payments payout.
+
+    - term: payout_status
+      type: string
+      description: Current status of a Kajabi Payments payout (pending, paid, failed).
+
+    - term: payout_amount
+      type: integer
+      description: Payout amount in cents transferred to the creator.
+
+    - term: payout_date
+      type: string
+      description: ISO 8601 date of the payout disbursement.

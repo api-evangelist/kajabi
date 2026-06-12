@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/form_attributes.json",
+  "title": "Form",
+  "description": "Schema for Kajabi form",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "default": {
+      "type": "boolean"
+    },
+    "webhook_url": {
+      "type": "object",
+      "nullable": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "nullable": true,
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

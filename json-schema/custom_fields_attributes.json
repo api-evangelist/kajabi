@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/custom_fields_attributes.json",
+  "title": "Custom Fields",
+  "description": "Schema for Kajabi custom fields",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "handle": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "required": {
+      "type": "boolean"
+    }
+  }
+}

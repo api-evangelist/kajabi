@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/purchases_attributes.json",
+  "title": "Purchases",
+  "description": "Schema for Kajabi purchases",
+  "type": "object",
+  "properties": {
+    "amount_in_cents": {
+      "type": "integer"
+    },
+    "payment_type": {
+      "type": "string"
+    },
+    "multipay_payments_made": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "opt_in": {
+      "type": "boolean"
+    },
+    "raw_extra_contact_information": {
+      "type": "object"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "effective_start_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cardholder_name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "billing_address_zip": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deactivated_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "deactivation_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "coupon_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referrer": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quantity": {
+      "type": "integer",
+      "nullable": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

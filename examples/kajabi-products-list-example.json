@@ -1,0 +1,101 @@
+{
+  "summary": "List products",
+  "description": "List of products (not archived) that can be granted to a contact\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/products?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/products?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/products?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/products?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by title in ascending order\n* `GET /v1/products?sort=title`\n### Sort by title in descending order\n* `GET /v1/products?sort=-title`\n\nResponse will include products sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"description\": \"In-depth training\",\n        \"status\": \"active\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"description\": \"Introduction to basics\",\n        \"status\": \"active\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[products]` parameter to request only specific attributes:\n### Get only title and publish_status fields\n* `GET /v1/products?fields[products]=title,publish_status`\n\nResponse will only include the requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"publish_status\": \"published\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"publish_status\": \"draft\"\n      }\n    }\n  ]\n}\n```\n## Filter by Site ID\nUse the `filter[site_id]` parameter to get products for a specific site:\n### Get products for site with ID 123\n* `GET /v1/products?filter[site_id]=123`\n\nResponse will only include products for that site\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"description\": \"In-depth training\",\n        \"status\": \"active\",\n        \"publish_status\": \"published\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }\n  ]\n}\n```\n## Filter by Title Contains\nUse the `filter[title_cont]` parameter to find products where the title contains specific text:\n### Get products with titles containing \"course\"\n* `GET /v1/products?filter[title_cont]=course`\n\nResponse will include products with matching titles\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Beginner Course\",\n      \"description\": \"Introduction to basics\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Description Contains\nUse the `filter[description_cont]` parameter to find products where the description contains specific text:\n### Get products with descriptions containing \"training\"\n* `GET /v1/products?filter[description_cont]=training`\n\nResponse will include products with matching descriptions\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training program\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Professional Course\",\n      \"description\": \"Professional training and certification\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Status\nUse the `filter[status_eq]` parameter to find products with a specific status:\n### Get ready products\n* `GET /v1/products?filter[status_eq]=ready`\n\nResponse will include products with matching status\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training program\",\n      \"status\": \"ready\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Professional Course\",\n      \"description\": \"Professional training and certification\",\n      \"status\": \"ready\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Excluded Product Types\nUse the `filter[exclude_product_types][]` parameter to exclude products by productizable_type (fully-qualified class name):\n### Exclude CohortCourse products\n* `GET /v1/products?filter[exclude_product_types][]=Courses::CohortCourse`\n\nResponse will exclude products with the specified productizable_type while keeping legacy evergreen courses visible.\n## Using Multiple Parameters Together\nYou can combine pagination, sorting, sparse fields and filtering in a single request:\n### Get page 2 of products for site 123, sorted by title descending, including only title and publish_status fields\n* `GET /v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status`\n\nResponse will include paginated and filtered products with sparse fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"publish_status\": \"draft\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"first\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"prev\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"next\": null,\n    \"last\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n",
+  "method": "GET",
+  "path": "/v1/products",
+  "tags": [
+    "Products"
+  ],
+  "parameters": [
+    {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "description": "Sort order, use: title, description, status, for descending order use '-' e.g. &sort=-title",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "page[number]",
+      "in": "query",
+      "required": false,
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "page[size]",
+      "in": "query",
+      "required": false,
+      "description": "Number of documents",
+      "schema": {
+        "type": "number"
+      }
+    },
+    {
+      "name": "fields[products]",
+      "in": "query",
+      "required": false,
+      "description": "Partial attributes as specified, e.g. fields[products]=title,publish_status",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[site_id]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by site_id, for example ?filter[site_id]=111",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[title_cont]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by title contains, for example ?filter[title_cont]=marketing",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[description_cont]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by description contains, for example ?filter[description_cont]=marketing",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[status_eq]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by status equals, for example ?filter[status_eq]=ready",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[exclude_product_types][]",
+      "in": "query",
+      "schema": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "required": false,
+      "description": "Exclude products by productizable_type (fully-qualified, e.g. Courses::CohortCourse). Repeatable."
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "description": "Success, list of products which the current user may access",
+      "content_type": "application/json"
+    }
+  }
+}

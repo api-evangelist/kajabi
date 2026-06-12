@@ -1,0 +1,71 @@
+{
+  "summary": "Create a contact",
+  "description": "Create a contact for a site.\n## Contact attributes\n* New contact does not support `external_user_id` attribute.\n* See custom_fields endpoint to discover attributes for using custom fields attributes.\n\n## Create a contact\nRequest body must include a `site` relationship.\nExample request body:\n```json\n{\n  \"data\": {\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"type\": \"sites\",\n          \"id\": \"123\"\n        }\n      }\n    }\n  }\n}\n```\nResponse will include the newly created contact resource.\n```json\n{\n  \"data\": {\n    \"id\": \"456\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"address_line_1\": null,\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_country\": null,\n      \"address_state\": null,\n      \"address_zip\": null,\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"subscribed\": false,\n      \"external_user_id\": null,\n      \"created_at\": \"2024-01-15T10:30:00Z\",\n      \"updated_at\": \"2024-01-15T10:30:00Z\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }\n}\n```\n",
+  "method": "POST",
+  "path": "/v1/contacts",
+  "tags": [
+    "Contacts"
+  ],
+  "parameters": [],
+  "requestBody": {
+    "content": {
+      "application/vnd.api+json": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "$ref": "#/components/schemas/contacts_attributes"
+                },
+                "relationships": {
+                  "type": "object",
+                  "properties": {
+                    "site": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "type"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "type",
+                "attributes",
+                "relationships"
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ]
+        }
+      }
+    }
+  },
+  "responses": {
+    "201": {
+      "description": "Success, new contact created",
+      "content_type": "application/json"
+    }
+  }
+}

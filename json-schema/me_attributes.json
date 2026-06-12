@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/me_attributes.json",
+  "title": "Me",
+  "description": "Schema for Kajabi me",
+  "type": "object",
+  "properties": {
+    "initials": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "role_level": {
+      "type": "string"
+    }
+  }
+}

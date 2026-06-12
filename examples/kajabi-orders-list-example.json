@@ -1,0 +1,89 @@
+{
+  "summary": "List orders",
+  "description": "Orders for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/orders?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/orders?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/orders?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/orders?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/orders?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/orders?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/orders?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by order_number in ascending order\n* `GET /v1/orders?sort=order_number`\n### Sort by created_at in descending order\n* `GET /v1/orders?sort=-created_at`\n\n## Filtering\nUse filter parameters to narrow down results:\n### Filter by site\nUse the `filter[site_id]` parameter to get orders for a specific site:\n* `GET /v1/orders?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get orders for a specific customer:\n* `GET /v1/orders?filter[customer_id]=456789`\n### Filter by order number\n* `GET /v1/orders?filter[order_number_eq]=12345`\n### Filter by fulfilled status\n* `GET /v1/orders?filter[fulfilled_at_null]=true` (unfulfilled orders)\n* `GET /v1/orders?filter[fulfilled_at_null]=false` (fulfilled orders)\n\n## Advanced Filtering Examples\n### Range queries\n* `GET /v1/orders?filter[site_id]=123&filter[created_at_gteq]=2024-01-01&filter[created_at_lteq]=2024-12-31`\n* `GET /v1/orders?filter[site_id]=123&filter[total_price_in_cents_gt]=5000`\n### Pattern matching\n* `GET /v1/orders?filter[site_id]=123&filter[order_number_cont]=2024`\n* `GET /v1/orders?filter[site_id]=123&filter[currency_code_start]=US`\n### Array filters\n* `GET /v1/orders?filter[site_id]=123&filter[currency_code_in]=USD,EUR,GBP`\n",
+  "method": "GET",
+  "path": "/v1/orders",
+  "tags": [
+    "Orders"
+  ],
+  "parameters": [
+    {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "description": "Sort order, use: order_number, created_at, fulfilled_at. For descending order use '-' e.g. &sort=-created_at",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "page[number]",
+      "in": "query",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "page[size]",
+      "in": "query",
+      "required": false,
+      "description": "Number of documents",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "fields[orders]",
+      "in": "query",
+      "required": false,
+      "description": "Partial attributes as specified, e.g. fields[orders]=order_number,total_price_in_cents",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[site_id]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by site_id, for example ?filter[site_id]=111",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[customer_id]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by customer_id, for example ?filter[customer_id]=456789",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[order_number_eq]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by order number, for example ?filter[order_number_eq]=12345",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[fulfilled_at_null]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by fulfillment status, for example ?filter[fulfilled_at_null]=true",
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "description": "Success, list of orders which the current user may access",
+      "content_type": "application/json"
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "kajabi": "https://api.kajabi.com/v1/vocabulary#",
+
+    "Contact": "schema:Person",
+    "Product": "schema:Product",
+    "Offer": "schema:Offer",
+    "Order": "schema:Order",
+    "Transaction": "schema:PayAction",
+    "Course": "schema:Course",
+    "BlogPost": "schema:BlogPosting",
+    "LandingPage": "schema:WebPage",
+    "WebsitePage": "schema:WebPage",
+    "Podcast": "schema:PodcastSeries",
+    "Form": "schema:ContactPage",
+    "FormSubmission": "schema:EntryPoint",
+    "Webhook": "kajabi:Webhook",
+    "Purchase": "schema:Order",
+    "Site": "schema:WebSite",
+    "ContactTag": "schema:DefinedTerm",
+    "ContactNote": "schema:Comment",
+    "CustomField": "schema:PropertyValue",
+    "Payout": "kajabi:KajabiPaymentsPayout",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": "schema:name",
+    "title": "schema:name",
+    "description": "schema:description",
+    "email": "schema:email",
+    "phone_number": "schema:telephone",
+    "business_number": "schema:telephone",
+    "url": "schema:url",
+    "slug": "kajabi:slug",
+    "content": "schema:articleBody",
+    "page_title": "schema:headline",
+    "page_description": "schema:description",
+    "thumbnail_url": "schema:thumbnailUrl",
+    "position": "schema:position",
+    "locale": "schema:inLanguage",
+
+    "first_name": "schema:givenName",
+    "last_name": "schema:familyName",
+    "full_name": "schema:name",
+    "subscribed": "kajabi:subscribed",
+
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "published_at": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:dateTime"
+    },
+    "cancelled_at": {
+      "@id": "kajabi:cancelledAt",
+      "@type": "xsd:dateTime"
+    },
+    "expires_at": {
+      "@id": "schema:expires",
+      "@type": "xsd:dateTime"
+    },
+
+    "price": {
+      "@id": "schema:price",
+      "@type": "xsd:integer"
+    },
+    "amount": {
+      "@id": "schema:price",
+      "@type": "xsd:integer"
+    },
+    "currency": "schema:priceCurrency",
+    "payment_method": "schema:paymentMethod",
+    "payment_status": "schema:paymentStatus",
+    "status": "kajabi:status",
+    "active": "kajabi:active",
+
+    "offer_id": "kajabi:offerId",
+    "contact_id": "kajabi:contactId",
+    "order_id": "schema:orderNumber",
+    "transaction_id": "kajabi:transactionId",
+    "product_id": "kajabi:productId",
+    "form_id": "kajabi:formId",
+    "site_id": "kajabi:siteId",
+    "payout_id": "kajabi:payoutId",
+    "payout_status": "kajabi:payoutStatus",
+    "payout_amount": "kajabi:payoutAmount",
+    "payout_date": {
+      "@id": "kajabi:payoutDate",
+      "@type": "xsd:date"
+    },
+
+    "event": "kajabi:webhookEvent",
+    "target_url": "kajabi:targetUrl",
+    "enabled": "kajabi:enabled",
+    "field_key": "schema:propertyID",
+    "field_value": "schema:value",
+    "fields": "schema:additionalProperty",
+
+    "access_token": "kajabi:accessToken",
+    "refresh_token": "kajabi:refreshToken",
+    "token_type": "kajabi:tokenType",
+    "expires_in": "kajabi:expiresIn",
+
+    "data": "kajabi:data",
+    "links": "kajabi:links",
+    "meta": "kajabi:meta",
+    "relationships": "kajabi:relationships",
+    "attributes": "kajabi:attributes"
+  }
+}

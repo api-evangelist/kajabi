@@ -1,0 +1,52 @@
+{
+  "summary": "List hooks",
+  "description": "Lists webhooks for a site\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/hooks?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/hooks?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/hooks?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/hooks?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/hooks?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/hooks?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/hooks?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Filtering\nUse `filter[event_eq]` parameter to filter webhooks by event type:\n### Get webhooks for purchase events only\n* `GET /v1/hooks?filter[event_eq]=purchase`\n",
+  "method": "GET",
+  "path": "/v1/hooks",
+  "tags": [
+    "Webhooks"
+  ],
+  "parameters": [
+    {
+      "name": "page[number]",
+      "in": "query",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "page[size]",
+      "in": "query",
+      "required": false,
+      "description": "Number of documents",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "filter[event_eq]",
+      "in": "query",
+      "required": false,
+      "schema": {
+        "type": "string",
+        "enum": [
+          "purchase",
+          "form_submission",
+          "tag_added",
+          "tag_removed",
+          "payment_succeeded",
+          "order_created"
+        ]
+      },
+      "description": "Filter by event type, for example ?filter[event_eq]=purchase"
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "description": "Success, list of hooks which the current user may access",
+      "content_type": "application/json"
+    }
+  }
+}

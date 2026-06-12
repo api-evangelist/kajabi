@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/kajabi/main/json-schema/transactions_attributes.json",
+  "title": "Transactions",
+  "description": "Schema for Kajabi transactions",
+  "type": "object",
+  "properties": {
+    "action": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "payment_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "amount_in_cents": {
+      "type": "integer"
+    },
+    "sales_tax_in_cents": {
+      "type": "integer"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "currency_symbol": {
+      "type": "string"
+    },
+    "formatted_amount": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true,
+      "description": "ISO 8601 date-time, read only"
+    }
+  }
+}

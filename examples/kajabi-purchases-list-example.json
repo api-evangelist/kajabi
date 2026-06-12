@@ -1,0 +1,107 @@
+{
+  "summary": "List purchases",
+  "description": "Returns a list of purchases (offer purchases) which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/purchases?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/purchases?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/purchases?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/purchases?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"count\": 10,\n    \"total_count\": 50,\n    \"total_pages\": 5\n  }\n}\n```\n## Sparse Fields\nUse the `fields[purchases]` parameter to request only specific attributes:\n### Only return amount_in_cents attributes\n* `GET /v1/purchases?fields[purchases]=amount_in_cents`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 19900\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900\n      }\n    }\n  ]\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by effective_start_at in descending order\n* `GET /v1/purchases?sort=-effective_start_at&fields[purchases]=effective_start_at`\n\nResponse will include purchases sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-02T00:00:00.000Z\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-01T00:00:00.000Z\"\n      }\n    }\n  ]\n}\n```\nList of attributes that may be used to sort: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\n## Filters\nUse the `filter[site_id]` parameter to get purchases for a specific site:\n### Get purchases for site with ID 123\n* `GET /v1/purchases?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get purchases for a specific customer:\n* `GET /v1/purchases?filter[customer_id]=456789`\n\nList of attributes that may be used to filter: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `gt` for greater than\n* `gte` for greater than or equal\n* `lt` for less than\n* `lte` for less than or equal\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/purchases?filter[amount_in_cents_eq]=19900`\n* `GET /v1/purchases?filter[amount_in_cents_gt]=19900`\n",
+  "method": "GET",
+  "path": "/v1/purchases",
+  "tags": [
+    "Purchases"
+  ],
+  "parameters": [
+    {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "description": "Sort order, use: created_at for descending order use '-' e.g. &sort=-created_at",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "page[number]",
+      "in": "query",
+      "required": false,
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "page[size]",
+      "in": "query",
+      "required": false,
+      "description": "Number of documents",
+      "schema": {
+        "type": "integer"
+      }
+    },
+    {
+      "name": "fields[purchases]",
+      "in": "query",
+      "required": false,
+      "description": "Partial attributes as specified, e.g. fields[purchases]=amount_in_cents",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[active]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by active purchases (not deactivated), for example ?filter[active]=true",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "filter[deactivated]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by deactivated purchases, for example ?filter[deactivated]=true",
+      "schema": {
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "filter[referrer]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by referrer, for example ?filter[referrer_cont]=\u2022\u2022\u2022\u2022\u2022",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[coupon_code_eq]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by coupon code, for example ?filter[coupon_code_eq]=\u2022\u2022\u2022\u2022\u2022",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[site_id]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by site_id, for example ?filter[site_id]=111",
+      "schema": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "filter[customer_id]",
+      "in": "query",
+      "required": false,
+      "description": "Filter by customer_id, for example ?filter[customer_id]=456789",
+      "schema": {
+        "type": "string"
+      }
+    }
+  ],
+  "requestBody": null,
+  "responses": {
+    "200": {
+      "description": "Success, list of purchases which the current user may access",
+      "content_type": "application/json"
+    }
+  }
+}
