@@ -1,0 +1,991 @@
+"""
+Kajabi GraphQL Schema
+Conceptual schema derived from the Kajabi REST API (https://api.kajabi.com/v1),
+developer documentation at https://developers.kajabi.com/, and the published
+OpenAPI specification at https://github.com/Kajabi/public_api_docs.
+Kajabi does not expose a native GraphQL endpoint; this schema represents a
+faithful translation of the REST domain model.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar URL
+scalar EmailAddress
+
+# ---------------------------------------------------------------------------
+# Interfaces
+# ---------------------------------------------------------------------------
+
+"""Relay-style global node identity."""
+interface Node {
+  id: ID!
+}
+
+"""Audit timestamps present on most Kajabi resources."""
+interface Timestamped {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+"""Top-level product category in Kajabi."""
+enum ProductType {
+  COURSE
+  COMMUNITY
+  COACHING
+  PODCAST
+  MEMBERSHIP
+  BUNDLE
+}
+
+"""Lifecycle state of a Kajabi product."""
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+  HIDDEN
+}
+
+"""Lesson content delivery format."""
+enum LessonType {
+  VIDEO
+  AUDIO
+  TEXT
+  QUIZ
+  SURVEY
+  DOWNLOAD
+  EMBED
+}
+
+"""Member account state."""
+enum MemberStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+  PENDING
+}
+
+"""Offer pricing model."""
+enum OfferType {
+  ONE_TIME
+  SUBSCRIPTION
+  PAYMENT_PLAN
+  FREE
+}
+
+"""Recurring billing interval for subscriptions."""
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  TRIALING
+  PAUSED
+  EXPIRED
+}
+
+"""Automation trigger event categories."""
+enum AutomationEvent {
+  MEMBER_CREATED
+  MEMBER_OPTED_IN
+  PURCHASE_COMPLETED
+  SUBSCRIPTION_STARTED
+  SUBSCRIPTION_CANCELLED
+  COURSE_COMPLETED
+  LESSON_COMPLETED
+  FORM_SUBMITTED
+  TAG_ADDED
+  TAG_REMOVED
+  PIPELINE_CONVERTED
+}
+
+# ---------------------------------------------------------------------------
+# Product Domain
+# ---------------------------------------------------------------------------
+
+"""A digital product listed in a Kajabi site (course, community, coaching, etc.)."""
+type Product implements Node & Timestamped {
+  id: ID!
+  name: String!
+  slug: String!
+  type: ProductType!
+  status: ProductStatus!
+  description: String
+  imageUrl: URL
+  details: ProductDetails
+  offers: [Offer!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for a Kajabi product."""
+type ProductDetails {
+  headline: String
+  landingPageUrl: URL
+  thankYouPageUrl: URL
+  isHidden: Boolean!
+  requiresOptIn: Boolean!
+  contentAccessType: String
+  customDomain: String
+  seoTitle: String
+  seoDescription: String
+}
+
+# ---------------------------------------------------------------------------
+# Course Domain
+# ---------------------------------------------------------------------------
+
+"""A structured online course consisting of modules and lessons."""
+type Course implements Node & Timestamped {
+  id: ID!
+  title: String!
+  slug: String!
+  status: ProductStatus!
+  product: Product
+  details: CourseDetails
+  modules: [CourseModule!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata and settings for a course."""
+type CourseDetails {
+  description: String
+  imageUrl: URL
+  progressTrackingEnabled: Boolean!
+  certificateEnabled: Boolean!
+  discussionsEnabled: Boolean!
+  prerequisiteCourseId: ID
+  dripEnabled: Boolean!
+  dripStartDate: Date
+}
+
+"""A grouping of lessons within a course."""
+type CourseModule implements Node & Timestamped {
+  id: ID!
+  title: String!
+  position: Int!
+  course: Course!
+  details: ModuleDetails
+  lessons: [Lesson!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for a course module."""
+type ModuleDetails {
+  description: String
+  isLocked: Boolean!
+  releaseAfterDays: Int
+  releaseDate: Date
+}
+
+"""An individual learning unit inside a module."""
+type Lesson implements Node & Timestamped {
+  id: ID!
+  title: String!
+  position: Int!
+  type: LessonType!
+  module: CourseModule!
+  details: LessonDetails
+  content: LessonContent
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Settings and metadata for a lesson."""
+type LessonDetails {
+  isPreview: Boolean!
+  isLocked: Boolean!
+  estimatedDurationMinutes: Int
+  releaseAfterDays: Int
+}
+
+"""The deliverable content body of a lesson."""
+type LessonContent {
+  videoUrl: URL
+  videoProvider: String
+  audioUrl: URL
+  bodyHtml: String
+  downloadUrl: URL
+  embedCode: String
+  attachments: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# Community Domain
+# ---------------------------------------------------------------------------
+
+"""A Kajabi community where members interact."""
+type Community implements Node & Timestamped {
+  id: ID!
+  title: String!
+  slug: String!
+  status: ProductStatus!
+  product: Product
+  details: CommunityDetails
+  categories: [Category!]
+  posts: [Post!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended settings for a community."""
+type CommunityDetails {
+  description: String
+  imageUrl: URL
+  isPrivate: Boolean!
+  memberCount: Int
+  postCount: Int
+  allowMemberPosts: Boolean!
+  moderationEnabled: Boolean!
+}
+
+"""A discussion post inside a community."""
+type Post implements Node & Timestamped {
+  id: ID!
+  title: String!
+  bodyHtml: String
+  author: Member
+  community: Community
+  category: Category
+  details: PostDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Engagement and moderation metadata for a community post."""
+type PostDetails {
+  isPinned: Boolean!
+  isLocked: Boolean!
+  likeCount: Int!
+  commentCount: Int!
+  viewCount: Int!
+  tags: [String!]
+}
+
+"""A category used to organise community posts."""
+type Category implements Node & Timestamped {
+  id: ID!
+  name: String!
+  slug: String!
+  community: Community
+  details: CategoryDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Metadata for a community category."""
+type CategoryDetails {
+  description: String
+  position: Int!
+  postCount: Int!
+  isDefault: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Coaching Domain
+# ---------------------------------------------------------------------------
+
+"""A coaching program product offered through Kajabi."""
+type Coaching implements Node & Timestamped {
+  id: ID!
+  title: String!
+  slug: String!
+  status: ProductStatus!
+  product: Product
+  details: CoachingDetails
+  sessions: [CoachingSession!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Settings and metadata for a coaching program."""
+type CoachingDetails {
+  description: String
+  imageUrl: URL
+  sessionCount: Int
+  durationMinutes: Int
+  schedulingUrl: URL
+  allowMemberBooking: Boolean!
+}
+
+"""An individual coaching session within a coaching program."""
+type CoachingSession implements Node & Timestamped {
+  id: ID!
+  title: String!
+  scheduledAt: DateTime
+  durationMinutes: Int
+  member: Member
+  coaching: Coaching
+  meetingUrl: URL
+  notes: String
+  completed: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Podcast Domain
+# ---------------------------------------------------------------------------
+
+"""A private or member-only podcast feed hosted on Kajabi."""
+type Podcast implements Node & Timestamped {
+  id: ID!
+  title: String!
+  slug: String!
+  status: ProductStatus!
+  product: Product
+  details: PodcastDetails
+  episodes: [Episode!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Feed-level settings for a Kajabi podcast."""
+type PodcastDetails {
+  description: String
+  coverImageUrl: URL
+  author: String
+  category: String
+  language: String
+  isExplicit: Boolean!
+  rssFeedUrl: URL
+  episodeCount: Int
+}
+
+"""A single episode within a Kajabi podcast."""
+type Episode implements Node & Timestamped {
+  id: ID!
+  title: String!
+  position: Int!
+  podcast: Podcast
+  details: EpisodeDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Content and metadata for a podcast episode."""
+type EpisodeDetails {
+  description: String
+  audioUrl: URL
+  durationSeconds: Int
+  publishedAt: DateTime
+  seasonNumber: Int
+  episodeNumber: Int
+  isExplicit: Boolean!
+  showNotes: String
+}
+
+# ---------------------------------------------------------------------------
+# Email Marketing Domain
+# ---------------------------------------------------------------------------
+
+"""A single email message sent or queued in Kajabi."""
+type Email implements Node & Timestamped {
+  id: ID!
+  subject: String!
+  status: String
+  campaign: Campaign
+  template: EmailTemplate
+  details: EmailDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Delivery and content details for an email."""
+type EmailDetails {
+  fromName: String
+  fromEmail: EmailAddress
+  replyToEmail: EmailAddress
+  previewText: String
+  bodyHtml: String
+  recipientCount: Int
+  openRate: Float
+  clickRate: Float
+  sentAt: DateTime
+}
+
+"""A reusable email layout or design template."""
+type EmailTemplate implements Node & Timestamped {
+  id: ID!
+  name: String!
+  bodyHtml: String
+  isDefault: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A named email marketing campaign grouping broadcasts and sequences."""
+type Campaign implements Node & Timestamped {
+  id: ID!
+  name: String!
+  status: String
+  details: CampaignDetails
+  broadcasts: [Broadcast!]
+  sequences: [Sequence!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Metadata and performance summary for a campaign."""
+type CampaignDetails {
+  goal: String
+  startDate: Date
+  endDate: Date
+  totalSent: Int
+  openRate: Float
+  clickRate: Float
+  unsubscribeRate: Float
+}
+
+"""A one-time mass email send to a segment of contacts."""
+type Broadcast implements Node & Timestamped {
+  id: ID!
+  subject: String!
+  status: String
+  campaign: Campaign
+  details: BroadcastDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Scheduling and delivery details for a broadcast."""
+type BroadcastDetails {
+  scheduledAt: DateTime
+  sentAt: DateTime
+  recipientCount: Int
+  openCount: Int
+  clickCount: Int
+  unsubscribeCount: Int
+  bodyHtml: String
+}
+
+"""An automated drip sequence of emails."""
+type Sequence implements Node & Timestamped {
+  id: ID!
+  name: String!
+  status: String
+  campaign: Campaign
+  details: SequenceDetails
+  emails: [Email!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Configuration for an automated email sequence."""
+type SequenceDetails {
+  triggerEvent: AutomationEvent
+  totalEmails: Int
+  activeSubscriberCount: Int
+  completedSubscriberCount: Int
+  startOnEnrollment: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Automation Domain
+# ---------------------------------------------------------------------------
+
+"""A workflow automation rule that reacts to platform events."""
+type Automation implements Node & Timestamped {
+  id: ID!
+  name: String!
+  isActive: Boolean!
+  details: AutomationDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Trigger, conditions, and actions for an automation."""
+type AutomationDetails {
+  triggerEvent: AutomationEvent!
+  conditions: JSON
+  actions: JSON
+  runCount: Int!
+  lastRunAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Member Domain
+# ---------------------------------------------------------------------------
+
+"""A Kajabi site member (contact who has opted in or purchased)."""
+type Member implements Node & Timestamped {
+  id: ID!
+  email: EmailAddress!
+  firstName: String
+  lastName: String
+  status: MemberStatus!
+  details: MemberDetails
+  subscriptions: [Subscription!]
+  purchases: [Transaction!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended profile and engagement data for a member."""
+type MemberDetails {
+  phone: String
+  avatarUrl: URL
+  tags: [String!]
+  customFields: JSON
+  totalSpend: Float
+  lastLoginAt: DateTime
+  optedInAt: DateTime
+  unsubscribedAt: DateTime
+  locale: String
+  timezone: String
+}
+
+# ---------------------------------------------------------------------------
+# Offer & Pricing Domain
+# ---------------------------------------------------------------------------
+
+"""A purchasable offer that grants access to one or more products."""
+type Offer implements Node & Timestamped {
+  id: ID!
+  name: String!
+  slug: String!
+  type: OfferType!
+  status: ProductStatus!
+  product: Product
+  details: OfferDetails
+  prices: [Price!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Settings and checkout configuration for an offer."""
+type OfferDetails {
+  headline: String
+  description: String
+  checkoutUrl: URL
+  thankYouPageUrl: URL
+  couponEnabled: Boolean!
+  trialDays: Int
+  accessDurationDays: Int
+  upsellOfferId: ID
+  totalRevenue: Float
+  purchaseCount: Int
+}
+
+"""A price point attached to an offer."""
+type Price implements Node & Timestamped {
+  id: ID!
+  offer: Offer!
+  amount: Float!
+  currency: String!
+  type: OfferType!
+  details: PriceDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Billing interval and trial configuration for a price."""
+type PriceDetails {
+  intervalUnit: String
+  intervalCount: Int
+  trialDays: Int
+  setupFee: Float
+  installmentCount: Int
+  isDefault: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Subscription Domain
+# ---------------------------------------------------------------------------
+
+"""An active or historical recurring billing relationship."""
+type Subscription implements Node & Timestamped {
+  id: ID!
+  member: Member!
+  offer: Offer!
+  price: Price!
+  status: SubscriptionStatus!
+  details: SubscriptionDetails
+  transactions: [Transaction!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Billing cycle and cancellation details for a subscription."""
+type SubscriptionDetails {
+  currentPeriodStart: DateTime
+  currentPeriodEnd: DateTime
+  cancelledAt: DateTime
+  pausedAt: DateTime
+  resumesAt: DateTime
+  trialEndsAt: DateTime
+  totalBilled: Float
+  failedPaymentCount: Int
+}
+
+# ---------------------------------------------------------------------------
+# Transaction Domain
+# ---------------------------------------------------------------------------
+
+"""A single financial transaction (charge, refund, or payout)."""
+type Transaction implements Node & Timestamped {
+  id: ID!
+  member: Member
+  offer: Offer
+  amount: Float!
+  currency: String!
+  status: String!
+  details: TransactionDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Payment method and gateway details for a transaction."""
+type TransactionDetails {
+  gatewayTransactionId: String
+  paymentMethod: String
+  last4: String
+  cardBrand: String
+  refunded: Boolean!
+  refundedAt: DateTime
+  refundAmount: Float
+  invoiceUrl: URL
+}
+
+# ---------------------------------------------------------------------------
+# Customer Domain
+# ---------------------------------------------------------------------------
+
+"""A contact/customer record in Kajabi (may or may not be a member)."""
+type Customer implements Node & Timestamped {
+  id: ID!
+  email: EmailAddress!
+  firstName: String
+  lastName: String
+  details: CustomerDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""CRM profile and segmentation data for a customer."""
+type CustomerDetails {
+  phone: String
+  avatarUrl: URL
+  tags: [String!]
+  customFields: JSON
+  totalSpend: Float
+  purchaseCount: Int
+  firstPurchaseAt: DateTime
+  lastPurchaseAt: DateTime
+  locale: String
+  timezone: String
+  ipAddress: String
+}
+
+# ---------------------------------------------------------------------------
+# Form & Pipeline Domain
+# ---------------------------------------------------------------------------
+
+"""An opt-in or lead capture form."""
+type Form implements Node & Timestamped {
+  id: ID!
+  name: String!
+  slug: String!
+  details: FormDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Fields, confirmation, and analytics for a form."""
+type FormDetails {
+  headline: String
+  description: String
+  submitButtonText: String
+  confirmationMessage: String
+  redirectUrl: URL
+  fields: JSON
+  submissionCount: Int
+  conversionRate: Float
+}
+
+"""A Kajabi Pipeline (sales funnel) with pages and opt-ins."""
+type Pipeline implements Node & Timestamped {
+  id: ID!
+  name: String!
+  slug: String!
+  isPublished: Boolean!
+  details: PipelineDetails
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Steps, metrics, and conversion data for a pipeline."""
+type PipelineDetails {
+  goal: String
+  steps: JSON
+  visitorCount: Int
+  optInCount: Int
+  conversionRate: Float
+  revenueGenerated: Float
+}
+
+# ---------------------------------------------------------------------------
+# Platform / Configuration Domain
+# ---------------------------------------------------------------------------
+
+"""A Kajabi API key used for OAuth application credentials."""
+type APIKey implements Node & Timestamped {
+  id: ID!
+  name: String!
+  clientId: String!
+  scopes: [String!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An OAuth access token for a Kajabi API session."""
+type Token implements Node {
+  id: ID!
+  accessToken: String!
+  tokenType: String!
+  expiresAt: DateTime
+  scopes: [String!]!
+  apiKey: APIKey
+}
+
+"""A webhook endpoint registered to receive Kajabi event notifications."""
+type Webhook implements Node & Timestamped {
+  id: ID!
+  url: URL!
+  isActive: Boolean!
+  events: [String!]!
+  secretKey: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Relay Connection Helpers
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type MemberEdge {
+  cursor: String!
+  node: Member!
+}
+
+type MemberConnection {
+  edges: [MemberEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TransactionEdge {
+  cursor: String!
+  node: Transaction!
+}
+
+type TransactionConnection {
+  edges: [TransactionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+# ---------------------------------------------------------------------------
+# Root Query
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Fetch any node by its global ID."""
+  node(id: ID!): Node
+
+  """List all products with optional type filter."""
+  products(
+    type: ProductType
+    status: ProductStatus
+    first: Int
+    after: String
+  ): ProductConnection!
+
+  """Fetch a single product by ID or slug."""
+  product(id: ID, slug: String): Product
+
+  """Fetch a course by ID."""
+  course(id: ID!): Course
+
+  """List all communities."""
+  communities(first: Int, after: String): [Community!]!
+
+  """Fetch a community by ID."""
+  community(id: ID!): Community
+
+  """List all coaching programs."""
+  coachingPrograms(first: Int, after: String): [Coaching!]!
+
+  """Fetch a coaching program by ID."""
+  coaching(id: ID!): Coaching
+
+  """List all podcasts."""
+  podcasts(first: Int, after: String): [Podcast!]!
+
+  """Fetch a podcast by ID."""
+  podcast(id: ID!): Podcast
+
+  """List members with optional status filter."""
+  members(
+    status: MemberStatus
+    tag: String
+    first: Int
+    after: String
+  ): MemberConnection!
+
+  """Fetch a member by ID or email."""
+  member(id: ID, email: EmailAddress): Member
+
+  """List offers."""
+  offers(type: OfferType, first: Int, after: String): [Offer!]!
+
+  """Fetch an offer by ID or slug."""
+  offer(id: ID, slug: String): Offer
+
+  """List transactions with optional date range."""
+  transactions(
+    startDate: Date
+    endDate: Date
+    first: Int
+    after: String
+  ): TransactionConnection!
+
+  """Fetch a transaction by ID."""
+  transaction(id: ID!): Transaction
+
+  """List customers."""
+  customers(first: Int, after: String): [Customer!]!
+
+  """Fetch a customer by ID or email."""
+  customer(id: ID, email: EmailAddress): Customer
+
+  """List automations."""
+  automations(isActive: Boolean, first: Int, after: String): [Automation!]!
+
+  """Fetch an automation by ID."""
+  automation(id: ID!): Automation
+
+  """List email campaigns."""
+  campaigns(first: Int, after: String): [Campaign!]!
+
+  """Fetch a campaign by ID."""
+  campaign(id: ID!): Campaign
+
+  """List forms."""
+  forms(first: Int, after: String): [Form!]!
+
+  """Fetch a form by ID or slug."""
+  form(id: ID, slug: String): Form
+
+  """List pipelines."""
+  pipelines(first: Int, after: String): [Pipeline!]!
+
+  """Fetch a pipeline by ID or slug."""
+  pipeline(id: ID, slug: String): Pipeline
+
+  """List registered webhooks."""
+  webhooks(first: Int, after: String): [Webhook!]!
+
+  """Fetch a webhook by ID."""
+  webhook(id: ID!): Webhook
+}
+
+# ---------------------------------------------------------------------------
+# Root Mutation
+# ---------------------------------------------------------------------------
+
+input CreateMemberInput {
+  email: EmailAddress!
+  firstName: String
+  lastName: String
+  phone: String
+  tags: [String!]
+  customFields: JSON
+}
+
+input UpdateMemberInput {
+  id: ID!
+  firstName: String
+  lastName: String
+  phone: String
+  status: MemberStatus
+  tags: [String!]
+  customFields: JSON
+}
+
+input CreateWebhookInput {
+  url: URL!
+  events: [String!]!
+}
+
+input UpdateWebhookInput {
+  id: ID!
+  url: URL
+  events: [String!]
+  isActive: Boolean
+}
+
+type MutationResult {
+  success: Boolean!
+  errors: [String!]
+}
+
+type Mutation {
+  """Create a new member/contact."""
+  createMember(input: CreateMemberInput!): Member
+
+  """Update an existing member."""
+  updateMember(input: UpdateMemberInput!): Member
+
+  """Delete a member by ID."""
+  deleteMember(id: ID!): MutationResult!
+
+  """Tag a member."""
+  addTagToMember(memberId: ID!, tag: String!): Member
+
+  """Remove a tag from a member."""
+  removeTagFromMember(memberId: ID!, tag: String!): Member
+
+  """Register a new webhook endpoint."""
+  createWebhook(input: CreateWebhookInput!): Webhook
+
+  """Update an existing webhook."""
+  updateWebhook(input: UpdateWebhookInput!): Webhook
+
+  """Delete a webhook by ID."""
+  deleteWebhook(id: ID!): MutationResult!
+
+  """Grant a member access to an offer."""
+  grantOfferAccess(memberId: ID!, offerId: ID!): MutationResult!
+
+  """Revoke a member's access to an offer."""
+  revokeOfferAccess(memberId: ID!, offerId: ID!): MutationResult!
+}
