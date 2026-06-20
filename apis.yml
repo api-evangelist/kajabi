@@ -1,7 +1,7 @@
 aid: kajabi
 name: Kajabi
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -32,7 +32,7 @@ apis:
     payouts. Supports OAuth 2.0 for authentication.
 
     '
-  image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://help.kajabi.com/api-reference/introduction
   baseURL: https://api.kajabi.com
   tags:
