@@ -77,6 +77,10 @@ apis:
   - url: graphql/kajabi-graphql.md
     type: GraphQL
 common:
+- type: DomainSecurity
+  url: security/kajabi-domain-security.yml
+- type: Authentication
+  url: authentication/kajabi-authentication.yml
 - type: Website
   url: https://www.kajabi.com
 - type: Documentation

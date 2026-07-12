@@ -1,0 +1,12 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/kajabi-public-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: Bearer
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/kajabi-public-api-openapi.yml
