@@ -5,14 +5,17 @@
       "source": "https://www.kajabi.com/blog/rss.xml",
       "feed_url": "https://www.kajabi.com/blog/rss.xml",
       "title": "",
-      "saved": 6,
+      "saved": 10,
       "method": "feed"
     },
     {
       "source": "https://www.linkedin.com/company/kajabi",
-      "error": "HTTPError"
+      "feed_url": "https://www.linkedin.com/company/kajabi",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-27T12:03:07Z",
-  "post_count": 13
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 75
 }
