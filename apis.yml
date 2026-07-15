@@ -77,6 +77,8 @@ apis:
   - url: graphql/kajabi-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/kajabi-agentic-access.yml
 - type: DomainSecurity
   url: security/kajabi-domain-security.yml
 - type: Authentication
