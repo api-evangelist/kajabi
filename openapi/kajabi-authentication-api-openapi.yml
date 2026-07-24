@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Authentication
+paths:
+  /v1/oauth/token:
+    post:
+      summary: Get access token
+      tags:
+      - Authentication
+      description: '## Request `access_token` and `refresh_token`
+
+        There are three ways to exchange parameters for tokens
+
+        1. Provide client credentials `client_id` and `client_secret`
+
+        2. Provide a `refresh_token`
+
+        3. Provide `username` and `password` (client credentials is preferred)
+
+
+        ### Using grant_type=client_credentials
+
+        Only include params: `client_id`, `client_secret`, and `grant_type`.
+
+        * The `grant_type` param value must be: `client_credentials`
+
+
+        ### Using grant_type=refresh_token
+
+        Only include params: `refresh_token` and `grant_type`.
+
+        * The `grant_type` param value must be: `refresh_token`
+
+        * The `refresh_token` must be a unexpired JWT token, from a prior client credential token grant.
+
+
+        ### Using username and password
+
+        Only include params: `username` and `password`.
+
+
+        ## Response
+
+        A successful response will provide `access_token` and `refresh_token` values.
+
+        * Use the `access_token` in your `Authorization` header as a "Bearer" token to make authenticated requests to the API. E.g. `GET https://api.kajabi.com/v1/me`
+
+        * Store the `refresh_token` to exchange for a new `access_token` when it expires.
+
+        * Tokens may be invalidated using the `v1/oauth/revoke` endpoint to "log out".
+
+        ### Attributes
+
+        * `access_token` (string) - The access token for the API session
+
+        * `refresh_token` (string) - The refresh token for the API session
+
+        * `token_type` (string) - The type of token, always `Bearer`
+
+        * `expires_in` (integer) - The number of seconds the access token will be valid for
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: Authentication succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth_token_response'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors_authentication_failed'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errors_authentication_failed'
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                grant_type:
+                  type: string
+                scope:
+                  type: string
+                refresh_token:
+                  type: string
+  /v1/oauth/revoke:
+    post:
+      summary: Revoke a token
+      tags:
+      - Authentication
+      description: '## Revoke an `access_token` and `refresh_token`
+
+        Either token may be provided to "log out" of the API session. Both tokens we be invalidated.
+
+
+        * Only include param: `token` with your `access_token` or `refresh_token`
+
+        * Requires an `Authorization` header as `Bearer access_token` to authenticate the request.
+
+
+        ## Response
+
+        * A successful response will have an empty body
+
+        * An error response will include a JSON body with error details.
+
+        '
+      security:
+      - Bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: Token revocation succeeded
+        '401':
+          description: Unauthorized
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+components:
+  schemas:
+    errors_authentication_failed:
+      type: object
+      properties:
+        error:
+          type: string
+    oauth_token_response:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

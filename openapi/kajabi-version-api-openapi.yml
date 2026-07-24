@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Version API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Version
+paths:
+  /v1/version:
+    get:
+      summary: Version
+      description: "Returns the current version of the Kajabi API and links to the API documentation.\n\nThis endpoint does not require authentication; it can be used as a health check.\n\n## Response attributes\n* `meta` (object) - Meta information about the API.\n  * `title` (string) - The title of the API.\n  * `version` (string) - The version of the API.\n* `links` (object) - Links to the API documentation.\n  * `documentation` (string) - The URL to the API documentation.\n* `jsonapi` (object) - JSON API information.\n  * `version` (string) - The version of the JSON API.\n  * `specficiation` (string) - The URL to the JSON API specification.\n"
+      tags:
+      - Version
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/version_response'
+        '503':
+          description: Service unavailable
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unavailable'
+components:
+  schemas:
+    version_response:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+            version:
+              type: string
+        links:
+          type: object
+          properties:
+            documentation:
+              type: string
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+            specficiation:
+              type: string
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_unavailable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

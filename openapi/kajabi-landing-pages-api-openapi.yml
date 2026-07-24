@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Landing pages API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Landing pages
+paths:
+  /v1/landing_pages:
+    get:
+      summary: List landing pages
+      description: 'Returns a list of landing pages which the current user may access
+
+
+        ## Pagination
+
+        Use `page[number]` and `page[size]` parameters to paginate results:
+
+        ### Get first page of 10 items
+
+        * `GET /v1/landing_pages[number]=1&page[size]=10`
+
+        ### Get second page of 25 items
+
+        * `GET /v1/landing_pages[number]=2&page[size]=25`
+
+
+        ## Sparse Fields
+
+        Use the `fields[landing_pages]` parameter to request only specific attributes:
+
+        ### Only return title attribute
+
+        * `GET /v1/landing_pages?fields[landing_pages]=title`
+
+
+        ## Sorting
+
+        Use the `sort` parameter to sort the results:
+
+        ### Sort by publish_at in descending order
+
+        * `GET /v1/landing_pages?sort=-publish_at&fields[landing_pages]=title`
+
+
+        ## Filters
+
+        Use the `filter[site_id]` parameter to get landing pages for a specific site:
+
+        ### Get landing pages for site with ID 123
+
+        * `GET /v1/landing_pages?filter[site_id]=123`
+
+
+        List of attributes that may be used to filter: title, publish_at, created_at, updated_at
+
+
+        The filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:
+
+        * `eq` for equals
+
+        * `cont` for contains
+
+        * `not_eq` for not equals
+
+        * `not_cont` for not contains
+
+        * `gt` for greater than
+
+        * `gte` for greater than or equal
+
+        * `lt` for less than
+
+        * `lte` for less than or equal
+
+        * `start` for starts with
+
+        * `end` for ends with
+
+
+        For example:
+
+        * `GET /v1/landing_pages?filter[title_start]=Course`
+
+        * `GET /v1/landing_pages?filter[title_cont]=Landing`
+
+        '
+      tags:
+      - Landing pages
+      security:
+      - Bearer: []
+      parameters:
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort order, use: title for descending order use ''-'' e.g. &sort=-title'
+        schema:
+          type: string
+      - name: page[number]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of documents
+        schema:
+          type: integer
+      - name: fields[landing_pages]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[landing_pages]=title
+        schema:
+          type: string
+      - name: filter[title_cont]
+        in: query
+        required: false
+        description: Filter by title contains, for example ?filter[title_cont]=about
+        schema:
+          type: string
+      - name: filter[published]
+        in: query
+        required: false
+        description: Filter by published status, for example ?filter[published]=true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, list of landing pages which the current user may access
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/landing_pages_index_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+  /v1/landing_pages/{id}:
+    get:
+      summary: Landing page details
+      description: "Shows details of a landing page\n\n## Landing Page Attributes\n* `title` (string) - Title of the landing page\n* `url` (string) - URL of the landing page\n* `publish_at` (string) - Date and time the landing page will be published\n* `created_at` (string) - Date and time the landing page was created\n* `updated_at` (string) - Date and time the landing page was updated\n\n## Sparse Fields\n### Only return title attribute\n* `GET /v1/landing_pages/123?fields[landing_pages]=title`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"landing_pages\",\n    \"attributes\": {\n      \"title\": \"Course Landing Page\"\n    }\n  }\n}\n```\n"
+      tags:
+      - Landing pages
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Landing page ID
+        schema:
+          type: string
+      - name: fields[landing_pages]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[landing_pages]=title
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, shows details of a landing page
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/landing_pages_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+        '404':
+          description: landing page not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+components:
+  schemas:
+    landing_pages_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - landing_pages
+              attributes:
+                $ref: '#/components/schemas/landing_pages_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    landing_pages_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        publish_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    landing_pages_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - landing_pages
+            attributes:
+              $ref: '#/components/schemas/landing_pages_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

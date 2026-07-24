@@ -1,0 +1,305 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Transactions API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Transactions
+paths:
+  /v1/transactions:
+    get:
+      summary: List transactions
+      description: "  List of payment transactions related to completed financial activity (successful charges, refunds, and disputes) that are associated with actual purchases, excluding test transactions, free purchases, failed attempts, and pending transactions.\n\n  ## Pagination\n  Use `page[number]` and `page[size]` parameters to paginate results:\n  ### Get first page of 10 items\n  * `GET /v1/transactions?page[number]=1&page[size]=10`\n  ### Get second page of 25 items\n  * `GET /v1/transactions?page[number]=2&page[size]=25`\n\n  The response includes pagination links and meta data:\n  ```json\n  {\n    \"links\": {\n      \"self\": \"https://api.kajabi.com/v1/transactions?page[number]=2&page[size]=10\",\n      \"first\": \"https://api.kajabi.com/v1/transactions?page[number]=1&page[size]=10\",\n      \"prev\": \"https://api.kajabi.com/v1/transactions?page[number]=1&page[size]=10\",\n      \"next\": \"https://api.kajabi.com/v1/transactions?page[number]=3&page[size]=10\",\n      \"last\": \"https://api.kajabi.com/v1/transactions?page[number]=5&page[size]=10\"\n    },\n    \"meta\": {\n      \"total_pages\": 5,\n      \"total_count\": 50,\n      \"current_page\": 2\n    }\n  }\n  ```\n  ## Sparse Fields\n  Use the `fields[transactions]` parameter to request only specific attributes:\n  ### Only return amount_in_cents and sales_tax_in_cents attributes\n  * `GET /v1/transactions?fields[transactions]=amount_in_cents,sales_tax_in_cents`\n\n  Response will only include requested fields\n  ```json\n  {\n    \"data\": [{\n      \"id\": \"123\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900,\n        \"sales_tax_in_cents\": 990\n      }\n    }]\n  }\n  ```\n  ## Filtering\n  Use the `filter[site_id]` parameter to filter transactions by site:\n  ### Get transactions for site with ID 123\n  * `GET /v1/transactions?filter[site_id]=123`\n\n  Response will include only transactions for the specified site\n  ```json\n  {\n    \"data\": [{\n      \"id\": \"456\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900,\n        \"sales_tax_in_cents\": 990,\n        \"created_at\": \"2024-01-15T10:30:00Z\",\n        \"updated_at\": \"2024-01-15T10:30:00Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }]\n  }\n  ```\n  ## Date Range Filtering\n  Use the `filter[start_date]` and `filter[end_date]` parameters to filter transactions by date range:\n  ### Get transactions between January 1st and January 31st, 2024\n  * `GET /v1/transactions?filter[start_date]=2024-01-01&filter[end_date]=2024-01-31`\n\n  Response will include only transactions within the specified date range\n  ```json\n  {\n    \"data\": [{\n      \"id\": \"456\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900,\n        \"sales_tax_in_cents\": 990,\n        \"created_at\": \"2024-01-15T10:30:00Z\",\n        \"updated_at\": \"2024-01-15T10:30:00Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }]\n  }\n  ```\n## Filtering by Name or Email\nUse the `filter[name_or_email]` parameter to filter transactions by name or email:\n### Get transactions for customer with name or email \"John\"\n* `GET /v1/transactions?filter[name_or_email]=John`\n## Filtering by Customer\nUse the `filter[customer_id]` parameter to filter transactions by customer:\n### Get transactions for customer with ID 456789\n* `GET /v1/transactions?filter[customer_id]=456789`\n## Using Multiple Parameters Together\nYou can combine multiple parameters to filter and format the response:\n### Get paginated, filtered transactions with specific fields\n* `GET /v1/transactions?page[number]=1&page[size]=10&fields[transactions]=amount_in_cents,sales_tax_in_cents&filter[site_id]=123&filter[start_date]=2024-01-01&filter[end_date]=2024-01-31`\n\nResponse will include paginated transactions matching all filters, with only requested fields:\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"amount_in_cents\": 9900,\n      \"sales_tax_in_cents\": 990\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }],\n  \"meta\": {\n    \"total_pages\": 1,\n    \"current_page\": 1\n  }\n}\n```\n"
+      tags:
+      - Transactions
+      security:
+      - Bearer: []
+      parameters:
+      - name: page[number]
+        in: query
+        required: false
+        schema:
+          type: number
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of documents
+        schema:
+          type: number
+      - name: fields[transactions]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[transactions]=amount_in_cents,sales_tax_in_cents
+        schema:
+          type: string
+      - name: filter[site_id]
+        in: query
+        required: false
+        description: Filter by site_id, for example ?filter[site_id]=111
+        schema:
+          type: string
+      - name: filter[customer_id]
+        in: query
+        required: false
+        description: Filter by customer_id, for example ?filter[customer_id]=456789
+        schema:
+          type: string
+      - name: filter[name_or_email]
+        in: query
+        required: false
+        description: Filter by name or email, for example ?filter[name_or_email]=John
+        schema:
+          type: string
+      - name: filter[start_date]
+        in: query
+        required: false
+        description: Filter by start_date, for example ?filter[start_date]=2024-12-01
+        schema:
+          type: string
+      - name: filter[end_date]
+        in: query
+        required: false
+        description: Filter by end_date, for example ?filter[end_date]=2024-12-31
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, lists transactions which the current user may access
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/transactions_index_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+  /v1/transactions/{id}:
+    get:
+      summary: Transaction details
+      description: "  The transaction system is a critical part of Kajabi's payment infrastructure, handling all monetary operations while maintaining detailed records for accounting, reporting, and compliance purposes.\n\n  ## Transaction Attributes\n  * `provider` (string) - The payment processor used for the payment\n  * `action` (string) - Indicate the type of transaction:\n    * `charge` - One-time payment\n    * `refund` - Money returned to customer\n    * `subscribe` - New subscription\n    * `subscription_charge` - Recurring subscription payment\n    * `free_purchase` - $0 transaction\n    * `test` - Test transaction\n    * `dispute` - Disputed charge\n    * `subscription_update` - Subscription modification\n  * `state` (string) - The transaction's status:\n    * `initialized` - Transaction started\n    * `succeeded` - Transaction completed successfully\n    * `failed` - Transaction failed\n  * `payment_type` (string) - Indicates the payment structure (nullable)\n  * `amount_in_cents` (integer) - The USD price in cents (for precise decimal handling) can be negative for refunds\n  * `sales_tax_in_cents` (integer) - The USD sales tax in cents (for precise decimal handling)\n  * `payment_fee_in_cents` (integer) - Payment processing fee associated with the transaction (Kajabi Payments only)\n  * `currency` (string) - String representing the currency code (nullable) automatically upcased\n    * Defaults to \"USD\" if not specified\n  * `currency_symbol` (string) - String representing the currency symbol (nullable)\n    * Example: \"$\" for USD\n  * `formatted_amount` (string) - String representing the amount in a human-readable format\n    * Includes currency symbol\n    * Does not include currency code\n    * Example: \"$19.99\"\n  * `settlement_amount_in_cents` (integer) - Price of the payment in cents based on the settlement currency (Kajabi Payments only)\n  * `settlement_fee_amount_in_cents` (integer) - Payment processing fee associated with the transaction based on the settlement currency (Kajabi Payments only)\n  * `settlement_currency` (string) - Currency of the payment based on settlement, typically the currency of the attached bank account (Kajabi Payments only)\n  * `created_at` (string) - The creation date and time, ISO date string format (read-only)\n\n  ## Sparse Fields\n  Use the `fields[transactions]` parameter to request only specific attributes:\n  ### Only return amount_in_cents and sales_tax_in_cents attributes\n  * `GET /v1/transactions/123?fields[transactions]=amount_in_cents,sales_tax_in_cents`\n\n  Response will only include requested fields\n  ```json\n  {\n    \"data\": {\n      \"id\": \"123\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900,\n        \"sales_tax_in_cents\": 990\n      }\n    }\n  }\n  ```\n  ## Include Relationships\n  Use the `include` parameter to include related resources:\n\n  > **Deprecated:** the `offer` relationship is deprecated and will be removed in a future version. It is only populated for single-offer transactions and is `null` for bundled (multi-offer) transactions. Use the `purchases` relationship instead — it lists every offer purchase a transaction covers, for all transaction types.\n\n  ### Include customer and purchases relationships\n  * `GET /v1/transactions/123?include=customer,purchases`\n\n  Response will include related resources\n  ```json\n  {\n    \"data\": {\n      \"id\": \"123\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"action\": \"subscription_charge\",\n        \"state\": \"succeeded\",\n        \"payment_type\": \"subscription\",\n        \"amount_in_cents\": 100,\n        \"sales_tax_in_cents\": 0,\n        \"currency\": \"USD\",\n        \"currency_symbol\": \"$\",\n        \"formatted_amount\": \"$1.00\",\n        \"created_at\": \"2025-03-14T19:17:38.000Z\"\n      },\n      \"relationships\": {\n        \"customer\": {\n          \"data\": {\n            \"id\": \"456\",\n            \"type\": \"customers\"\n          }\n        },\n        \"purchases\": {\n          \"data\": [\n            {\n              \"id\": \"501\",\n              \"type\": \"purchases\"\n            }\n          ]\n        }\n      }\n    },\n    \"included\": [\n      {\n        \"id\": \"456\",\n        \"type\": \"customers\",\n        \"attributes\": {\n          \"name\": \"John Doe\",\n          \"email\": \"email@example.com\",\n          \"avatar\": \"https://example.com/avatar.jpg\",\n          \"external_user_id\": \"123\",\n          \"public_bio\": \"Public Bio\",\n          \"public_location\": \"Public Location\",\n          \"public_website\": \"https://example.com\",\n          \"socials\": {\n            \"twitter\": \"https://twitter.com\",\n            \"facebook\": \"https://facebook.com\",\n            \"linkedin\": \"https://linkedin.com\"\n          },\n          \"net_revenue\": 10000,\n          \"sign_in_count\": 10,\n          \"last_request_at\": \"2024-01-15T10:30:00Z\",\n          \"bounced_at\": \"2024-01-15T10:30:00Z\",\n          \"created_at\": \"2024-01-15T10:30:00Z\",\n          \"updated_at\": \"2024-01-15T10:30:00Z\"\n        }\n      },\n      {\n        \"id\": \"501\",\n        \"type\": \"purchases\",\n        \"attributes\": {\n          \"amount_in_cents\": 100,\n          \"payment_type\": \"subscription\",\n          \"currency\": \"USD\",\n          \"quantity\": 1,\n          \"created_at\": \"2025-03-14T19:17:38.000Z\",\n          \"updated_at\": \"2025-03-14T19:17:38.000Z\"\n        },\n        \"relationships\": {\n          \"offer\": {\n            \"data\": {\n              \"id\": \"789\",\n              \"type\": \"offers\"\n            }\n          }\n        }\n      }\n    ]\n  }\n  ```\n  ## Using Multiple Parameters Together\n  You can combine sparse fields and include in a single request:\n  ### Get transaction with specific fields and included relationships\n  * `GET /v1/transactions/123?include=customer&fields[transactions]=amount_in_cents,sales_tax_in_cents&fields[customers]=name,email`\n\n  Response will include transaction with only requested fields and included customer with only name and email fields\n  ```json\n  {\n    \"data\": {\n      \"id\": \"123\",\n      \"type\": \"transactions\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900,\n        \"sales_tax_in_cents\": 990\n      },\n      \"relationships\": {}\n    },\n    \"included\": [\n      {\n        \"id\": \"456\",\n        \"type\": \"customers\",\n        \"attributes\": {\n          \"name\": \"John Doe\",\n          \"email\": \"john@example.com\"\n        }\n      }\n    ]\n  }\n```\n"
+      tags:
+      - Transactions
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fields[transactions]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[transactions]=amount_in_cents,sales_tax_in_cents
+        schema:
+          type: string
+      - name: include
+        in: query
+        required: false
+        description: Load the related resources, for example ?include=customer,purchases
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, shows details of a specified transaction
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/transactions_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '404':
+          description: Not found, the resource is unknown
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unavailable'
+components:
+  schemas:
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    transactions_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/transactions_attributes'
+            relationships:
+              type: object
+              properties:
+                customer:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                offer:
+                  type: object
+                  deprecated: true
+                  description: 'DEPRECATED: use `purchases`. Populated only for single-offer transactions; null for bundled (multi-offer) transactions.'
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                purchases:
+                  type: object
+                  description: Offer purchases this transaction covers (one entry for single-offer transactions, several for bundled).
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    transactions_attributes:
+      type: object
+      properties:
+        action:
+          type: string
+        state:
+          type: string
+        payment_type:
+          type:
+          - string
+          - 'null'
+        amount_in_cents:
+          type: integer
+        sales_tax_in_cents:
+          type: integer
+        currency:
+          type: string
+        currency_symbol:
+          type: string
+        formatted_amount:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_unavailable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    transactions_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/transactions_attributes'
+              relationships:
+                type: object
+                properties:
+                  customer:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  offer:
+                    type: object
+                    deprecated: true
+                    description: 'DEPRECATED: use `purchases`. Populated only for single-offer transactions; null for bundled (multi-offer) transactions.'
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  purchases:
+                    type: object
+                    description: Offer purchases this transaction covers (one entry for single-offer transactions, several for bundled).
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifiers'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Me API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Me
+paths:
+  /v1/me:
+    get:
+      summary: My user profile
+      description: "Returns the current user's profile data.\n## Response attributes\nThe response will include the following attributes:\n* `initials` - A derived attribute that represents the user's initials based on their name. This is typically used for avatar placeholders or compact user displays. For example, \"John Doe\" would have initials \"JD\".\n* `name` - The user's full name. This is a required field that can be:\n  * Set directly as a full name\n  * Automatically generated from first name and last name fields when either changes\n  * Used for display purposes throughout the platform\n* `email` - The user's email address. This is a critical field that:\n  * Is required and must be unique\n  * Is used for authentication\n  * Can trigger email change notifications\n  * Is used for password recovery\n  * Can be marked as bounced (and reset when email changes)\n  * Is validated against email format requirements\n* `role_level` - Represents the user's permission level in the system. This attribute:\n  * Common values include:\n    * OWNER - Account owner with full permissions\n    * ADMINISTRATOR - Admin with site management permissions\n    * Determines what actions and resources the user can access\n    * Is used for permission checks throughout the system\n"
+      tags:
+      - Me
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/me_response'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+components:
+  schemas:
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    me_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/me_attributes'
+    me_attributes:
+      type: object
+      properties:
+        initials:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role_level:
+          type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

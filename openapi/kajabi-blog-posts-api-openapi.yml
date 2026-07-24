@@ -1,0 +1,317 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Blog posts API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Blog posts
+paths:
+  /v1/blog_posts:
+    get:
+      summary: List blog posts
+      description: 'Returns a list of blog posts which the current user may access
+
+        ## Pagination
+
+        Use `page[number]` and `page[size]` parameters to paginate results:
+
+        ### Get first page of 10 items
+
+        * `GET /v1/blog_posts[number]=1&page[size]=10`
+
+        ### Get second page of 25 items
+
+        * `GET /v1/blog_posts[number]=2&page[size]=25`
+
+
+        ## Sparse Fields
+
+        Use the `fields[blog_posts]` parameter to request only specific attributes:
+
+        ### Only return title attribute
+
+        * `GET /v1/blog_posts?fields[blog_posts]=title`
+
+
+        ## Sorting
+
+        Use the `sort` parameter to sort the results:
+
+        ### Sort by published_at in descending order
+
+        * `GET /v1/blog_posts?sort=-published_at&fields[blog_posts]=title`
+
+
+        ## Filters
+
+        Use the `filter[site_id]` parameter to get blog posts for a specific site:
+
+        ### Get blog posts for site with ID 123
+
+        * `GET /v1/blog_posts?filter[site_id]=123`
+
+
+        List of attributes that may be used to filter: title, content, slug, page_title, page_description, published_at, created_at, updated_at, image_url, image_alt_text, tags
+
+
+        The filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:
+
+        * `eq` for equals
+
+        * `cont` for contains
+
+        * `not_eq` for not equals
+
+        * `not_cont` for not contains
+
+        * `start` for starts with
+
+        * `end` for ends with
+
+
+        For example:
+
+        * `GET /v1/blog_posts?filter[title_start]=Announcing`
+
+        * `GET /v1/blog_posts?filter[title_cont]=Announcing`
+
+        '
+      tags:
+      - Blog posts
+      security:
+      - Bearer: []
+      parameters:
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort order, use: title for descending order use ''-'' e.g. &sort=-title'
+        schema:
+          type: string
+      - name: page[number]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of documents
+        schema:
+          type: integer
+      - name: fields[blog_posts]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[blog_posts]=title
+        schema:
+          type: string
+      - name: filter[title_cont]
+        in: query
+        required: false
+        description: Filter by title contains, for example ?filter[title_cont]=hello
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, list of blog posts which the current user may access
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/blog_posts_index_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+  /v1/blog_posts/{id}:
+    get:
+      summary: Blog post details
+      description: "Shows details of a blog post\n\n## Blog Post Attributes\n* `title` (string) - Title of the blog post\n* `url` (string) - URL of the blog post\n* `content` (string) - Content of the blog post\n* `slug` (string) - Slug of the blog post\n* `page_title` (string) - Page title of the blog post\n* `page_description` (string) - Page description of the blog post\n* `published_at` (string) - Date and time the blog post was published\n* `created_at` (string) - Date and time the blog post was created\n* `updated_at` (string) - Date and time the blog post was updated_at\n* `image_url` (string) - URL of the image associated with the blog post\n* `image_alt_text` (string) - Alt text for the image associated with the blog post\n* `tags` (array) - Tags associated with the blog post\n\n## Sparse Fields\n### Only return title attribute\n* `GET /v1/blog_posts/123?fields[blog_posts]=title`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"blog_posts\",\n    \"attributes\": {\n      \"title\": \"Announcing New Course\"\n    }\n  }\n}\n```\n"
+      tags:
+      - Blog posts
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: BlogPost ID
+        schema:
+          type: string
+      - name: fields[blog_posts]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[blog_posts]=title
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, shows details of a blog post
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/blog_posts_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+components:
+  schemas:
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    blog_posts_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        content:
+          type: string
+        slug:
+          type: string
+        page_title:
+          type: string
+        page_description:
+          type: string
+        published_at:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    blog_posts_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - blog_posts
+              attributes:
+                $ref: '#/components/schemas/blog_posts_attributes'
+              relationships:
+                type: object
+                properties:
+                  blog:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    blog_posts_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - blog_posts
+            attributes:
+              $ref: '#/components/schemas/blog_posts_attributes'
+            relationships:
+              type: object
+              properties:
+                blog:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

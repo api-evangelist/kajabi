@@ -1,0 +1,563 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Purchases API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Purchases
+paths:
+  /v1/purchases:
+    get:
+      summary: List purchases
+      description: "Returns a list of purchases (offer purchases) which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/purchases?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/purchases?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/purchases?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/purchases?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"count\": 10,\n    \"total_count\": 50,\n    \"total_pages\": 5\n  }\n}\n```\n## Sparse Fields\nUse the `fields[purchases]` parameter to request only specific attributes:\n### Only return amount_in_cents attributes\n* `GET /v1/purchases?fields[purchases]=amount_in_cents`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 19900\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900\n      }\n    }\n  ]\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by effective_start_at in descending order\n* `GET /v1/purchases?sort=-effective_start_at&fields[purchases]=effective_start_at`\n\nResponse will include purchases sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-02T00:00:00.000Z\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-01T00:00:00.000Z\"\n      }\n    }\n  ]\n}\n```\nList of attributes that may be used to sort: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\n## Filters\nUse the `filter[site_id]` parameter to get purchases for a specific site:\n### Get purchases for site with ID 123\n* `GET /v1/purchases?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get purchases for a specific customer:\n* `GET /v1/purchases?filter[customer_id]=456789`\n\nList of attributes that may be used to filter: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `gt` for greater than\n* `gte` for greater than or equal\n* `lt` for less than\n* `lte` for less than or equal\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/purchases?filter[amount_in_cents_eq]=19900`\n* `GET /v1/purchases?filter[amount_in_cents_gt]=19900`\n"
+      tags:
+      - Purchases
+      security:
+      - Bearer: []
+      parameters:
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort order, use: created_at for descending order use ''-'' e.g. &sort=-created_at'
+        schema:
+          type: string
+      - name: page[number]
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of documents
+        schema:
+          type: integer
+      - name: fields[purchases]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[purchases]=amount_in_cents
+        schema:
+          type: string
+      - name: filter[active]
+        in: query
+        required: false
+        description: Filter by active purchases (not deactivated), for example ?filter[active]=true
+        schema:
+          type: boolean
+      - name: filter[deactivated]
+        in: query
+        required: false
+        description: Filter by deactivated purchases, for example ?filter[deactivated]=true
+        schema:
+          type: boolean
+      - name: filter[referrer]
+        in: query
+        required: false
+        description: Filter by referrer, for example ?filter[referrer_cont]=•••••
+        schema:
+          type: string
+      - name: filter[coupon_code_eq]
+        in: query
+        required: false
+        description: Filter by coupon code, for example ?filter[coupon_code_eq]=•••••
+        schema:
+          type: string
+      - name: filter[site_id]
+        in: query
+        required: false
+        description: Filter by site_id, for example ?filter[site_id]=111
+        schema:
+          type: string
+      - name: filter[customer_id]
+        in: query
+        required: false
+        description: Filter by customer_id, for example ?filter[customer_id]=456789
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, list of purchases which the current user may access
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/purchases_index_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+  /v1/purchases/{id}:
+    get:
+      summary: Purchase details
+      description: "Details of a purchase (of an offer)\n\n## Purchase Attributes\n* `amount_in_cents` (integer) - Price of the purchase in cents\n* `payment_type` (string) - Type of payment\n* `trial` (integer) - Number of trial days. (subscription and payment plans only)\n* `trial_end_at` (string) - Date the trial ends\n* `multipay_payments_made` (integer) - Number of payments made\n* `payment_plan_total_payments` (integer) - Total number of payments in the payment plan\n* `status` (string) - The status of the purchase. For one-time purchases this will match the transaction detail status. For subscriptions and payment plans this status represents the status of the plan as compared to the transaction status which represents the individual payment.\n* `opt_in` (boolean) - Whether the purchase was opt-in\n* `raw_extra_contact_information` (object) - Extra contact information\n* `currency` (string) - Currency of the purchase\n* `effective_start_at` (string) - Start date of the purchase\n* `cardholder_name` (string) - Name of the cardholder\n* `billing_address_zip` (string) - Zip code of the billing address\n* `deactivated_at` (string) - Date and time the purchase was deactivated\n* `deactivation_reason` (string) - Reason for deactivation\n* `coupon_code` (string) - Coupon code used for the purchase\n* `source` (string) - Source of the purchase\n* `referrer` (string) - Referrer of the purchase\n* `quantity` (integer) - Quantity of the purchase\n* `created_at` (string) - Date and time the purchase was created\n* `updated_at` (string) - Date and time the purchase was updated_at\n\n## Sparse Fields\n### Only return amount_in_cents and multipay_payments_made attributes\n* `GET /v1/purchases/123?fields[purchases]=amount_in_cents,multipay_payments_made`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 19900,\n      \"multipay_payments_made\": 1\n    }\n  }\n}\n```\n"
+      tags:
+      - Purchases
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Purchase ID
+        schema:
+          type: string
+      - name: fields[purchases]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[purchases]=amount_in_cents
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, shows details of a purchase
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/purchases_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+        '404':
+          description: Not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+  /v1/purchases/{id}/reactivate:
+    post:
+      summary: Reactivate purchase
+      description: 'Reactivate a purchase by ID, this will not reactivate the subscription.
+
+
+        If the product can be reactivated the response will be successful.
+
+        Otherwise, the response will be an error.
+
+        '
+      tags:
+      - Purchases
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Purchase ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, reactivated purchase
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/purchases_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+        '404':
+          description: Not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+  /v1/purchases/{id}/deactivate:
+    post:
+      summary: Deactivate purchase
+      description: 'Deactivate a purchase by ID, this will not cancel the subscription.
+
+
+        Use the `cancel_subscription` endpoint to cancel the subscription. Otherwise, the purchase will be deactivated and the subscription will remain active.
+
+
+        For a free purchase, the purchase may be later reactivated.
+
+
+        If the product can be deactivated the response will be successful.
+
+        Otherwise, the response will be an error.
+
+        '
+      tags:
+      - Purchases
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Purchase ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, deactivated purchase
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/purchases_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+        '404':
+          description: Not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+  /v1/purchases/{id}/cancel_subscription:
+    post:
+      summary: Cancel subscription
+      description: 'Cancel the subscription associated with a purchase by ID
+
+
+        This endpoint cancels the underlying subscription (Stripe, PayPal, or Kajabi Payments)
+
+        associated with the purchase. The purchase will be deactivated and the subscription
+
+        will be cancelled immediately, according to the payment provider''s cancellation rules.
+
+
+        If the payment can be cancelled the response will be successful.
+
+        Otherwise, the response will be an error with validation details.
+
+        '
+      tags:
+      - Purchases
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Purchase ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, cancelled subscription and deactivated purchase
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/purchases_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+        '404':
+          description: Not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+        '422':
+          description: Unprocessable Entity, validation errors in cancelling subscription
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unprocessable'
+components:
+  schemas:
+    purchases_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - purchases
+              attributes:
+                $ref: '#/components/schemas/purchases_attributes'
+              relationships:
+                type: object
+                properties:
+                  offer:
+                    type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                  customer:
+                    type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                  transactions:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+                  products:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            type:
+                              type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    purchases_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - purchases
+            attributes:
+              $ref: '#/components/schemas/purchases_attributes'
+            relationships:
+              type: object
+              properties:
+                offer:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                customer:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                transactions:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                products:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    purchases_attributes:
+      type: object
+      properties:
+        amount_in_cents:
+          type: integer
+        payment_type:
+          type: string
+        multipay_payments_made:
+          type:
+          - integer
+          - 'null'
+        opt_in:
+          type: boolean
+        raw_extra_contact_information:
+          type: object
+        currency:
+          type: string
+        effective_start_at:
+          type:
+          - string
+          - 'null'
+        cardholder_name:
+          type:
+          - string
+          - 'null'
+        billing_address_zip:
+          type:
+          - string
+          - 'null'
+        deactivated_at:
+          type:
+          - string
+          - 'null'
+        deactivation_reason:
+          type:
+          - string
+          - 'null'
+        coupon_code:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        referrer:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

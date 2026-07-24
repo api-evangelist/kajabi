@@ -1,0 +1,234 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Contact Tags API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Contact Tags
+paths:
+  /v1/contact_tags:
+    get:
+      summary: List contact tags
+      description: "Tags (not archived) for a site\n\n## Contact Tag Attributes\n* `name` (string) - The name of the contact tag\n\n## Pagination\nUse the `page[number]` and `page[size]` query parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/contact_tags?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/contact_tags?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/contact_tags?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/contact_tags?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/contact_tags?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/contact_tags?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/contact_tags?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Filter by Site ID\nUse the `filter[site_id]` parameter to get contact tags for a specific site:\n### Get contact tags for site with ID 123\n* `GET /v1/contact_tags?filter[site_id]=123`\n\nResponse will only include contact tags for that site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"Source\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filter by Name Contains\nUse the `filter[name_cont]` parameter to find contact tags where the name contains specific text:\n### Get contact tags with names containing \"vip\"\n* `GET /v1/contact_tags?filter[name_cont]=vip`\n\nResponse will include contact tags with matching names\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"VIP Customer\"\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine pagination, sorting, sparse fields and filtering in a single request:\n### Get page 2 of contact tags for site 123, sorted by name descending\n* `GET /v1/contact_tags?page[number]=2&page[size]=10&sort=-name&filter[site_id]=123`\n\nResponse will include only requested fields, sorted and paginated\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"Webinar Attendee\"\n    }\n  }, {\n    \"id\": \"789\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"VIP Customer\"\n    }\n  }],\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/contact_tags?page[number]=2&page[size]=10&sort=-name&fields[contact_tags]=name,handle&filter[site_id]=123\",\n    \"first\": \"https://api.kajabi.com/v1/contact_tags?page[number]=1&page[size]=10&sort=-name&fields[contact_tags]=name,handle&filter[site_id]=123\",\n    \"prev\": \"https://api.kajabi.com/v1/contact_tags?page[number]=1&page[size]=10&sort=-name&fields[contact_tags]=name,handle&filter[site_id]=123\",\n    \"next\": \"https://api.kajabi.com/v1/contact_tags?page[number]=3&page[size]=10&sort=-name&fields[contact_tags]=name,handle&filter[site_id]=123\",\n    \"last\": \"https://api.kajabi.com/v1/contact_tags?page[number]=5&page[size]=10&sort=-name&fields[contact_tags]=name,handle&filter[site_id]=123\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n"
+      tags:
+      - Contact Tags
+      security:
+      - Bearer: []
+      parameters:
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort order, use: name, email, for descending order use ''-'' e.g. &sort=-name'
+        schema:
+          type: string
+      - name: page[number]
+        in: query
+        required: false
+        schema:
+          type: number
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of documents
+        schema:
+          type: number
+      - name: fields[contact_tags]
+        in: query
+        required: false
+        description: Partial attributes as specified, e.g. fields[contact_tags]=name
+        schema:
+          type: string
+      - name: filter[site_id]
+        in: query
+        required: false
+        description: Filter by site_id, for example ?filter[site_id]=111
+        schema:
+          type: string
+      - name: filter[name_cont]
+        in: query
+        required: false
+        description: Filter by name contains, for example ?filter[name_cont]=vip
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, list of contact tags which the current user may access
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_tags_index_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+  /v1/contact_tags/{id}:
+    get:
+      summary: Contact tag details
+      description: '## Contact Tag Attributes
+
+        * `name` (string) - The name of the contact tag
+
+
+        ## Contact Tag Relationships
+
+        The contact tag belongs to a site
+
+        '
+      tags:
+      - Contact Tags
+      security:
+      - Bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success, shows details of a contact tag
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_tags_show_response'
+        '401':
+          description: Unauthorized, Authorization header is missing or invalid
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+        '403':
+          description: Forbidden, insufficient permission to access the resource
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_forbidden'
+components:
+  schemas:
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    contact_tags_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    contact_tags_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/contact_tags_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_tags_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/contact_tags_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true

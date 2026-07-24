@@ -1,0 +1,461 @@
+openapi: 3.0.3
+info:
+  title: Kajabi API V1 Authentication Contact Notes API
+  version: 1.1.0
+  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  contact:
+    email: support@kajabi.com
+    name: Support
+    url: https://help.kajabi.com/hc/en-us/articles/4404549690523-How-to-Get-Help-From-Kajabi-Live-Agents
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://api.kajabi.com
+  description: Production
+tags:
+- name: Contact Notes
+paths:
+  /v1/contact_notes:
+    get:
+      summary: List contact notes
+      tags:
+      - Contact Notes
+      security:
+      - Bearer: []
+      description: 'Returns a paginated list of contact notes. This endpoint supports filtering, sorting, and pagination.
+
+
+        **Sorting:**
+
+        - `created_at` (default: descending)
+
+
+        **Filtering:**
+
+        - `filter[contact_id]` - Filter notes for a specific Contact
+
+        - `filter[site_id]` - Filter notes for a specific Site
+
+
+        **Pagination:**
+
+        - Use `page[number]` and `page[size]` parameters
+
+        - Default page size is 20, maximum is 100
+
+        '
+      parameters:
+      - name: filter[contact_id]
+        in: query
+        required: false
+        description: Filter contact notes for a specific contact by ID
+        schema:
+          type: string
+      - name: filter[site_id]
+        in: query
+        required: false
+        description: Filter contact notes for a specific site by ID
+        schema:
+          type: string
+      - name: sort
+        in: query
+        required: false
+        description: 'Sort field. Prefix with ''-'' for descending order. Available: created_at, updated_at'
+        schema:
+          type: string
+      - name: page[number]
+        in: query
+        required: false
+        description: Page number for pagination
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        required: false
+        description: Number of items per page (max 100)
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Contact notes filtered by contact_id
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_notes_index_response'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+    post:
+      summary: Create contact note
+      tags:
+      - Contact Notes
+      security:
+      - Bearer: []
+      description: 'Creates a new contact note.
+
+
+        **Required Attributes:**
+
+        - `body` (string) - The note content
+
+
+        **Required Relationships:**
+
+        - `contact` - The contact this note belongs to (resource identifier)
+
+        '
+      parameters: []
+      responses:
+        '201':
+          description: Contact note created successfully
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_notes_show_response'
+        '422':
+          description: Invalid contact note data
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unprocessable'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/contact_notes_create_request'
+  /v1/contact_notes/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Contact note details
+      description: 'Returns a single contact note by ID.
+
+
+        **Attributes:**
+
+        - `body` (string) - The note content
+
+        - `created_at` (datetime) - When the note was created
+
+        - `updated_at` (datetime) - When the note was last modified
+
+
+        **Relationships:**
+
+        - `contact` - The contact this note belongs to
+
+        '
+      tags:
+      - Contact Notes
+      security:
+      - Bearer: []
+      parameters:
+      - name: include
+        in: query
+        required: false
+        description: with ?include=contact the response will include the related contact resource
+        schema:
+          type: string
+      - name: fields[contact_notes]
+        in: query
+        required: false
+        description: 'Sparse fields, use: body for example ?fields[contact_notes]=body'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Contact note retrieved successfully
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_notes_show_response'
+        '404':
+          description: Contact note not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+    patch:
+      summary: Update contact note
+      tags:
+      - Contact Notes
+      security:
+      - Bearer: []
+      description: 'Updates an existing contact note. Only the note body can be updated.
+
+
+        **Updatable Attributes:**
+
+        - `body` (string) - The note content
+
+
+        Contact relationship cannot be changed after creation.
+
+        '
+      parameters: []
+      responses:
+        '200':
+          description: Contact note updated successfully
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/contact_notes_show_response'
+        '422':
+          description: Invalid contact note data
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unprocessable'
+        '404':
+          description: Contact note not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/contact_notes_update_request'
+    delete:
+      summary: Delete contact note
+      tags:
+      - Contact Notes
+      security:
+      - Bearer: []
+      description: 'Deletes a contact note by ID. This action is permanent and cannot be undone.
+
+        '
+      responses:
+        '200':
+          description: Contact note deleted successfully
+        '404':
+          description: Contact note not found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_not_found'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/errors_unauthorized'
+components:
+  schemas:
+    contact_notes_attributes:
+      type: object
+      properties:
+        body:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    contact_notes_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - contact_notes
+              attributes:
+                $ref: '#/components/schemas/contact_notes_attributes'
+              relationships:
+                type: object
+                properties:
+                  contact:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_notes_update_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - contact_notes
+            attributes:
+              type: object
+              properties:
+                body:
+                  type: string
+                  description: The note content
+              required:
+              - body
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type: object
+          nullable: true
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    contact_notes_create_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - contact_notes
+            attributes:
+              type: object
+              properties:
+                body:
+                  type: string
+                  description: The note content
+              required:
+              - body
+            relationships:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                  required:
+                  - data
+              required:
+              - contact
+          required:
+          - type
+          - attributes
+          - relationships
+      required:
+      - data
+    contact_notes_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - contact_notes
+            attributes:
+              $ref: '#/components/schemas/contact_notes_attributes'
+            relationships:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+x-mint:
+  mcp:
+    enabled: true
