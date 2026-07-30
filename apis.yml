@@ -1,7 +1,20 @@
 aid: kajabi
 name: Kajabi
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kajabi.png
 url: https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -26,30 +39,18 @@ tags:
 - Webhooks
 - Payments
 apis:
-- name: Kajabi Public API
-  description: 'RESTful API for managing contacts, products, offers, purchases, orders,
-    transactions, courses, forms, landing pages, websites, webhooks, and Kajabi Payments
-    payouts. Supports OAuth 2.0 for authentication.
-
-    '
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: kajabi:kajabi-authentication-api
+  name: Kajabi Authentication API
+  description: The Authentication API from Kajabi — 2 operation(s) for authentication.
   humanURL: https://help.kajabi.com/api-reference/introduction
   baseURL: https://api.kajabi.com
   tags:
-  - Contacts
-  - Products
-  - Offers
-  - Purchases
-  - Orders
-  - Webhooks
-  - Payments
+  - Authentication
   properties:
+  - type: OpenAPI
+    url: openapi/kajabi-authentication-api-openapi.yml
   - type: Documentation
     url: https://help.kajabi.com/api-reference/introduction
-  - type: OpenAPI
-    url: https://github.com/Kajabi/public_api_docs/blob/main/openapi.yaml
-  - type: OpenAPI
-    url: openapi/kajabi-public-api-openapi.yml
   - type: JSONSchema
     url: json-schema/contacts_attributes.json
   - type: JSONSchema
@@ -74,8 +75,769 @@ apis:
     url: vocabulary/kajabi-vocabulary.yml
   - type: JSONLDContext
     url: json-ld/kajabi-context.jsonld
-  - url: graphql/kajabi-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-blog-posts-api
+  name: Kajabi Blog posts API
+  description: The Blog posts API from Kajabi — 2 operation(s) for blog posts.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Blog posts
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-blog-posts-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-contact-notes-api
+  name: Kajabi Contact Notes API
+  description: The Contact Notes API from Kajabi — 2 operation(s) for contact notes.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Contact Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-contact-notes-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-contact-tags-api
+  name: Kajabi Contact Tags API
+  description: The Contact Tags API from Kajabi — 2 operation(s) for contact tags.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Contact Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-contact-tags-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-contacts-api
+  name: Kajabi Contacts API
+  description: The Contacts API from Kajabi — 4 operation(s) for contacts.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-contacts-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-courses-api
+  name: Kajabi Courses API
+  description: The Courses API from Kajabi — 2 operation(s) for courses.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Courses
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-courses-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-custom-fields-api
+  name: Kajabi Custom Fields API
+  description: The Custom Fields API from Kajabi — 2 operation(s) for custom fields.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-customers-api
+  name: Kajabi Customers API
+  description: The Customers API from Kajabi — 3 operation(s) for customers.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-customers-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-forms-api
+  name: Kajabi Forms API
+  description: The Forms API from Kajabi — 5 operation(s) for forms.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-forms-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-kajabi-payments-payouts-api
+  name: Kajabi Kajabi Payments Payouts API
+  description: >-
+    The Kajabi Payments Payouts API from Kajabi — 2 operation(s) for kajabi payments payouts.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Kajabi Payments Payouts
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-kajabi-payments-payouts-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-landing-pages-api
+  name: Kajabi Landing pages API
+  description: The Landing pages API from Kajabi — 2 operation(s) for landing pages.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Landing pages
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-landing-pages-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-me-api
+  name: Kajabi Me API
+  description: The Me API from Kajabi — 1 operation(s) for me.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-me-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-offers-api
+  name: Kajabi Offers API
+  description: The Offers API from Kajabi — 3 operation(s) for offers.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Offers
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-offers-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-orders-api
+  name: Kajabi Orders API
+  description: The Orders API from Kajabi — 4 operation(s) for orders.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-orders-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-podcasts-api
+  name: Kajabi Podcasts API
+  description: The Podcasts API from Kajabi — 2 operation(s) for podcasts.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Podcasts
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-podcasts-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-products-api
+  name: Kajabi Products API
+  description: The Products API from Kajabi — 2 operation(s) for products.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-products-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-purchases-api
+  name: Kajabi Purchases API
+  description: The Purchases API from Kajabi — 5 operation(s) for purchases.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Purchases
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-purchases-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-sites-api
+  name: Kajabi Sites API
+  description: The Sites API from Kajabi — 4 operation(s) for sites.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-sites-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-transactions-api
+  name: Kajabi Transactions API
+  description: The Transactions API from Kajabi — 2 operation(s) for transactions.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-version-api
+  name: Kajabi Version API
+  description: The Version API from Kajabi — 1 operation(s) for version.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Version
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-version-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
+- aid: kajabi:kajabi-webhooks-api
+  name: Kajabi Webhooks API
+  description: The Webhooks API from Kajabi — 8 operation(s) for webhooks.
+  humanURL: https://help.kajabi.com/api-reference/introduction
+  baseURL: https://api.kajabi.com
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/kajabi-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://help.kajabi.com/api-reference/introduction
+  - type: JSONSchema
+    url: json-schema/contacts_attributes.json
+  - type: JSONSchema
+    url: json-schema/products_attributes.json
+  - type: JSONSchema
+    url: json-schema/offers_attributes.json
+  - type: JSONSchema
+    url: json-schema/purchases_attributes.json
+  - type: JSONSchema
+    url: json-schema/orders_attributes.json
+  - type: JSONSchema
+    url: json-schema/transactions_attributes.json
+  - type: JSONSchema
+    url: json-schema/hooks_attributes.json
+  - type: JSONSchema
+    url: json-schema/courses_attributes.json
+  - type: JSONSchema
+    url: json-schema/forms_attributes.json
+  - type: JSONSchema
+    url: json-schema/blog_posts_attributes.json
+  - type: Vocabulary
+    url: vocabulary/kajabi-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/kajabi-context.jsonld
+  - type: GraphQL
+    url: graphql/kajabi-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/kajabi-agentic-access.yml
