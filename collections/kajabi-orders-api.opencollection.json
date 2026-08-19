@@ -1,0 +1,214 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Orders API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List order items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/order_items",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: created_at, quantity, fulfilled_at. For descending order use '-' e.g. &sort=-created_at"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[order_items]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[order_items]=quantity,title,total_price_in_cents"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[item_type_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by item type, for example ?filter[item_type_eq]=Offer"
+              },
+              {
+                "name": "filter[item_id_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by item ID, for example ?filter[item_id_eq]=123"
+              },
+              {
+                "name": "filter[fulfilled_at_null]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fulfillment status, for example ?filter[fulfilled_at_null]=true"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Order items represent individual products or offers within an order.\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/order_items?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/order_items?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/order_items?page[number]=2&page[size]=10\",\n    \"first\": \"https"
+        },
+        {
+          "info": {
+            "name": "Order item details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/order_items/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=order"
+              },
+              {
+                "name": "fields[order_items]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[order_items]=quantity,title,total_price_in_cents"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows details of an order item\n\nOrder items represent individual products or offers within an order and contain:\n* Product/offer information\n* Pricing details\n* Quantity information\n* Fulfillment status\n\n## Order Item Attributes\n* `quantity` (integer) - Number of items purchased\n* `currency_code` (string) - The ISO currency code for the item\n* `item_type` (string) - Type of item (e.g., \"Offer\")\n* `item_id` (integer) - ID of the associated item\n* `title` (string) - Title of the item\n* `total_pric"
+        },
+        {
+          "info": {
+            "name": "List orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/orders",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: order_number, created_at, fulfilled_at. For descending order use '-' e.g. &sort=-created_at"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[orders]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[orders]=order_number,total_price_in_cents"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[customer_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer_id, for example ?filter[customer_id]=456789"
+              },
+              {
+                "name": "filter[order_number_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order number, for example ?filter[order_number_eq]=12345"
+              },
+              {
+                "name": "filter[fulfilled_at_null]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by fulfillment status, for example ?filter[fulfilled_at_null]=true"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Orders for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/orders?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/orders?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/orders?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/orders?page[number]=1&page[size]=10\",\n    \"pre"
+        },
+        {
+          "info": {
+            "name": "Order details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=order_items,customer,site"
+              },
+              {
+                "name": "fields[orders]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[orders]=order_number,total_price_in_cents"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows details of an order\n\nOrders represent completed purchase transactions and contain:\n* Order items (products/offers purchased)\n* Payment information\n* Customer information\n* Fulfillment status\n\n## Order Attributes\n* `order_number` (integer) - A unique identifier for the order within the site\n* `currency_code` (string) - The ISO currency code for the order (e.g., \"USD\")\n* `total_price_in_cents` (integer) - Total price including taxes and discounts\n* `subtotal_in_cents` (integer) - Subtotal be"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

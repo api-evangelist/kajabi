@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Kajabi Payments Payouts API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kajabi Payments Payouts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/kajabi_payments_payouts",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination, for example ?page[number]=2"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Site ID to fetch payouts for (required), for example ?filter[site_id]=123"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by payout status (pending, paid, failed, canceled), for example ?filter[status]=paid"
+              },
+              {
+                "name": "filter[start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Filter payouts after this date (ISO 8601), for example ?filter[start_date]=2024-01-01"
+              },
+              {
+                "name": "filter[end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Filter payouts before this date (ISO 8601), for example ?filter[end_date]=2024-12-31"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of Kajabi Payments payouts for a site. Payouts represent transfers of funds from Kajabi to the site owner's connected bank account or payment method.\n\n**Note**: Date fields are returned in UTC:\n* `initiated_date` - Payout creation timestamp in UTC\n* `estimated_arrival_date` - Expected arrival timestamp in UTC\n\n## Pagination\nUse `page[number]` parameter to paginate results:\n### Get first page\n* `GET /v1/kajabi_payments_payouts?page[number]=1&filter[site_id]=123`\n### Get second page\n* `GET /v"
+        },
+        {
+          "info": {
+            "name": "Get payout details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/kajabi_payments_payouts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payout ID, for example payout_abc123"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Site ID to authorize access (required), for example ?filter[site_id]=123"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get detailed information about a specific Kajabi Payments payout, including all associated transactions.\n\n**Note**: Date fields are returned in UTC:\n* `initiated_date` - Payout creation timestamp in UTC\n* `estimated_arrival_date` - Expected arrival timestamp in UTC\n* `transactions[].created_at` - Transaction timestamp in UTC\n\n## Transaction Fields\nEach transaction in the `transactions` array includes:\n* **Transaction Type** - Whether or not this transaction was a sale, refund, or adjustment\n* **"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

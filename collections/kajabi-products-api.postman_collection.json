@@ -1,0 +1,625 @@
+{
+  "item": [
+    {
+      "id": "710361db-fb00-4abb-96cf-fd61908a863d",
+      "name": "Products",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d3d7ca3e-01c4-4df2-9178-fe6c8f529a19",
+          "name": "List products",
+          "request": {
+            "name": "List products",
+            "description": {
+              "content": "List of products (not archived) that can be granted to a contact\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/products?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/products?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/products?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/products?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by title in ascending order\n* `GET /v1/products?sort=title`\n### Sort by title in descending order\n* `GET /v1/products?sort=-title`\n\nResponse will include products sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"description\": \"In-depth training\",\n        \"status\": \"active\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"description\": \"Introduction to basics\",\n        \"status\": \"active\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[products]` parameter to request only specific attributes:\n### Get only title and publish_status fields\n* `GET /v1/products?fields[products]=title,publish_status`\n\nResponse will only include the requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"publish_status\": \"published\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"publish_status\": \"draft\"\n      }\n    }\n  ]\n}\n```\n## Filter by Site ID\nUse the `filter[site_id]` parameter to get products for a specific site:\n### Get products for site with ID 123\n* `GET /v1/products?filter[site_id]=123`\n\nResponse will only include products for that site\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Advanced Course\",\n        \"description\": \"In-depth training\",\n        \"status\": \"active\",\n        \"publish_status\": \"published\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }\n  ]\n}\n```\n## Filter by Title Contains\nUse the `filter[title_cont]` parameter to find products where the title contains specific text:\n### Get products with titles containing \"course\"\n* `GET /v1/products?filter[title_cont]=course`\n\nResponse will include products with matching titles\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Beginner Course\",\n      \"description\": \"Introduction to basics\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Description Contains\nUse the `filter[description_cont]` parameter to find products where the description contains specific text:\n### Get products with descriptions containing \"training\"\n* `GET /v1/products?filter[description_cont]=training`\n\nResponse will include products with matching descriptions\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training program\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Professional Course\",\n      \"description\": \"Professional training and certification\",\n      \"status\": \"active\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Status\nUse the `filter[status_eq]` parameter to find products with a specific status:\n### Get ready products\n* `GET /v1/products?filter[status_eq]=ready`\n\nResponse will include products with matching status\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"description\": \"In-depth training program\",\n      \"status\": \"ready\",\n      \"publish_status\": \"published\"\n    }\n  },\n  {\n    \"id\": \"789\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Professional Course\",\n      \"description\": \"Professional training and certification\",\n      \"status\": \"ready\",\n      \"publish_status\": \"published\"\n    }\n  }]\n}\n```\n## Filter by Excluded Product Types\nUse the `filter[exclude_product_types][]` parameter to exclude products by productizable_type (fully-qualified class name):\n### Exclude CohortCourse products\n* `GET /v1/products?filter[exclude_product_types][]=Courses::CohortCourse`\n\nResponse will exclude products with the specified productizable_type while keeping legacy evergreen courses visible.\n## Using Multiple Parameters Together\nYou can combine pagination, sorting, sparse fields and filtering in a single request:\n### Get page 2 of products for site 123, sorted by title descending, including only title and publish_status fields\n* `GET /v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status`\n\nResponse will include paginated and filtered products with sparse fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Beginner Course\",\n        \"publish_status\": \"draft\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"first\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"prev\": \"https://api.kajabi.com/v1/products?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\",\n    \"next\": null,\n    \"last\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[products]=title,publish_status\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: title, description, status, for descending order use '-' e.g. &sort=-title"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<number>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[products]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[products]=title,publish_status"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site_id, for example ?filter[site_id]=111"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title contains, for example ?filter[title_cont]=marketing"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[description_cont]",
+                  "value": "<string>",
+                  "description": "Filter by description contains, for example ?filter[description_cont]=marketing"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status_eq]",
+                  "value": "<string>",
+                  "description": "Filter by status equals, for example ?filter[status_eq]=ready"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[exclude_product_types][]",
+                  "value": "<string>",
+                  "description": "Exclude products by productizable_type (fully-qualified, e.g. Courses::CohortCourse). Repeatable."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[exclude_product_types][]",
+                  "value": "<string>",
+                  "description": "Exclude products by productizable_type (fully-qualified, e.g. Courses::CohortCourse). Repeatable."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "46efabde-904a-4f84-9105-f2ee87c2cc8c",
+              "name": "Success, list of products which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[description_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"created_at\": \"1981-03-22T09:23:55.814Z\",\n        \"description\": \"string\",\n        \"status\": \"string\",\n        \"members_aggregate_count\": 5410,\n        \"product_type_name\": \"string\",\n        \"product_type_id\": 7534,\n        \"publish_status\": \"string\",\n        \"thumbnail_url\": \"string\",\n        \"url\": null\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"created_at\": \"1974-11-02T18:10:54.363Z\",\n        \"description\": \"string\",\n        \"status\": \"string\",\n        \"members_aggregate_count\": 5249,\n        \"product_type_name\": \"string\",\n        \"product_type_id\": 7824,\n        \"publish_status\": \"string\",\n        \"thumbnail_url\": \"string\",\n        \"url\": \"string\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04f42ef9-628d-4565-9e75-cdfafe58534e",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[description_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64e0d185-3187-4a34-95b9-405df11337aa",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[description_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[exclude_product_types][]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9ba5a29-75fe-4dbb-baa3-2d2d188376c2",
+          "name": "Product details",
+          "request": {
+            "name": "Product details",
+            "description": {
+              "content": "Show details of a product\n## Sparse Fields\nUse the `fields[products]` parameter to request only specific attributes:\n### Get only title and publish_status fields\n* `GET /v1/products/123?fields[products]=title,publish_status`\n\nResponse will only include the requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"publish_status\": \"published\"\n    },\n    \"relationships\": {}\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[products]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[products]=title,publish_status"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d12e3be0-bb1e-483a-8c83-f8f9373c0d63",
+              "name": "Success, shows details of a product",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"created_at\": \"1965-10-30T20:56:23.875Z\",\n      \"description\": null,\n      \"status\": \"string\",\n      \"members_aggregate_count\": 4957,\n      \"product_type_name\": \"string\",\n      \"product_type_id\": 3665,\n      \"publish_status\": \"string\",\n      \"thumbnail_url\": null,\n      \"url\": \"string\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f3bd856-ebc4-4333-8c28-978ec3222d63",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab8371cd-020d-46e8-88b2-cbc43d1f93bc",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[products]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6465084a-4a6f-4859-a0c1-b34637e725ba",
+    "name": "Kajabi API V1 Authentication Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

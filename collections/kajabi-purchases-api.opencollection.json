@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Purchases API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List purchases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/purchases",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: created_at for descending order use '-' e.g. &sort=-created_at"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[purchases]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[purchases]=amount_in_cents"
+              },
+              {
+                "name": "filter[active]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active purchases (not deactivated), for example ?filter[active]=true"
+              },
+              {
+                "name": "filter[deactivated]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by deactivated purchases, for example ?filter[deactivated]=true"
+              },
+              {
+                "name": "filter[referrer]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by referrer, for example ?filter[referrer_cont]=•••••"
+              },
+              {
+                "name": "filter[coupon_code_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by coupon code, for example ?filter[coupon_code_eq]=•••••"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[customer_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer_id, for example ?filter[customer_id]=456789"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of purchases (offer purchases) which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/purchases?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/purchases?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10\",\n    \"first\": \"h"
+        },
+        {
+          "info": {
+            "name": "Purchase details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/purchases/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Purchase ID"
+              },
+              {
+                "name": "fields[purchases]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[purchases]=amount_in_cents"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Details of a purchase (of an offer)\n\n## Purchase Attributes\n* `amount_in_cents` (integer) - Price of the purchase in cents\n* `payment_type` (string) - Type of payment\n* `trial` (integer) - Number of trial days. (subscription and payment plans only)\n* `trial_end_at` (string) - Date the trial ends\n* `multipay_payments_made` (integer) - Number of payments made\n* `payment_plan_total_payments` (integer) - Total number of payments in the payment plan\n* `status` (string) - The status of the purchase. F"
+        },
+        {
+          "info": {
+            "name": "Reactivate purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/purchases/:id/reactivate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Purchase ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Reactivate a purchase by ID, this will not reactivate the subscription.\n\nIf the product can be reactivated the response will be successful.\nOtherwise, the response will be an error.\n"
+        },
+        {
+          "info": {
+            "name": "Deactivate purchase",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/purchases/:id/deactivate",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Purchase ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deactivate a purchase by ID, this will not cancel the subscription.\n\nUse the `cancel_subscription` endpoint to cancel the subscription. Otherwise, the purchase will be deactivated and the subscription will remain active.\n\nFor a free purchase, the purchase may be later reactivated.\n\nIf the product can be deactivated the response will be successful.\nOtherwise, the response will be an error.\n"
+        },
+        {
+          "info": {
+            "name": "Cancel subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/purchases/:id/cancel_subscription",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Purchase ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel the subscription associated with a purchase by ID\n\nThis endpoint cancels the underlying subscription (Stripe, PayPal, or Kajabi Payments)\nassociated with the purchase. The purchase will be deactivated and the subscription\nwill be cancelled immediately, according to the payment provider's cancellation rules.\n\nIf the payment can be cancelled the response will be successful.\nOtherwise, the response will be an error with validation details.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

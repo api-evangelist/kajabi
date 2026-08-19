@@ -1,0 +1,208 @@
+{
+  "item": [
+    {
+      "id": "b161abc3-dfd8-4fa3-b73f-d4d561af28ff",
+      "name": "Me",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91f33c21-316b-46c8-b62d-ee855b747399",
+          "name": "My user profile",
+          "request": {
+            "name": "My user profile",
+            "description": {
+              "content": "Returns the current user's profile data.\n## Response attributes\nThe response will include the following attributes:\n* `initials` - A derived attribute that represents the user's initials based on their name. This is typically used for avatar placeholders or compact user displays. For example, \"John Doe\" would have initials \"JD\".\n* `name` - The user's full name. This is a required field that can be:\n  * Set directly as a full name\n  * Automatically generated from first name and last name fields when either changes\n  * Used for display purposes throughout the platform\n* `email` - The user's email address. This is a critical field that:\n  * Is required and must be unique\n  * Is used for authentication\n  * Can trigger email change notifications\n  * Is used for password recovery\n  * Can be marked as bounced (and reset when email changes)\n  * Is validated against email format requirements\n* `role_level` - Represents the user's permission level in the system. This attribute:\n  * Common values include:\n    * OWNER - Account owner with full permissions\n    * ADMINISTRATOR - Admin with site management permissions\n    * Determines what actions and resources the user can access\n    * Is used for permission checks throughout the system\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "me"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "09f25741-6fa4-4da3-b8f7-cc515dc03823",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"initials\": \"string\",\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"role_level\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e190302-7a35-4a75-b26c-91c951f77a50",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4b52ead-d8ea-4484-a8d1-5ba0e35466f7",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "me"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fad46180-2c3e-4c88-ac3f-a68d0cbf6077",
+    "name": "Kajabi API V1 Authentication Me API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

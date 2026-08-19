@@ -1,0 +1,586 @@
+{
+  "item": [
+    {
+      "id": "e37ee962-55d7-40aa-b25a-564e922efa68",
+      "name": "Kajabi Payments Payouts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "56e930b9-b533-44ed-b0fe-28a8ad5b1f93",
+          "name": "List payouts",
+          "request": {
+            "name": "List payouts",
+            "description": {
+              "content": "List of Kajabi Payments payouts for a site. Payouts represent transfers of funds from Kajabi to the site owner's connected bank account or payment method.\n\n**Note**: Date fields are returned in UTC:\n* `initiated_date` - Payout creation timestamp in UTC\n* `estimated_arrival_date` - Expected arrival timestamp in UTC\n\n## Pagination\nUse `page[number]` parameter to paginate results:\n### Get first page\n* `GET /v1/kajabi_payments_payouts?page[number]=1&filter[site_id]=123`\n### Get second page\n* `GET /v1/kajabi_payments_payouts?page[number]=2&filter[site_id]=123`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/kajabi_payments_payouts?page[number]=2&filter[site_id]=123\",\n    \"first\": \"https://api.kajabi.com/v1/kajabi_payments_payouts?page[number]=1&filter[site_id]=123\",\n    \"prev\": \"https://api.kajabi.com/v1/kajabi_payments_payouts?page[number]=1&filter[site_id]=123\",\n    \"next\": \"https://api.kajabi.com/v1/kajabi_payments_payouts?page[number]=3&filter[site_id]=123\",\n    \"last\": \"https://api.kajabi.com/v1/kajabi_payments_payouts?page[number]=5&filter[site_id]=123\"\n  },\n  \"meta\": {\n    \"total\": 50,\n    \"pagination\": {\n      \"current\": 2,\n      \"first\": 1,\n      \"prev\": 1,\n      \"next\": 3,\n      \"last\": 5,\n      \"records\": 10,\n    }\n  }\n}\n```\n\n## Filtering by Site\nUse the `filter[site_id]` parameter to filter payouts by site (required):\n### Get payouts for site with ID 123\n* `GET /v1/kajabi_payments_payouts?filter[site_id]=123`\n\n## Filtering by Status\nUse the `filter[status]` parameter to filter payouts by status:\n### Get paid payouts for site with ID 123\n* `GET /v1/kajabi_payments_payouts?filter[site_id]=123&filter[status]=paid`\n\nValid status values:\n* `pending` - The payout has been created but hasn't been submitted to the bank yet\n* `in_transit` - The payout has been submitted to the bank and is being processed\n* `paid` - The payout succeeded and the money has successfully reached your bank account\n* `failed` - Something went wrong and the payout couldn't be transferred to your account\n* `canceled` - The payout was canceled before it could complete\n\n## Date Range Filtering\nUse the `filter[start_date]` and `filter[end_date]` parameters to filter payouts by date range:\n### Get payouts between January 1st and January 31st, 2024\n* `GET /v1/kajabi_payments_payouts?filter[site_id]=123&filter[start_date]=2024-01-01&filter[end_date]=2024-01-31`\n\nResponse will include only payouts within the specified date range.\n\n## Using Multiple Parameters Together\nYou can combine multiple parameters to filter the response:\n### Get paginated, filtered payouts\n* `GET /v1/kajabi_payments_payouts?page[number]=1&filter[site_id]=123&filter[status]=paid&filter[start_date]=2024-01-01&filter[end_date]=2024-01-31`\n\nResponse will include paginated payouts matching all filters:\n```json\n{\n  \"data\": [{\n    \"id\": \"payout_abc123\",\n    \"type\": \"kajabi_payments_payouts\",\n    \"attributes\": {\n      \"status\": \"Paid\",\n      \"amount\": 1500.00,\n      \"currency\": \"USD\",\n      \"initiated_date\": \"2024-01-10T10:00:00.000Z\",\n      \"estimated_arrival_date\": \"2024-01-17T10:00:00.000Z\",\n      \"bank_account\": \"Chase Bank - 1234\"\n    }\n  }]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "kajabi_payments_payouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<number>",
+                  "description": "Page number for pagination, for example ?page[number]=2"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "(Required) Site ID to fetch payouts for (required), for example ?filter[site_id]=123"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "Filter by payout status (pending, paid, failed, canceled), for example ?filter[status]=paid"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[start_date]",
+                  "value": "<string>",
+                  "description": "Filter payouts after this date (ISO 8601), for example ?filter[start_date]=2024-01-01"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[end_date]",
+                  "value": "<string>",
+                  "description": "Filter payouts before this date (ISO 8601), for example ?filter[end_date]=2024-12-31"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76e9bf6a-7588-4785-a8e1-84a91e1d2f65",
+              "name": "Success, returns empty list when no payouts exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_date]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4bb5c295-48ae-41fe-8d0b-c76a31c91bf1",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_date]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b678ff3-8d0e-4dd3-acc5-34e40dab1612",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_date]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_date]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c43502b-6afc-4f8f-b44f-375107edc63c",
+          "name": "Get payout details",
+          "request": {
+            "name": "Get payout details",
+            "description": {
+              "content": "Get detailed information about a specific Kajabi Payments payout, including all associated transactions.\n\n**Note**: Date fields are returned in UTC:\n* `initiated_date` - Payout creation timestamp in UTC\n* `estimated_arrival_date` - Expected arrival timestamp in UTC\n* `transactions[].created_at` - Transaction timestamp in UTC\n\n## Transaction Fields\nEach transaction in the `transactions` array includes:\n* **Transaction Type** - Whether or not this transaction was a sale, refund, or adjustment\n* **Pricing Type** - When this is a sale this is the offer's pricing type, i.e. one-time, subscription, or payment plan\n* **Sales Tax** - The sales tax collected for this transaction\n* **Amount** - The transaction amount\n* **Currency** - Three-letter currency code (USD, EUR, GBP, etc.)\n* **Fee** - The transaction processing fee\n* **Net** - The transaction net amount (amount - fee)\n* **Customer ID** - Customer ID associated with the transaction\n* **Customer Name** - Customer's full name\n* **Customer Email** - Customer's email address\n* **Offer ID** - When a sale or refund, the ID(s) of the purchased offer\n* **Offer Title** - When a sale or refund, the title(s) of the purchased offer\n* **Provider** - The payment processor (Kajabi Payments, Stripe, PayPal, etc.)\n* **Payment Method** - For a sale or refund, the payment method that was used (Credit Card, etc.)\n* **Created At** - When the transaction occurred (in UTC)\n* **Coupon Used** - For a sale or refund, the coupon code if one was applied\n* **Presented Amount** - The transaction original transaction amount (before currency conversion)\n* **Presented Currency** - The transaction original currency code\n* **Exchange Rate** - The currency exchange rate applied\n* **Quantity** - The quantity of the offer that was purchased\n* **Order Number** - For a sale or refund, the order number when an order was purchased\n\n## Transaction Types\n* `Sale` - All payments and that were received as part of this payout\n* `Refund` - Any refunds that occurred as part of this payout\n* `Adjustment` - All other adjustments that occurred as a part of this payout\n\n## Example Response\n```json\n{\n  \"data\": {\n    \"id\": \"payout_abc123\",\n    \"type\": \"kajabi_payments_payouts\",\n    \"attributes\": {\n      \"status\": \"Paid\",\n      \"amount\": 1450.50,\n      \"currency\": \"USD\",\n      \"initiated_date\": \"2024-01-10T10:00:00.000Z\",\n      \"estimated_arrival_date\": \"2024-01-17T10:00:00.000Z\",\n      \"bank_account\": \"Chase Bank - 1234\",\n      \"transactions\": [\n        {\n          \"transaction_type\": \"Sales\",\n          \"pricing_type\": \"Subscription\",\n          \"sales_tax\": 0.0,\n          \"amount\": 99.00,\n          \"currency\": \"USD\",\n          \"fee\": 3.17,\n          \"net\": 95.83,\n          \"customer_id\": 789,\n          \"customer_name\": \"John Doe\",\n          \"customer_email\": \"john@example.com\",\n          \"offer_ids\": [\n            101\n          ],\n          \"offer_titles\": [\n            \"Premium Membership\"\n          ],\n          \"provider\": \"Kajabi Payments\",\n          \"payment_method\": \"Visa\",\n          \"created_at\": \"2024-01-08T14:30:00.000Z\",\n          \"coupon_used\": \"SAVE20\",\n          \"presented_amount\": 99.00,\n          \"presented_currency\": \"USD\",\n          \"exchange_rate\": 1.0,\n          \"quantity\": 1,\n          \"order_number\": \"ORD-12345\"\n        }\n      ]\n    }\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "kajabi_payments_payouts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "(Required) Site ID to authorize access (required), for example ?filter[site_id]=123"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Payout ID, for example payout_abc123"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "00a9d062-951c-48fc-8fc6-c9e7bb3a9545",
+              "name": "Success, returns payout details with all transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Payout ID, for example payout_abc123"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "782b6143-a754-415f-b506-1b5d909c6e97",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Payout ID, for example payout_abc123"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a0e634b-b0de-4045-ae93-587f9491b3d0",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Payout ID, for example payout_abc123"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8822ec0e-b0d9-41cf-b3ca-d7d9dcb0bbba",
+              "name": "Not Found, payout does not exist or user doesn't have access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "kajabi_payments_payouts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Payout ID, for example payout_abc123"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0acbf192-137d-4f09-94eb-8704d3dddc8f",
+    "name": "Kajabi API V1 Authentication Kajabi Payments Payouts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

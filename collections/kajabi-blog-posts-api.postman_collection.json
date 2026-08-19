@@ -1,0 +1,535 @@
+{
+  "item": [
+    {
+      "id": "ecd303b4-1c60-4a37-9188-01904ba2eafc",
+      "name": "Blog posts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "10896ba3-fce7-4831-82bb-9629c6f3c9cd",
+          "name": "List blog posts",
+          "request": {
+            "name": "List blog posts",
+            "description": {
+              "content": "Returns a list of blog posts which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/blog_posts[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/blog_posts[number]=2&page[size]=25`\n\n## Sparse Fields\nUse the `fields[blog_posts]` parameter to request only specific attributes:\n### Only return title attribute\n* `GET /v1/blog_posts?fields[blog_posts]=title`\n\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by published_at in descending order\n* `GET /v1/blog_posts?sort=-published_at&fields[blog_posts]=title`\n\n## Filters\nUse the `filter[site_id]` parameter to get blog posts for a specific site:\n### Get blog posts for site with ID 123\n* `GET /v1/blog_posts?filter[site_id]=123`\n\nList of attributes that may be used to filter: title, content, slug, page_title, page_description, published_at, created_at, updated_at, image_url, image_alt_text, tags\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/blog_posts?filter[title_start]=Announcing`\n* `GET /v1/blog_posts?filter[title_cont]=Announcing`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blog_posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: title for descending order use '-' e.g. &sort=-title"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[blog_posts]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[blog_posts]=title"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title contains, for example ?filter[title_cont]=hello"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d3d37b5e-df13-4f5b-b659-93f632e10875",
+              "name": "Success, list of blog posts which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"blog_posts\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": \"string\",\n        \"content\": \"string\",\n        \"slug\": \"string\",\n        \"page_title\": \"string\",\n        \"page_description\": \"string\",\n        \"published_at\": \"string\",\n        \"created_at\": \"1976-08-05T06:25:32.404Z\",\n        \"updated_at\": \"1992-06-03T17:44:31.372Z\"\n      },\n      \"relationships\": {\n        \"blog\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"blog_posts\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": \"string\",\n        \"content\": \"string\",\n        \"slug\": \"string\",\n        \"page_title\": \"string\",\n        \"page_description\": \"string\",\n        \"published_at\": \"string\",\n        \"created_at\": \"2019-11-12T06:53:18.957Z\",\n        \"updated_at\": \"1946-09-21T06:21:23.528Z\"\n      },\n      \"relationships\": {\n        \"blog\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2aace8c-faf0-4ba0-84cd-dffbdca4c003",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae3e9ffd-fb6b-4021-a390-98ede03dd08b",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4560da3d-a487-4a6e-b06a-24abe91d9cac",
+          "name": "Blog post details",
+          "request": {
+            "name": "Blog post details",
+            "description": {
+              "content": "Shows details of a blog post\n\n## Blog Post Attributes\n* `title` (string) - Title of the blog post\n* `url` (string) - URL of the blog post\n* `content` (string) - Content of the blog post\n* `slug` (string) - Slug of the blog post\n* `page_title` (string) - Page title of the blog post\n* `page_description` (string) - Page description of the blog post\n* `published_at` (string) - Date and time the blog post was published\n* `created_at` (string) - Date and time the blog post was created\n* `updated_at` (string) - Date and time the blog post was updated_at\n* `image_url` (string) - URL of the image associated with the blog post\n* `image_alt_text` (string) - Alt text for the image associated with the blog post\n* `tags` (array) - Tags associated with the blog post\n\n## Sparse Fields\n### Only return title attribute\n* `GET /v1/blog_posts/123?fields[blog_posts]=title`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"blog_posts\",\n    \"attributes\": {\n      \"title\": \"Announcing New Course\"\n    }\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "blog_posts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[blog_posts]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[blog_posts]=title"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) BlogPost ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "51a21469-7a27-4c72-b96a-f179b767c4d1",
+              "name": "Success, shows details of a blog post",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) BlogPost ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"blog_posts\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"content\": \"string\",\n      \"slug\": \"string\",\n      \"page_title\": \"string\",\n      \"page_description\": \"string\",\n      \"published_at\": \"string\",\n      \"created_at\": \"1967-05-14T07:39:25.352Z\",\n      \"updated_at\": \"1975-03-08T16:06:57.700Z\"\n    },\n    \"relationships\": {\n      \"blog\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75d3a881-fcbf-43dd-ac61-8469ce166081",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) BlogPost ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e76cffe7-c794-4dc7-a365-b840c7e27145",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "blog_posts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[blog_posts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) BlogPost ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "152f2f2c-577a-4d1e-a538-ffbf3a85742d",
+    "name": "Kajabi API V1 Authentication Blog posts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Blog posts API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Blog posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List blog posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/blog_posts",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[blog_posts]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[blog_posts]=title"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=hello"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of blog posts which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/blog_posts[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/blog_posts[number]=2&page[size]=25`\n\n## Sparse Fields\nUse the `fields[blog_posts]` parameter to request only specific attributes:\n### Only return title attribute\n* `GET /v1/blog_posts?fields[blog_posts]=title`\n\n## Sorting\nUse the `sor"
+        },
+        {
+          "info": {
+            "name": "Blog post details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/blog_posts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "BlogPost ID"
+              },
+              {
+                "name": "fields[blog_posts]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[blog_posts]=title"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows details of a blog post\n\n## Blog Post Attributes\n* `title` (string) - Title of the blog post\n* `url` (string) - URL of the blog post\n* `content` (string) - Content of the blog post\n* `slug` (string) - Slug of the blog post\n* `page_title` (string) - Page title of the blog post\n* `page_description` (string) - Page description of the blog post\n* `published_at` (string) - Date and time the blog post was published\n* `created_at` (string) - Date and time the blog post was created\n* `updated_at` ("
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,611 @@
+{
+  "item": [
+    {
+      "id": "e8d3f395-996b-4830-8b2b-86f4d77a82ed",
+      "name": "Landing pages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6a484df-29ad-410e-a8b7-239587e7a051",
+          "name": "List landing pages",
+          "request": {
+            "name": "List landing pages",
+            "description": {
+              "content": "Returns a list of landing pages which the current user may access\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/landing_pages[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/landing_pages[number]=2&page[size]=25`\n\n## Sparse Fields\nUse the `fields[landing_pages]` parameter to request only specific attributes:\n### Only return title attribute\n* `GET /v1/landing_pages?fields[landing_pages]=title`\n\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by publish_at in descending order\n* `GET /v1/landing_pages?sort=-publish_at&fields[landing_pages]=title`\n\n## Filters\nUse the `filter[site_id]` parameter to get landing pages for a specific site:\n### Get landing pages for site with ID 123\n* `GET /v1/landing_pages?filter[site_id]=123`\n\nList of attributes that may be used to filter: title, publish_at, created_at, updated_at\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `gt` for greater than\n* `gte` for greater than or equal\n* `lt` for less than\n* `lte` for less than or equal\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/landing_pages?filter[title_start]=Course`\n* `GET /v1/landing_pages?filter[title_cont]=Landing`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "landing_pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: title for descending order use '-' e.g. &sort=-title"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[landing_pages]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[landing_pages]=title"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title contains, for example ?filter[title_cont]=about"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[published]",
+                  "value": "<string>",
+                  "description": "Filter by published status, for example ?filter[published]=true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0625bbef-540e-4a9d-a351-e45b444c6333",
+              "name": "Success, list of landing pages which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[published]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"landing_pages\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": \"string\",\n        \"publish_at\": null,\n        \"created_at\": \"2020-10-11T16:05:03.109Z\",\n        \"updated_at\": \"2024-03-11T02:05:41.165Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"landing_pages\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": \"string\",\n        \"publish_at\": null,\n        \"created_at\": \"1951-01-23T02:44:40.394Z\",\n        \"updated_at\": \"1990-10-22T01:35:04.624Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b998b0aa-72a3-4d99-81f2-5b85271d8a7e",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[published]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25c26082-d5c7-414f-942f-c705b992ec4b",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[published]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89cafaa1-6f44-4e52-8e14-00154307bb20",
+          "name": "Landing page details",
+          "request": {
+            "name": "Landing page details",
+            "description": {
+              "content": "Shows details of a landing page\n\n## Landing Page Attributes\n* `title` (string) - Title of the landing page\n* `url` (string) - URL of the landing page\n* `publish_at` (string) - Date and time the landing page will be published\n* `created_at` (string) - Date and time the landing page was created\n* `updated_at` (string) - Date and time the landing page was updated\n\n## Sparse Fields\n### Only return title attribute\n* `GET /v1/landing_pages/123?fields[landing_pages]=title`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"landing_pages\",\n    \"attributes\": {\n      \"title\": \"Course Landing Page\"\n    }\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "landing_pages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[landing_pages]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[landing_pages]=title"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Landing page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "82b3fd27-5e45-4669-b76b-facfe6e3e2d5",
+              "name": "Success, shows details of a landing page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Landing page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"landing_pages\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"publish_at\": null,\n      \"created_at\": \"2025-05-19T12:14:29.978Z\",\n      \"updated_at\": \"1976-06-12T17:17:00.145Z\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6d69d54-f0c7-42b0-ada7-4572d16c3c43",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Landing page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f36b7d74-84a7-4b9b-8ba0-4c5cc4a80d0f",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Landing page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d8f4d3f-0bbd-453f-8832-b6577fcdd0cd",
+              "name": "landing page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "landing_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[landing_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Landing page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b7629430-f18d-45c2-88ed-96be1d0b0593",
+    "name": "Kajabi API V1 Authentication Landing pages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

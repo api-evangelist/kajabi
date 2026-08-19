@@ -1,0 +1,2136 @@
+{
+  "item": [
+    {
+      "id": "5e9ac0f6-0f1a-427a-8194-d98a24f2bef0",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94728305-6a37-42a5-af2e-feee27361ff9",
+          "name": "List hooks",
+          "request": {
+            "name": "List hooks",
+            "description": {
+              "content": "Lists webhooks for a site\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/hooks?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/hooks?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/hooks?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/hooks?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/hooks?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/hooks?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/hooks?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Filtering\nUse `filter[event_eq]` parameter to filter webhooks by event type:\n### Get webhooks for purchase events only\n* `GET /v1/hooks?filter[event_eq]=purchase`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[event_eq]",
+                  "value": "<string>",
+                  "description": "Filter by event type, for example ?filter[event_eq]=purchase"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "36aafe22-8d20-4271-b18b-25d2ede7c4f9",
+              "name": "Success, list of hooks which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[event_eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"hooks\",\n      \"attributes\": {\n        \"event\": \"tag_removed\",\n        \"target_url\": \"string\",\n        \"created_at\": \"1986-07-27T06:30:54.814Z\",\n        \"updated_at\": \"1987-10-27T05:43:13.781Z\",\n        \"resource_id\": null\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"hooks\",\n      \"attributes\": {\n        \"event\": \"payment_succeeded\",\n        \"target_url\": \"string\",\n        \"created_at\": \"1963-01-14T12:42:37.122Z\",\n        \"updated_at\": \"1962-07-18T00:42:02.661Z\",\n        \"resource_id\": 9116\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5656370-7e8b-493e-930f-28440ee4f386",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[event_eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fdba576-dba0-4937-b5c6-01238cd4de8c",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[event_eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b82de45-4d0b-4b13-8d24-6901e44b75b8",
+          "name": "Create hook",
+          "request": {
+            "name": "Create hook",
+            "description": {
+              "content": "Creates a new webhook subscription\n\n## Request Body\nThe request must include:\n* `data` - parent object which includes the children/nested attributes:\n* `target_url` - The URL where webhook events will be sent\n* `event` - The type of event to subscribe to (see available events below), for example \"tag_added\"\n* `resource_id` (optional) - Specific resource ID to filter events for, for example the id of the Contact Tag. When the property is omitted, the webhook will be triggered for all events of the specified type, as a wildcard webhook.\n\n## Available Event Types\n\n| Event | Description | Required API Scopes |\n|-------|-------------|-------------------|\n| `purchase` | Customer makes a purchase | `view:purchases` |\n| `payment_succeeded` | Payment transaction completes successfully | `view:transactions` |\n| `order_created` | New order is created | `view:transactions`, `view:orders` |\n| `form_submission` | Someone submits a form | `view:form_submissions` |\n| `tag_added` | Tag is added to a contact | `view:contacts` |\n| `tag_removed` | Tag is removed from a contact | `view:contacts` |\n\n**Note**: You can only create webhooks for events you have permission to access based on your API key scopes. For example to use tags you need the `view:contacts` scope, which is included in the account owner api key scope.\n\n## Sample Payloads\nYou can view sample webhook payloads for each event type:\n* `GET /v1/hooks/purchase_sample`\n* `GET /v1/hooks/payment_succeeded_sample`\n* `GET /v1/hooks/order_created_sample`\n* `GET /v1/hooks/form_submission_sample`\n* `GET /v1/hooks/tag_added_sample`\n* `GET /v1/hooks/tag_removed_sample`\n\nExample request targeting a specific tag:\n```json\n{\n  \"data\": {\n    \"type\": \"hooks\",\n    \"attributes\": {\n      \"target_url\": \"https://example.com/webhook\",\n      \"event\": \"tag_added\",\n      \"resource_id\": \"123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"456\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }\n}\n```\n\nExample request using a wildcard webhook:\n```json\n{\n  \"data\": {\n    \"type\": \"hooks\",\n    \"attributes\": {\n      \"target_url\": \"https://example.com/webhook\",\n      \"event\": \"tag_added\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"456\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"tag_added\",\n  \"payload\": [],\n}\n```\nThe `id` is the ID of the resource that triggered the event.\nThe `event` is the type of event that triggered the webhook.\nThe `payload` is the actual payload of the event and the content will be similar to the sample payloads above.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43c51aac-7a46-4a27-afc7-ba3a49f5c78f",
+              "name": "Success, webhook created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"hooks\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"created_at\": \"2008-01-29T10:22:57.411Z\",\n      \"updated_at\": \"2020-02-17T02:42:39.130Z\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65a4e445-5c8c-4a35-b102-4b045a1099e7",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d2b1150-3f52-4318-81b2-9f0edceb1867",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dde180f1-c5db-4cb2-90dc-3f78aac63640",
+              "name": "Unprocessable Entity, invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "209c603c-410f-4dbd-acc6-2add5d19147f",
+          "name": "Hook details",
+          "request": {
+            "name": "Hook details",
+            "description": {
+              "content": "Returns specific hook based on it ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "36aeb6f9-38a6-4d66-92ab-82f9e666fd12",
+              "name": "Success, webhook retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"hooks\",\n    \"attributes\": {\n      \"event\": \"<string>\",\n      \"target_url\": \"<string>\",\n      \"created_at\": \"2008-01-29T10:22:57.411Z\",\n      \"updated_at\": \"2020-02-17T02:42:39.130Z\",\n      \"resource_id\": \"<integer,null>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9116186c-606e-4a45-8cdb-800f875f1f64",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21a909b9-83d2-4a64-8b0b-ba99a046afca",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e99a47cb-63be-499a-9abc-c268ef1fbefd",
+              "name": "Not Found, webhook does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8516e64d-e055-4a4b-a42b-40c2bda28512",
+          "name": "Delete hook",
+          "request": {
+            "name": "Delete hook",
+            "description": {
+              "content": "Deletes a webhook subscription",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e51a54f-62f0-4ace-8abe-f159f8a4fbbf",
+              "name": "Success, webhook deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66899ccf-f41c-455b-aaf7-0b956e0a2e97",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd8bcd3c-7031-40d5-b1fa-8028094f9e08",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41033a98-a4fa-4ffd-be3c-3d952423790c",
+              "name": "Not Found, webhook does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31e6779e-4ea6-4ee4-a460-1d5adadeea2d",
+          "name": "Tag added sample",
+          "request": {
+            "name": "Tag added sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `tag_added` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"Sample Recipient\",\n      \"email\": \"sample@example.com\",\n      \"address_line_1\": \"123 Kajabi Ln\",\n      \"address_line_2\": \"Kajabi Suite 4\",\n      \"address_city\": \"Kajabiwood\",\n      \"address_country\": \"United Sites of Kajabi\",\n      \"address_state\": \"Kajabifornia\",\n      \"address_zip\": \"99999\",\n      \"phone_number\": \"5555555555\",\n      \"business_number\": null,\n      \"subscribed\": false,\n      \"external_user_id\": null,\n      \"created_at\": \"2025-07-31T16:51:04.010Z\",\n      \"updated_at\": \"2025-07-31T16:51:04.010Z\"\n    },\n    \"links\": {\n      \"customer\": \"\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"Tag\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"tag_added\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "tag_added_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1823a03-842c-4080-8f48-f7708b736bc7",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_added_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": \"string\",\n      \"subscribed\": false,\n      \"address_line_1\": \"string\",\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_state\": \"string\",\n      \"address_country\": \"string\",\n      \"external_user_id\": \"string\",\n      \"address_zip\": \"string\",\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\",\n      \"created_at\": \"1983-06-15T18:09:31.160Z\",\n      \"updated_at\": \"1976-05-09T03:05:41.716Z\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"subscribed\": true,\n      \"address_line_1\": \"string\",\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_state\": null,\n      \"address_country\": \"string\",\n      \"external_user_id\": \"string\",\n      \"address_zip\": null,\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\",\n      \"created_at\": \"2005-03-17T20:57:55.211Z\",\n      \"updated_at\": \"1955-12-06T22:42:41.475Z\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f00eccdc-ceeb-402d-99cf-142678648242",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_added_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e18aa4e2-c0bc-4af3-b064-d956585027fc",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_added_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "37c71d9b-9c66-4250-b596-26dbb3bc4506",
+          "name": "Tag removed sample",
+          "request": {
+            "name": "Tag removed sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `tag_removed` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"Sample Recipient\",\n      \"email\": \"sample@example.com\",\n      \"address_line_1\": \"123 Kajabi Ln\",\n      \"address_line_2\": \"Kajabi Suite 4\",\n      \"address_city\": \"Kajabiwood\",\n      \"address_country\": \"United Sites of Kajabi\",\n      \"address_state\": \"Kajabifornia\",\n      \"address_zip\": \"99999\",\n      \"phone_number\": \"5555555555\",\n      \"business_number\": null,\n      \"subscribed\": false,\n      \"external_user_id\": null,\n      \"created_at\": \"2025-07-31T16:51:04.010Z\",\n      \"updated_at\": \"2025-07-31T16:51:04.010Z\"\n    },\n    \"links\": {\n      \"customer\": \"\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"contact_tags\",\n    \"attributes\": {\n      \"name\": \"Tag\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"tag_removed\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "tag_removed_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b84f8899-c5b8-4a0f-b3ad-fe43a201093b",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_removed_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": \"string\",\n      \"subscribed\": false,\n      \"address_line_1\": \"string\",\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_state\": \"string\",\n      \"address_country\": \"string\",\n      \"external_user_id\": \"string\",\n      \"address_zip\": \"string\",\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\",\n      \"created_at\": \"1983-06-15T18:09:31.160Z\",\n      \"updated_at\": \"1976-05-09T03:05:41.716Z\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"subscribed\": true,\n      \"address_line_1\": \"string\",\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_state\": null,\n      \"address_country\": \"string\",\n      \"external_user_id\": \"string\",\n      \"address_zip\": null,\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\",\n      \"created_at\": \"2005-03-17T20:57:55.211Z\",\n      \"updated_at\": \"1955-12-06T22:42:41.475Z\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"contact_tags\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cbd6d8e-1cc2-4ecb-a7c9-4a5e33db7527",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_removed_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9dbd1b2-3d7e-4cfb-8473-cef67a7fe36b",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "tag_removed_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33a27041-6435-466c-a7d8-122d61eee0bb",
+          "name": "Form submission sample",
+          "request": {
+            "name": "Form submission sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `form_submission` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"address_line_1\": null,\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_country\": null,\n      \"address_state\": null,\n      \"address_zip\": null,\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"mobile_phone_number\": null\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"form\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"forms\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"url\": \"https://bill-heaton.kajabi-products.test/forms/0\",\n      \"title\": \"Sample Form\",\n      \"default\": false,\n      \"webhook_url\": null,\n      \"created_at\": null,\n      \"updated_at\": null\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"fields\": {\n        \"data\": []\n      },\n      \"contact_tags\": {\n        \"data\": []\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"form_submission\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "form_submission_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "49dfded9-b216-4aef-9265-85e59a5495d3",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "form_submission_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"address_line_1\": null,\n      \"address_line_2\": \"string\",\n      \"address_city\": null,\n      \"address_state\": null,\n      \"address_country\": \"string\",\n      \"address_zip\": \"string\",\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"forms\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"forms\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": null,\n      \"business_number\": \"string\",\n      \"address_line_1\": null,\n      \"address_line_2\": \"string\",\n      \"address_city\": \"string\",\n      \"address_state\": null,\n      \"address_country\": null,\n      \"address_zip\": null,\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\"\n    },\n    \"relationships\": {\n      \"tags\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"forms\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"forms\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4579a85b-25c7-46ef-9b60-92d627019357",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "form_submission_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7480316-ac6d-4907-88fa-f7df6a378800",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "form_submission_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea90daae-86eb-45b6-a6ab-9ab68e7863c6",
+          "name": "Purchase sample",
+          "request": {
+            "name": "Purchase sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `purchase` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 1000,\n      \"payment_type\": \"single\",\n      \"multipay_payments_made\": null,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"USD\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": null,\n      \"billing_address_zip\": null,\n      \"deactivated_at\": null,\n      \"deactivation_reason\": null,\n      \"coupon_code\": null,\n      \"source\": null,\n      \"referrer\": null,\n      \"quantity\": 1,\n      \"created_at\": \"2025-07-31T16:59:27.580Z\",\n      \"updated_at\": \"2025-07-31T16:59:27.580Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"offers\"\n        }\n      },\n      \"products\": {\n        \"data\": []\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"offers\",\n    \"attributes\": {\n      \"title\": \"Kajabi Test Offer\",\n      \"description\": null,\n      \"internal_title\": null,\n      \"currency\": \"USD\",\n      \"price_in_cents\": 1000,\n      \"payment_type\": \"single\",\n      \"token\": \"n8NtoHUZ\",\n      \"image_url\": null,\n      \"payment_method\": \"stripe_and_paypal\",\n      \"price_description\": \"$10.00 USD\",\n      \"checkout_url\": \"https://bill-heaton.kajabi-products.test/offers/n8NtoHUZ\",\n      \"recurring_offer\": false,\n      \"subscription\": false,\n      \"one_time\": true,\n      \"single\": true,\n      \"free\": false\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"products\": {\n        \"data\": []\n      },\n      \"forms\": {\n        \"data\": []\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"avatar\": null,\n      \"external_user_id\": null,\n      \"public_bio\": null,\n      \"public_location\": null,\n      \"public_website\": null,\n      \"socials\": null,\n      \"net_revenue\": \"0.0\",\n      \"sign_in_count\": 0,\n      \"last_request_at\": null,\n      \"bounced_at\": null,\n      \"created_at\": \"2025-07-31T16:59:27.552Z\",\n      \"updated_at\": \"2025-07-31T16:59:27.552Z\"\n    },\n    \"links\": {\n      \"contact\": \"https://www.kajabi.test/api/v1/contacts/0\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"contact\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"contacts\"\n        }\n      },\n      \"offers\": {\n        \"data\": [],\n        \"links\": {\n          \"self\": \"https://www.kajabi.test/api/v1/customers/0/relationships/offers\"\n        }\n      },\n      \"products\": {\n        \"data\": []\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"purchase\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "purchase_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7dc8f54f-f0d6-4c19-aadd-c7628b3e05fd",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "purchase_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 8846,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": 9975,\n      \"opt_in\": true,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": \"string\",\n      \"billing_address_zip\": null,\n      \"deactivated_at\": null,\n      \"deactivation_reason\": \"string\",\n      \"coupon_code\": \"string\",\n      \"source\": \"string\",\n      \"referrer\": \"string\",\n      \"quantity\": 131,\n      \"created_at\": \"1981-05-31T15:41:52.825Z\",\n      \"updated_at\": \"2003-01-09T20:09:45.188Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offers\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          }\n        ]\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 9911,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": null,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": \"string\",\n      \"cardholder_name\": \"string\",\n      \"billing_address_zip\": \"string\",\n      \"deactivated_at\": null,\n      \"deactivation_reason\": null,\n      \"coupon_code\": null,\n      \"source\": null,\n      \"referrer\": null,\n      \"quantity\": 6103,\n      \"created_at\": \"2013-04-16T05:58:49.328Z\",\n      \"updated_at\": \"2007-07-22T03:58:25.975Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offers\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"offers\"\n          }\n        ]\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b681563e-b897-4de2-bafc-316e6c7df4fb",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "purchase_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "400a4410-81d2-42fb-819a-d66973a6dc9c",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "purchase_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2021596-683c-493b-945d-04a7689bd53a",
+          "name": "Payment succeeded sample",
+          "request": {
+            "name": "Payment succeeded sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `payment_succeeded` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"charge\",\n      \"state\": \"succeeded\",\n      \"payment_type\": \"charge\",\n      \"amount_in_cents\": 1000,\n      \"sales_tax_in_cents\": 0,\n      \"currency\": \"USD\",\n      \"currency_symbol\": \"$\",\n      \"formatted_amount\": \"$10.00\",\n      \"created_at\": \"2025-07-31T17:10:19.285Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": null\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"avatar\": null,\n      \"external_user_id\": null,\n      \"public_bio\": null,\n      \"public_location\": null,\n      \"public_website\": null,\n      \"socials\": null,\n      \"net_revenue\": \"0.0\",\n      \"sign_in_count\": 0,\n      \"last_request_at\": null,\n      \"bounced_at\": null,\n      \"created_at\": \"2025-07-31T17:10:19.243Z\",\n      \"updated_at\": \"2025-07-31T17:10:19.243Z\"\n    },\n    \"links\": {\n      \"contact\": \"https://www.kajabi.test/api/v1/contacts/0\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"contact\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"contacts\"\n        }\n      },\n      \"offers\": {\n        \"data\": [],\n        \"links\": {\n          \"self\": \"https://www.kajabi.test/api/v1/customers/0/relationships/offers\"\n        }\n      },\n      \"products\": {\n        \"data\": []\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"payment_succeeded\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "payment_succeeded_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "31639fe9-f3ac-4d0e-9058-ff798d9e8f27",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "payment_succeeded_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"string\",\n      \"state\": \"string\",\n      \"payment_type\": null,\n      \"amount_in_cents\": 3590,\n      \"sales_tax_in_cents\": 133,\n      \"currency\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"formatted_amount\": \"string\",\n      \"created_at\": \"1951-05-09T01:10:03.180Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"offers\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"string\",\n      \"state\": \"string\",\n      \"payment_type\": null,\n      \"amount_in_cents\": 4037,\n      \"sales_tax_in_cents\": 7038,\n      \"currency\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"formatted_amount\": \"string\",\n      \"created_at\": \"1991-01-11T15:53:53.151Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"offers\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76548981-d34e-4382-a01e-d9945116651c",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "payment_succeeded_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "412f45ba-9088-40fe-b6c7-4ef18c9fdff8",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "payment_succeeded_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef44efdd-9a80-4b8e-a45f-77dc8b327494",
+          "name": "Order created sample",
+          "request": {
+            "name": "Order created sample",
+            "description": {
+              "content": "Returns sample webhook payload for the `order_created` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"charge\",\n      \"state\": \"succeeded\",\n      \"payment_type\": \"charge\",\n      \"amount_in_cents\": 1000,\n      \"sales_tax_in_cents\": 0,\n      \"currency\": \"USD\",\n      \"currency_symbol\": \"$\",\n      \"formatted_amount\": \"$10.00\",\n      \"created_at\": \"2025-07-31T17:13:05.247Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": null\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"avatar\": null,\n      \"external_user_id\": null,\n      \"public_bio\": null,\n      \"public_location\": null,\n      \"public_website\": null,\n      \"socials\": null,\n      \"net_revenue\": \"0.0\",\n      \"sign_in_count\": 0,\n      \"last_request_at\": null,\n      \"bounced_at\": null,\n      \"created_at\": \"2025-07-31T17:13:05.207Z\",\n      \"updated_at\": \"2025-07-31T17:13:05.207Z\"\n    },\n    \"links\": {\n      \"contact\": \"https://www.kajabi.test/api/v1/contacts/0\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"contact\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"contacts\"\n        }\n      },\n      \"offers\": {\n        \"data\": [],\n        \"links\": {\n          \"self\": \"https://www.kajabi.test/api/v1/customers/0/relationships/offers\"\n        }\n      },\n      \"products\": {\n        \"data\": []\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"orders\",\n    \"attributes\": {\n      \"order_number\": 0,\n      \"currency_code\": \"USD\",\n      \"fulfilled_at\": null,\n      \"created_at\": \"2025-07-31T17:13:05.207Z\",\n      \"total_price_in_cents\": 1000,\n      \"subtotal_in_cents\": 800,\n      \"sales_tax_amount_in_cents\": 200,\n      \"discount_amount_in_cents\": 0,\n      \"formatted_total_price\": \"$10.00\",\n      \"formatted_subtotal\": \"$8.00\",\n      \"currency_symbol\": \"$\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"customers\"\n        }\n      },\n      \"order_items\": {\n        \"data\": [\n          {\n            \"id\": \"0\",\n            \"type\": \"order_items\"\n          }\n        ]\n      },\n      \"payment_transactions\": {\n        \"data\": []\n      }\n    }\n  },\n  {\n    \"id\": \"0\",\n    \"type\": \"order_items\",\n    \"attributes\": {\n      \"quantity\": 1,\n      \"currency_code\": \"USD\",\n      \"item_type\": \"Offer\",\n      \"item_id\": 0,\n      \"title\": \"Kajabi Test Offer\",\n      \"fulfilled_at\": null,\n      \"created_at\": \"2025-07-31T17:13:05.229Z\",\n      \"total_price_in_cents\": 1000,\n      \"subtotal_in_cents\": 800,\n      \"sales_tax_amount_in_cents\": 200,\n      \"discount_amount_in_cents\": 0,\n      \"formatted_total_price\": \"$10.00\",\n      \"formatted_subtotal\": \"$8.00\",\n      \"currency_symbol\": \"$\"\n    },\n    \"relationships\": {\n      \"order\": {\n        \"data\": {\n          \"id\": \"0\",\n          \"type\": \"orders\"\n        }\n      }\n    }\n  }\n]\n```\n## Actual Payloads\nThe actual payloads are sent to the `target_url` as a POST request with the following JSON body:\n```json\n{\n  \"id\": \"hash_id\",\n  \"event\": \"order_created\",\n  \"payload\": [],\n}\n```\nThe `payload` array is the sample response above\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "hooks",
+                "order_created_sample"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c881115d-1bf7-44ef-8140-24640a761036",
+              "name": "Success, returns sample webhook payload",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "order_created_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"string\",\n      \"state\": \"string\",\n      \"payment_type\": null,\n      \"amount_in_cents\": 3590,\n      \"sales_tax_in_cents\": 133,\n      \"currency\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"formatted_amount\": \"string\",\n      \"created_at\": \"1951-05-09T01:10:03.180Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"offers\"\n        }\n      }\n    }\n  },\n  {\n    \"id\": \"string\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"string\",\n      \"state\": \"string\",\n      \"payment_type\": null,\n      \"amount_in_cents\": 4037,\n      \"sales_tax_in_cents\": 7038,\n      \"currency\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"formatted_amount\": \"string\",\n      \"created_at\": \"1991-01-11T15:53:53.151Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"customers\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"offers\"\n        }\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2f2fe23-8ca6-4337-9724-9f2351762400",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "order_created_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfd17221-cb94-4f73-8dde-42d28ebb092e",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "hooks",
+                    "order_created_sample"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "df1c4bdc-cdf5-4772-b118-75f0ed595e3f",
+    "name": "Kajabi API V1 Authentication Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

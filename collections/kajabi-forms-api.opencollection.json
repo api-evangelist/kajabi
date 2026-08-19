@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Forms API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List form submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/form_submissions",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: name, email, created_at. For descending order use '-' e.g. &sort=-name"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site ID, example: filter[site_id]=123"
+              },
+              {
+                "name": "filter[form_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by form ID, example: filter[form_id]=456"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Form submissions for authorized sites\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/form_submissions?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/form_submissions?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/form_submissions?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.co"
+        },
+        {
+          "info": {
+            "name": "Form submission details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/form_submissions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=site,form"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows details of a form submission\n\n## Form Submission Attributes\n* `name` (string) - The name of the person who submitted the form\n* `email` (string) - The email address of the person who submitted the form\n* `address_line_1` (string) - First line of address if provided\n* `address_line_2` (string) - Second line of address if provided\n* `address_city` (string) - City if provided\n* `address_country` (string) - Country if provided\n* `address_state` (string) - State if provided\n* `address_zip` (str"
+        },
+        {
+          "info": {
+            "name": "List forms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/forms",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[forms]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[forms]=title"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=course"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Contact forms for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/forms?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/forms?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/forms?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/forms?page[number]=1&page[size]=10\",\n    \""
+        },
+        {
+          "info": {
+            "name": "Form details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/forms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=fields,site,offer,contact_tags"
+              },
+              {
+                "name": "fields[forms]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[forms]=title,webhook_url"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Shows details of a form\n\nForms belong to a site and can be associated with:\n* Landing pages\n* Offers\n* Email sequences\n* Events\n* Newsletters\n\n## Form Attributes\n* `title` (string) - A required field that represents the name or heading of the form. This is used to identify and display the form in the user interface. Forms must have a unique title within a site and can be searched and sorted by this attribute.\n* `default` (boolean) - A boolean flag indicating whether this is the default form for "
+        },
+        {
+          "info": {
+            "name": "Submit form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/forms/:id/submit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Submit a form\n* The `name` and `email` attributes are required.\n* The `email` attribute must be a valid and deliverable email address.\n\nExample request body:\n```json\n{\n  \"data\": {\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\"\n    }\n  }\n}\n```\n\nResponse will include the newly created form submission resource.\n```json\n{\n  \"data\": {\n    \"id\": \"313\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

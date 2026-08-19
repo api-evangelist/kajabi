@@ -1,0 +1,3532 @@
+{
+  "item": [
+    {
+      "id": "7ef015f7-322e-4087-be28-beb0b4ae9732",
+      "name": "Customers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2b10d333-6e69-421d-8e96-3edd479fde25",
+          "name": "List customers",
+          "request": {
+            "name": "List customers",
+            "description": {
+              "content": "List of customers\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/customers?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/customers?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://app.kajabi.com/api/v1/customers?page[number]=2&page[size]=10\",\n    \"first\": \"https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10\",\n    \"prev\": \"https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10\",\n    \"next\": \"https://app.kajabi.com/api/v1/customers?page[number]=3&page[size]=10\",\n    \"last\": \"https://app.kajabi.com/api/v1/customers?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\n* The default Sorting is by created_at in descending order (newest first)\n\nSorting by created_at in ascending order (oldest first)\n* `GET /v1/customers?filter[site_id]=123&sort=created_at`\n\nUse the `sort` parameter to sort the results:\n### Sort by name in ascending order\n* `GET /v1/customers?filter[site_id]=123&sort=name`\n### Sort by email in descending order\n* `GET /v1/customers?filter[site_id]=123&sort=-email`\n### Sort by net_revenue in ascending order\n* `GET /v1/customers?filter[site_id]=123&sort=net_revenue`\n### Sort by last_request_at in descending order\n* `GET /v1/customers?filter[site_id]=123&sort=-last_request_at`\n\nResponse will include customers sorted by the specified field\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    }\n  }]\n}\n```\n## Sparse Fields\nUse the `fields[customers]` parameter to request only specific attributes:\n### Only return name and email attributes\n* `GET /v1/customers?fields[customers]=name,email`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\"\n    }\n  }]\n}\n```\n## Filtering\nUse the `filter[site_id]` parameter to filter customers by site:\n### Get customers for site with ID 123\n* `GET /v1/customers?filter[site_id]=123`\n\nResponse will include only customers from the specified site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Using Indexed Data Search\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Smith\",\n      \"email\": \"smith.john@example.com\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n\n## Using Multiple Filters\nYou can combine multiple filter parameters to refine your search:\n### Get customers from site 123 matching search term\n* `GET /v1/customers?filter[site_id]=123&filter[search]=smith`\n\nResponse will include only customers from the specified site matching the search term\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filtering by Site and Offer\nYou can filter customers by both site and offer ownership:\n### Get customers from site 123 who have been granted offer 789\n* `GET /v1/customers?filter[site_id]=123&filter[has_offer_id]=789`\n\nResponse will include only customers from the specified site who have been granted the offer\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      },\n      \"offers\": {\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/456/relationships/offers\",\n          \"related\": \"https://app.kajabi.com/api/v1/customers/456/offers\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filtering by Site and Product\nYou can filter customers by both site and product ownership:\n### Get customers from site 123 who have purchased product 789\n* `GET /v1/customers?filter[site_id]=123&filter[has_product_id]=789`\n\nResponse will include only customers from the specified site who have purchased the product\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      },\n      \"offers\": {\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/456/relationships/offers\",\n          \"related\": \"https://app.kajabi.com/api/v1/customers/456/offers\"\n        }\n      }\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine filtering, sparse fields, pagination and search in a single request:\n### Get page 2 of customers from site 123, including only name and email fields, searching for \"smith\"\n* `GET /v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith`\n\nResponse will include paginated, filtered customers with sparse fields\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Smith\",\n      \"email\": \"john.smith@example.com\"\n    }\n  }],\n  \"links\": {\n    \"self\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith\",\n    \"first\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=1&page[size]=10&filter[search]=smith\",\n    \"prev\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=1&page[size]=10&filter[search]=smith\",\n    \"next\": null,\n    \"last\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: name, email, created_at, net_revenue, last_request_at for descending order use '-' e.g. &sort=-name"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<number>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[customers]",
+                  "value": "<string>",
+                  "description": "Sparse fields, use: name, email for example ?fields[customers]=name,email"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "It is recommended to always filter by site_id, for example ?filter[site_id]=111. This param is required when the account has multiple sites"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[search]",
+                  "value": "<string>",
+                  "description": "Filter with fuzzy search of name/email, for example ?filter[search]=alexa"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers created in the last N days, e.g. ?filter[created_in_last]=30"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_created_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers not created in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[is_hidden]",
+                  "value": "<string>",
+                  "description": "Filter hidden customers"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[joined_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who joined in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[active_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers active in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[inactive_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers inactive in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose name contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[email_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose email contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[phone_number_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose phone number contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_line_1_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose address line 1 contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_line_2_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose address line 2 contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_city_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose city contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_state_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose state contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_country_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose country contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[address_zip_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose zip code contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_tag_id]",
+                  "value": "<string>",
+                  "description": "Filter customers with a specific tag ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_all_tag_id]",
+                  "value": "<string>",
+                  "description": "Filter customers with all specified tag IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_no_tag_id]",
+                  "value": "<string>",
+                  "description": "Filter customers without the specified tag ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[subscribed]",
+                  "value": "<string>",
+                  "description": "Filter subscribed customers"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_offer_id]",
+                  "value": "<string>",
+                  "description": "Filter customers with a specific offer ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_no_offer_id]",
+                  "value": "<string>",
+                  "description": "Filter customers without the specified offer ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_product_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who own a specific product ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_active_product_id]",
+                  "value": "<string>",
+                  "description": "Filter customers with an active membership to a specific product ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has_no_product_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who do not own a specific product ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[previously_owned_product_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who previously owned a specific product ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[used_coupon_code]",
+                  "value": "<string>",
+                  "description": "Filter customers who used a specific coupon code"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[submitted_form_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who submitted a specific form ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_submitted_form_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who have not submitted the specified form ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[registered_event_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who registered for a specific event ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_registered_event_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who have not registered for the specified event ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[completed_assessment_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who completed a specific assessment ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[passed_assessment_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who passed a specific assessment ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[failed_assessment_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who failed a specific assessment ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[net_revenue_equal_to]",
+                  "value": "<string>",
+                  "description": "Filter customers whose net revenue equals the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[net_revenue_greater_than]",
+                  "value": "<string>",
+                  "description": "Filter customers whose net revenue is greater than the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[net_revenue_less_than]",
+                  "value": "<string>",
+                  "description": "Filter customers whose net revenue is less than the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[subscribed_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers subscribed in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[unsubscribed_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers unsubscribed in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[never_subscribed]",
+                  "value": "<string>",
+                  "description": "Filter customers who have never subscribed"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sent_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who were sent a specific email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_sent_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who were not sent the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_sent_email_broadcast_ids]",
+                  "value": "<string>",
+                  "description": "Filter customers who were not sent any of the specified email broadcast IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_delivered_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not receive the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[opened_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who opened a specific email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_opened_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not open the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[clicked_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who clicked a specific email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_clicked_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not click the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[bounced_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who bounced a specific email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_bounced_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not bounce the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[dropped_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who dropped a specific email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[no_dropped_email_broadcast_id]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not drop the specified email broadcast ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[opened_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who opened an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_opened_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not open an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[delivered_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who were delivered an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_delivered_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who were not delivered an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[clicked_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who clicked an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_clicked_email_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who did not click an email in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[is_hard_bouncing]",
+                  "value": "<string>",
+                  "description": "Filter customers that are hard bouncing"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[bounced_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who bounced in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[complained_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who complained in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[manually_unsubscribed_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers manually unsubscribed in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[opted_out_in_last]",
+                  "value": "<string>",
+                  "description": "Filter customers who opted out in the last N days"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[healthy_contacts_with_open_data]",
+                  "value": "<string>",
+                  "description": "Filter healthy customers with open data"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[passive_contacts_with_open_data]",
+                  "value": "<string>",
+                  "description": "Filter passive customers with open data"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[unengaged_contacts_with_open_data]",
+                  "value": "<string>",
+                  "description": "Filter unengaged customers with open data"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[inactive_contacts_with_open_data]",
+                  "value": "<string>",
+                  "description": "Filter inactive customers with open data"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[subscribed_newsletter_id]",
+                  "value": "<string>",
+                  "description": "Filter customers subscribed to a specific newsletter ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[unsubscribed_newsletter_id]",
+                  "value": "<string>",
+                  "description": "Filter customers unsubscribed from a specific newsletter ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[mobile_phone_number_contains]",
+                  "value": "<string>",
+                  "description": "Filter customers whose mobile phone number contains the given value"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[subscribed_email_sequence_id]",
+                  "value": "<string>",
+                  "description": "Filter customers subscribed to a specific email sequence ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[not_subscribed_email_sequence_id]",
+                  "value": "<string>",
+                  "description": "Filter customers not subscribed to a specific email sequence ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "231d4f28-80b8-4970-8c55-7784a359622c",
+              "name": "Success, filter by product ownership",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hidden]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[joined_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[email_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_1_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_2_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_city_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_state_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_country_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_zip_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_all_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_active_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[previously_owned_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[used_coupon_code]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[completed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[failed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_equal_to]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_greater_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_less_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[never_subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_ids]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_delivered_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hard_bouncing]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[complained_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[manually_unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opted_out_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[healthy_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unengaged_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[mobile_phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"avatar\": \"string\",\n        \"external_user_id\": \"string\",\n        \"public_bio\": null,\n        \"public_location\": null,\n        \"public_website\": \"string\",\n        \"socials\": {\n          \"twitter\": null,\n          \"facebook\": null,\n          \"instagram\": \"string\"\n        },\n        \"net_revenue\": null,\n        \"sign_in_count\": 5492,\n        \"last_request_at\": \"string\",\n        \"bounced_at\": \"string\",\n        \"created_at\": \"1968-06-06T14:20:40.291Z\",\n        \"updated_at\": \"1963-05-11T07:22:39.091Z\"\n      },\n      \"relationships\": {\n        \"contact\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"offers\": {\n          \"links\": {\n            \"self\": \"string\"\n          }\n        },\n        \"products\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"contact\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"avatar\": \"string\",\n        \"external_user_id\": \"string\",\n        \"public_bio\": \"string\",\n        \"public_location\": \"string\",\n        \"public_website\": \"string\",\n        \"socials\": {\n          \"twitter\": null,\n          \"facebook\": \"string\",\n          \"instagram\": null\n        },\n        \"net_revenue\": \"string\",\n        \"sign_in_count\": 5467,\n        \"last_request_at\": \"string\",\n        \"bounced_at\": \"string\",\n        \"created_at\": \"2015-01-11T03:58:32.783Z\",\n        \"updated_at\": \"1988-03-20T08:21:22.202Z\"\n      },\n      \"relationships\": {\n        \"contact\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"offers\": {\n          \"links\": {\n            \"self\": \"string\"\n          }\n        },\n        \"products\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      },\n      \"links\": {\n        \"contact\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aca988f9-a711-416e-97d4-31b7d452edeb",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hidden]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[joined_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[email_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_1_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_2_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_city_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_state_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_country_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_zip_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_all_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_active_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[previously_owned_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[used_coupon_code]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[completed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[failed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_equal_to]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_greater_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_less_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[never_subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_ids]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_delivered_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hard_bouncing]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[complained_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[manually_unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opted_out_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[healthy_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unengaged_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[mobile_phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ed23843-a53f-45f0-9ed6-391213ebfd82",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_created_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hidden]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[joined_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[email_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_1_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_line_2_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_city_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_state_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_country_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[address_zip_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_all_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_tag_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_offer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_active_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has_no_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[previously_owned_product_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[used_coupon_code]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_submitted_form_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_registered_event_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[completed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[failed_assessment_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_equal_to]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_greater_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[net_revenue_less_than]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[never_subscribed]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_sent_email_broadcast_ids]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_delivered_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_opened_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_clicked_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_bounced_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[no_dropped_email_broadcast_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_opened_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_delivered_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_clicked_email_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[is_hard_bouncing]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[bounced_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[complained_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[manually_unsubscribed_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[opted_out_in_last]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[healthy_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[passive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unengaged_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[inactive_contacts_with_open_data]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[unsubscribed_newsletter_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[mobile_phone_number_contains]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[not_subscribed_email_sequence_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba899ad6-9743-477a-b66a-7e8a26ec006f",
+          "name": "Customer details",
+          "request": {
+            "name": "Customer details",
+            "description": {
+              "content": "Show customer details\n* The `name` and `email` attributes are kept in sync with the related `contact` resource\n* The `external_user_id` attribute may be used as a customer reference in an external system\n\n## Customer Attributes\n* `name` (string) - The customer's full name. This is a required field and can be either user-provided or auto-generated from their email address if left blank.\n* `email` (string) - The customer's email address. This is a required field and must be unique within a site. It's automatically downcased and stripped of whitespace. Used for authentication and communication.\n* `avatar` (string) - A URL to the customer's profile image. Can be either a custom uploaded avatar or falls back to Gravatar. If not set, defaults to a blank image.\n* `external_user_id` (string) - An optional external identifier that can be used to link the customer to external systems. Must be unique within a site.\n* `public_bio` (string) - A text field containing the customer's public biography or description. This is optional and can be displayed in community/social features.\n* `public_location` (string) - A text field for the customer's public location information. Optional field used for community/social features.\n* `public_website` (string) - The customer's website URL. This is validated to ensure it's a proper URL format and is transformed to ensure proper formatting.\n* `socials` (object) - A collection of the customer's social media links and profiles.\n* `net_revenue` (string) - The total revenue generated by this customer through their purchases. This is calculated from their successful payment transactions.\n* `sign_in_count` (integer) - A counter tracking how many times the customer has signed into their account.\n* `last_request_at` (string) - Timestamp of the customer's most recent activity or request. Used to track user engagement and activity.\n* `bounced_at` (string) - Timestamp indicating when the customer's email started bouncing. This is reset if the email address is changed.\n* `created_at` (string) - Timestamp when the customer record was created.\n* `updated_at` (string) - Timestamp when the customer record was last updated.\n\n## Include Related Resources\nUse the `include` parameter to include related resources:\n### Include offers and products\n* `GET /v1/customers/123?include=contact,offers,products`\n\nResponse will include related resources\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"avatar\": null,\n      \"external_user_id\": \"cust_123\",\n      \"public_bio\": null,\n      \"public_location\": null,\n      \"public_website\": null,\n      \"socials\": null,\n      \"net_revenue\": \"0.0\",\n      \"sign_in_count\": 0,\n      \"last_request_at\": null,\n      \"bounced_at\": null,\n      \"created_at\": \"2021-01-01T00:00:00Z\",\n      \"updated_at\": \"2021-01-01T00:00:00Z\"\n    },\n    \"links\": {\n      \"contact\": \"https://app.kajabi.com/api/v1/contacts/321\"\n    },\n    \"relationships\": {\n      \"contact\": {\n        \"data\": {\n          \"id\": \"321\",\n          \"type\": \"contacts\"\n        }\n      },\n      \"offers\": {\n        \"data\": [{ \"id\": \"456\", \"type\": \"offers\" }],\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/123/relationships/offers\"\n        }\n      },\n      \"products\": {\n        \"data\": [{ \"id\": \"789\", \"type\": \"products\" }]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"offers\",\n      \"attributes\": {\n        \"name\": \"Offer 1\",\n        \"description\": \"Offer 1 description\",\n        \"internal_title\": \"Offer 1\",\n        \"price_in_cents\": 0,\n        \"payment_type\": \"free\",\n        \"token\": \"offer_123\",\n        \"payment_method\": \"none\",\n        \"price_description\": \"Free\",\n        \"checkout_url\": \"https://mywebsite.com/offers/456\",\n        \"recurring_offer\": false,\n        \"subscription\": false,\n        \"one_time\": true,\n        \"single\": false,\n        \"free\": true\n      }\n    },\n    {\n      \"id\": \"789\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"created_at\": \"2024-11-12T23:43:09.551Z\",\n        \"title\": \"Course 1\",\n        \"description\": \"Course 1 description\",\n        \"status\": \"ready\",\n        \"members_aggregate_count\": 0,\n        \"product_type_name\": \"Course\",\n        \"product_type_id\": 789,\n        \"publish_status\": \"published\",\n        \"thumbnail_url\": null\n      }\n    },\n    {\n      \"id\": \"321\",\n      \"type\": \"contacts\",\n      \"attributes\": {\n        \"name\": \"Alice Smith\",\n        \"email\": \"alice@example.com\",\n        \"address_line_1\": null,\n        \"address_line_2\": null,\n        \"address_city\": null,\n        \"address_country\": null,\n        \"address_state\": null,\n        \"address_zip\": null,\n        \"phone_number\": null,\n        \"business_number\": null,\n        \"subscribed\": false,\n        \"external_user_id\": null,\n        \"created_at\": \"2024-11-20T18:53:19.389Z\",\n        \"updated_at\": \"2024-11-20T18:53:19.389Z\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[customers]` parameter to request only specific attributes:\n### Only return name and email attributes\n* `GET /v1/customers/123?fields[customers]=name,email`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\"\n    }\n  }\n}\n```\n## Using Multiple Parameters Together\nYou can combine filtering, sparse fields, pagination and search in a single request:\n* `GET /v1/customers/123?include=products&fields[customers]=name&fields[product]=title`\n\nResponse will include related resources with sparse fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\"\n    },\n    \"relationships\": {}\n  },\n  \"included\": [\n    {\n      \"id\": \"789\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Course 1\"\n      }\n    }\n  ]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "with ?include=offers,products the response will include the related resources"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[customers]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[customers]=name,email"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[products_search]",
+                  "value": "<string>",
+                  "description": "Search products by title"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[products_page]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[products_per]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[offers_search]",
+                  "value": "<string>",
+                  "description": "Search offers by title or internal title"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[offers_page]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[offers_per]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[products_search]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[offers_search]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[products_search]",
+                  "value": "<string>",
+                  "description": "Should be ignored when include parameter is missing"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[offers_search]",
+                  "value": "<string>",
+                  "description": "Should be ignored when include parameter is missing"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "df24fad1-0cac-40fe-8ee3-afa08e09c850",
+              "name": "Success - filters ignored when include parameter not present",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[products_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[offers_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"avatar\": null,\n      \"external_user_id\": \"string\",\n      \"public_bio\": \"string\",\n      \"public_location\": \"string\",\n      \"public_website\": null,\n      \"socials\": {\n        \"twitter\": null,\n        \"facebook\": \"string\",\n        \"instagram\": null\n      },\n      \"net_revenue\": \"string\",\n      \"sign_in_count\": 1563,\n      \"last_request_at\": \"string\",\n      \"bounced_at\": \"string\",\n      \"created_at\": \"1980-10-10T18:54:59.088Z\",\n      \"updated_at\": \"1963-09-19T01:06:03.470Z\"\n    },\n    \"relationships\": {\n      \"contact\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"offers\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ],\n        \"links\": {\n          \"self\": \"string\"\n        }\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    },\n    \"links\": {\n      \"contact\": \"string\"\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36fde239-d57f-4ba9-b974-c2f2f4ac2d00",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[products_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[offers_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "930d5474-d31f-411e-9206-796ffc6c71a7",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[customers]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[products_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_page]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[offers_per]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[products_search]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[offers_search]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6f84b3f-f1c8-428b-90db-5944e56a251a",
+          "name": "List customer's offers",
+          "request": {
+            "name": "List customer's offers",
+            "description": {
+              "content": "Get the customer's relationship to offers (granted).\n\nResponse is a list of resource identifiers\n```json\n{\n  \"data\": [\n    { \"type\": \"offers\", \"id\": \"123\" },\n    { \"type\": \"offers\", \"id\": \"456\" }\n  ]\n}\n```\nThe related tag resources are available using the GET `api/v1/offers` endpoint.\nThe resource identifier includes the offer id and type.\nExample URLs: `/api/v1/offers/123`, `/api/v1/offers/456`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers",
+                ":customer_id",
+                "relationships",
+                "offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de8c96a7-f5d5-4677-ae05-81e9579e3db7",
+              "name": "Success, shows details for tags relationship",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee175fb3-2d33-4e82-a841-fd8b541686c2",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1d7a73d-2f9a-47d3-90d9-477e5d3f670f",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c97707c-c7aa-4ca3-ab06-11ae2650d5b5",
+              "name": "Not found, the resource is unknown",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09858b38-b482-4ce6-9537-628f06b560ee",
+          "name": "Grant offer to customer",
+          "request": {
+            "name": "Grant offer to customer",
+            "description": {
+              "content": "## Grant offer(s) to a customer\nCreate an offer grant for a customer.\n\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"123\"}] }\n```\n\n## Response\n* A successful response body will list the offers related to the customer\n* An error response will include a JSON body with error details.\n\n## Behaviors and side effects\n* Checks if the customerwas already granted the offer\n* May send a gift granted email if this is a gift offer\n* Triggers automations if configured\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers",
+                ":customer_id",
+                "relationships",
+                "offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee7c27da-9436-4221-9538-7142a37ad113",
+              "name": "Success, offer (granted) using relationship to customer resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35f8addf-7ac3-4618-9b7f-43c11c39fb7d",
+              "name": "Bad Request, invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d8a0039-1642-4712-a18b-08550307b2e4",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41556c81-2038-404f-9fb1-d7894c75615b",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9378cf34-04d3-46ad-b7d2-ef730c5a188b",
+              "name": "Not found, the resource is unknown",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4d0640c-0b61-4920-b322-34c780c80164",
+          "name": "Revoke offer from customer",
+          "request": {
+            "name": "Revoke offer from customer",
+            "description": {
+              "content": "## Revoke offer grant(s) for a customer\nRevoke offer grant(s) using a list of resource identifiers\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"123\"}] }\n```\n## Response\n* A successful response body will list the offers related to the customer\n* An error response will include a JSON body with error details.\n\n## Behaviors and side effects\n* Only affects active offers\n* Handles both offer purchases and offer grants\n* Deactivates all associated product memberships\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers",
+                ":customer_id",
+                "relationships",
+                "offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "228bd9ab-4a7a-443d-a8a3-d1af8b30b3a0",
+              "name": "Success, revokes offer from customer resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "decf29cb-6d74-4e2f-b6d7-95ce27e3e3a8",
+              "name": "Bad Request, invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39bf2369-1fcf-4161-8e25-7039a25f0e10",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbfcccae-bb4b-4dda-945b-01ab5fb71096",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d32d3f4b-e2fd-4159-b74b-62566545700a",
+              "name": "Not found, the resource is unknown",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "296a9b33-75ba-4c98-819d-522cd8da0a4e",
+          "name": "Replace offers for customer",
+          "request": {
+            "name": "Replace offers for customer",
+            "description": {
+              "content": "## Replace offer grant(s) for a customer\nReplace offer grants (grants and revokes offers to/from customer) using a list of resource identifiers\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"456\"}, {\"type\": \"offers\", \"id\": \"789\"}] }\n```\n## Response\n* A successful response body will list the offers related to the customer\n* An error response will include a JSON body with error details.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "customers",
+                ":customer_id",
+                "relationships",
+                "offers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c77aa43-d178-46fb-92b6-d8c2e28ebdca",
+              "name": "Success, replaces offers relationships of contact resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ff1f422-4ae4-4f4c-ba31-5ad5ccc3e203",
+              "name": "Bad Request, invalid request body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c33d4506-8b51-4048-9b5a-3782681b93dd",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e379321f-c585-4c52-8ce1-866535958ce6",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e1557cd-6842-4b9d-9345-2df1c3debb9b",
+              "name": "Not found, the resource is unknown",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "customers",
+                    ":customer_id",
+                    "relationships",
+                    "offers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "569d0add-f368-42f3-add6-af8801a7bdb4",
+    "name": "Kajabi API V1 Authentication Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

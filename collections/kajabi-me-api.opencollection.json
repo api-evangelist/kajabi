@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Me API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Me",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "My user profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/me",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the current user's profile data.\n## Response attributes\nThe response will include the following attributes:\n* `initials` - A derived attribute that represents the user's initials based on their name. This is typically used for avatar placeholders or compact user displays. For example, \"John Doe\" would have initials \"JD\".\n* `name` - The user's full name. This is a required field that can be:\n  * Set directly as a full name\n  * Automatically generated from first name and last name fields w"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

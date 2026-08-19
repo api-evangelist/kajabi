@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Sites API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/sites",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title, subdomain, for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[sites]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[sites]=title,subdomain"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=training"
+              },
+              {
+                "name": "filter[subdomain_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by subdomain contains, for example ?filter[subdomain_cont]=training"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of sites that the current user has access to\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/sites?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/sites?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/sites?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/sites?page[number"
+        },
+        {
+          "info": {
+            "name": "Site details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/sites/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields[sites]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[sites]=title,subdomain"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The site system is a fundamental part of Kajabi's platform, representing a customer's branded presence and serving as the container for their products, courses, and other content. Each site can be customized extensively while maintaining the core functionality needed for e-learning and digital product delivery.\n\n## Site Attributes\n* `title` (string) - A required field that represents the name of the site\n* `subdomain` (string) - The subdomain of the site, used for routing and site identification"
+        },
+        {
+          "info": {
+            "name": "List website pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/website_pages",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: created_at for descending order use '-' e.g. &sort=-created_at"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[website_pages]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[website_pages]=title"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of website pages which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/website_pages[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/website_pages[number]=2&page[size]=25`\n\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by created_at in ascending order\n* `GET /v1/website_pages?sort=created_at&fields[website_pages]=created_at`\n\n## Filters\nUs"
+        },
+        {
+          "info": {
+            "name": "Website page details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/website_pages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Website page ID"
+              },
+              {
+                "name": "fields[website_pages]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[website_pages]=title"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Details of a website page\n\n## Website Page Attributes\n* `title` (string) - Title of the website page\n* `url` (string) - URL of the website page\n* `created_at` (string) - Date and time the website page was created\n* `updated_at` (string) - Date and time the website page was updated_at\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

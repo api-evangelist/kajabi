@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Version API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Version",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/version"
+          },
+          "docs": "Returns the current version of the Kajabi API and links to the API documentation.\n\nThis endpoint does not require authentication; it can be used as a health check.\n\n## Response attributes\n* `meta` (object) - Meta information about the API.\n  * `title` (string) - The title of the API.\n  * `version` (string) - The version of the API.\n* `links` (object) - Links to the API documentation.\n  * `documentation` (string) - The URL to the API documentation.\n* `jsonapi` (object) - JSON API information.\n  *"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

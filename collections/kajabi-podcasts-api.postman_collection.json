@@ -1,0 +1,639 @@
+{
+  "item": [
+    {
+      "id": "3a996211-c73e-42e5-b1cd-fc7c7870aa92",
+      "name": "Podcasts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b8deae6c-8862-4174-bcba-901357d7dffe",
+          "name": "List podcasts",
+          "request": {
+            "name": "List podcasts",
+            "description": {
+              "content": "Podcasts for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/podcasts?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/podcasts?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/podcasts?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/podcasts?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/podcasts?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/podcasts?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/podcasts?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by title in ascending order\n* `GET /v1/podcasts?sort=title`\n### Sort by title in descending order\n* `GET /v1/podcasts?sort=-title`\n\nResponse will include podcasts sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"podcasts\",\n      \"attributes\": {\n        \"title\": \"My Podcast A\",\n        \"description\": \"A great podcast about technology\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"podcasts\",\n      \"attributes\": {\n        \"title\": \"My Podcast B\",\n        \"description\": \"Another great podcast about business\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[podcasts]` parameter to request only specific attributes:\n### Only return title and description attributes\n* `GET /v1/podcasts?fields[podcasts]=title,description`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"podcasts\",\n    \"attributes\": {\n      \"title\": \"My Podcast A\",\n      \"description\": \"A great podcast about technology\"\n    }\n  }]\n}\n```\n## Filter by Site ID\nUse the `filter[site_id]` parameter to get podcasts for a specific site:\n### Get podcasts for site with ID 123\n* `GET /v1/podcasts?filter[site_id]=123`\n\nResponse will only include podcasts for that site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"podcasts\",\n    \"attributes\": {\n      \"title\": \"My Podcast\",\n      \"description\": \"A great podcast\"\n    }\n  }]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "podcasts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site ID, for example ?filter[site_id]=123"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_eq]",
+                  "value": "<string>",
+                  "description": "Filter by exact title match, for example ?filter[title_eq]=My Podcast"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title containing text, for example ?filter[title_cont]=technology"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status_eq]",
+                  "value": "<string>",
+                  "description": "Filter by status, for example ?filter[status_eq]=ready"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[show_type_eq]",
+                  "value": "<string>",
+                  "description": "Filter by show type, for example ?filter[show_type_eq]=episodic"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort results by field, for example ?sort=title or ?sort=-title (descending)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>",
+                  "description": "Page number for pagination, for example ?page[number]=1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of items per page, for example ?page[size]=10"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[podcasts]",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to include, for example ?fields[podcasts]=title,description"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e72fe606-7562-40ce-abce-1c11bae1030d",
+              "name": "List of podcasts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[show_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[podcasts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"podcasts\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"language\": \"string\",\n        \"owner_email\": \"string\",\n        \"author\": \"string\",\n        \"status\": \"failed\",\n        \"show_type\": \"episodic\",\n        \"thumbnail_url\": \"string\",\n        \"cover_art_url\": \"string\",\n        \"categories\": [\n          \"string\",\n          \"string\"\n        ],\n        \"directories\": [\n          {\n            \"id\": \"string\",\n            \"url\": \"string\",\n            \"config\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"url\": \"string\",\n            \"config\": {}\n          }\n        ],\n        \"migrated_to_url\": \"string\",\n        \"migrated\": true,\n        \"public\": true,\n        \"ready\": false,\n        \"distribution_ready\": true,\n        \"url\": \"string\",\n        \"created_at\": \"2022-03-30T16:03:57.411Z\",\n        \"updated_at\": \"1956-08-27T11:41:57.817Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"podcasts\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"description\": \"string\",\n        \"language\": \"string\",\n        \"owner_email\": \"string\",\n        \"author\": \"string\",\n        \"status\": \"importing\",\n        \"show_type\": \"serial\",\n        \"thumbnail_url\": \"string\",\n        \"cover_art_url\": \"string\",\n        \"categories\": [\n          \"string\",\n          \"string\"\n        ],\n        \"directories\": [\n          {\n            \"id\": \"string\",\n            \"url\": \"string\",\n            \"config\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"url\": \"string\",\n            \"config\": {}\n          }\n        ],\n        \"migrated_to_url\": \"string\",\n        \"migrated\": false,\n        \"public\": true,\n        \"ready\": false,\n        \"distribution_ready\": false,\n        \"url\": \"string\",\n        \"created_at\": \"1999-01-23T19:25:50.241Z\",\n        \"updated_at\": \"2002-12-05T11:14:32.211Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"first\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\",\n    \"last\": \"string\"\n  },\n  \"meta\": {\n    \"total_pages\": 9288,\n    \"total_count\": 4698,\n    \"current_page\": 3168\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3b4c012-3744-4e98-adcb-64c3340b7b1a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[show_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[podcasts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "392ad168-335b-4a44-86e7-d692b2bcde01",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[show_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[podcasts]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f79fa74-0b5c-422e-9a49-aadfa903cab5",
+          "name": "Show podcast",
+          "request": {
+            "name": "Show podcast",
+            "description": {
+              "content": "Get details for a specific podcast\n## Attributes\n- **title**: The podcast title\n- **description**: The podcast description\n- **language**: The podcast language (e.g., \"en\", \"es\")\n- **owner_email**: The podcast owner's email address\n- **owner_name**: The podcast owner's name\n- **status**: The podcast status (ready, importing, failed)\n- **show_type**: The show type (episodic, serial)\n- **thumbnail_url**: URL to the podcast thumbnail image\n- **cover_art_url**: URL to the podcast cover art image\n- **categories**: Array of podcast categories\n- **directories**: Array of podcast directories\n- **migrated_to_url**: URL if podcast has been migrated\n- **migrated**: Boolean indicating if podcast has been migrated\n- **public**: Boolean indicating if podcast is public\n- **ready**: Boolean indicating if podcast is ready\n- **distribution_ready**: Boolean indicating if podcast is ready for distribution\n- **created_at**: ISO 8601 date-time when podcast was created (read-only)\n- **updated_at**: ISO 8601 date-time when podcast was last updated (read-only)\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "podcasts",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Podcast ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b48a42e-9721-4d15-bfc4-17d7e6c30c3c",
+              "name": "Podcast details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Podcast ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"podcasts\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"language\": \"string\",\n      \"owner_email\": \"string\",\n      \"author\": \"string\",\n      \"status\": \"failed\",\n      \"show_type\": \"serial\",\n      \"thumbnail_url\": \"string\",\n      \"cover_art_url\": \"string\",\n      \"categories\": [\n        \"string\",\n        \"string\"\n      ],\n      \"directories\": [\n        {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"config\": {}\n        },\n        {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"config\": {}\n        }\n      ],\n      \"migrated_to_url\": \"string\",\n      \"migrated\": false,\n      \"public\": false,\n      \"ready\": false,\n      \"distribution_ready\": false,\n      \"url\": \"string\",\n      \"created_at\": \"1990-08-22T03:30:38.627Z\",\n      \"updated_at\": \"2022-07-13T09:04:21.614Z\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0256c5d0-c57f-4aa4-8d7e-5fd763acc1e2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Podcast ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19230bfe-9879-4c66-b919-0a4dd4e26446",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Podcast ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2c9a5ef-46bc-43fb-851e-e98ed3c68d23",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "podcasts",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Podcast ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fb685667-30b3-4745-ae83-8643900a8d74",
+    "name": "Kajabi API V1 Authentication Podcasts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

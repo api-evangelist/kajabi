@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Contact Notes API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contact notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contact_notes",
+            "params": [
+              {
+                "name": "filter[contact_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contact notes for a specific contact by ID"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contact notes for a specific site by ID"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort field. Prefix with '-' for descending order. Available: created_at, updated_at"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (max 100)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of contact notes. This endpoint supports filtering, sorting, and pagination.\n\n**Sorting:**\n- `created_at` (default: descending)\n\n**Filtering:**\n- `filter[contact_id]` - Filter notes for a specific Contact\n- `filter[site_id]` - Filter notes for a specific Site\n\n**Pagination:**\n- Use `page[number]` and `page[size]` parameters\n- Default page size is 20, maximum is 100\n"
+        },
+        {
+          "info": {
+            "name": "Create contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/contact_notes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new contact note.\n\n**Required Attributes:**\n- `body` (string) - The note content\n\n**Required Relationships:**\n- `contact` - The contact this note belongs to (resource identifier)\n"
+        },
+        {
+          "info": {
+            "name": "Contact note details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contact_notes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "with ?include=contact the response will include the related contact resource"
+              },
+              {
+                "name": "fields[contact_notes]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fields, use: body for example ?fields[contact_notes]=body"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a single contact note by ID.\n\n**Attributes:**\n- `body` (string) - The note content\n- `created_at` (datetime) - When the note was created\n- `updated_at` (datetime) - When the note was last modified\n\n**Relationships:**\n- `contact` - The contact this note belongs to\n"
+        },
+        {
+          "info": {
+            "name": "Update contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.kajabi.com/v1/contact_notes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing contact note. Only the note body can be updated.\n\n**Updatable Attributes:**\n- `body` (string) - The note content\n\nContact relationship cannot be changed after creation.\n"
+        },
+        {
+          "info": {
+            "name": "Delete contact note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.kajabi.com/v1/contact_notes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a contact note by ID. This action is permanent and cannot be undone.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

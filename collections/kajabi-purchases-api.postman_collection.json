@@ -1,0 +1,1547 @@
+{
+  "item": [
+    {
+      "id": "cc05d53c-e270-46ec-8008-4372c12983b3",
+      "name": "Purchases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aa5de420-4a97-4f77-9230-8783e5385158",
+          "name": "List purchases",
+          "request": {
+            "name": "List purchases",
+            "description": {
+              "content": "Returns a list of purchases (offer purchases) which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/purchases?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/purchases?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/purchases?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/purchases?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"count\": 10,\n    \"total_count\": 50,\n    \"total_pages\": 5\n  }\n}\n```\n## Sparse Fields\nUse the `fields[purchases]` parameter to request only specific attributes:\n### Only return amount_in_cents attributes\n* `GET /v1/purchases?fields[purchases]=amount_in_cents`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 19900\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900\n      }\n    }\n  ]\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by effective_start_at in descending order\n* `GET /v1/purchases?sort=-effective_start_at&fields[purchases]=effective_start_at`\n\nResponse will include purchases sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-02T00:00:00.000Z\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-01T00:00:00.000Z\"\n      }\n    }\n  ]\n}\n```\nList of attributes that may be used to sort: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\n## Filters\nUse the `filter[site_id]` parameter to get purchases for a specific site:\n### Get purchases for site with ID 123\n* `GET /v1/purchases?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get purchases for a specific customer:\n* `GET /v1/purchases?filter[customer_id]=456789`\n\nList of attributes that may be used to filter: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `gt` for greater than\n* `gte` for greater than or equal\n* `lt` for less than\n* `lte` for less than or equal\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/purchases?filter[amount_in_cents_eq]=19900`\n* `GET /v1/purchases?filter[amount_in_cents_gt]=19900`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "purchases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: created_at for descending order use '-' e.g. &sort=-created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[purchases]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[purchases]=amount_in_cents"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[active]",
+                  "value": "<boolean>",
+                  "description": "Filter by active purchases (not deactivated), for example ?filter[active]=true"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[deactivated]",
+                  "value": "<boolean>",
+                  "description": "Filter by deactivated purchases, for example ?filter[deactivated]=true"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[referrer]",
+                  "value": "<string>",
+                  "description": "Filter by referrer, for example ?filter[referrer_cont]=•••••"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[coupon_code_eq]",
+                  "value": "<string>",
+                  "description": "Filter by coupon code, for example ?filter[coupon_code_eq]=•••••"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site_id, for example ?filter[site_id]=111"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[customer_id]",
+                  "value": "<string>",
+                  "description": "Filter by customer_id, for example ?filter[customer_id]=456789"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "db4b657d-feb0-4a16-8341-40dc6e6303cc",
+              "name": "Success, list of purchases which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[deactivated]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[referrer]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[coupon_code_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 7444,\n        \"payment_type\": \"string\",\n        \"multipay_payments_made\": null,\n        \"opt_in\": false,\n        \"raw_extra_contact_information\": {},\n        \"currency\": \"string\",\n        \"effective_start_at\": \"string\",\n        \"cardholder_name\": \"string\",\n        \"billing_address_zip\": null,\n        \"deactivated_at\": \"string\",\n        \"deactivation_reason\": null,\n        \"coupon_code\": \"string\",\n        \"source\": \"string\",\n        \"referrer\": \"string\",\n        \"quantity\": 2245,\n        \"created_at\": \"2003-09-22T13:32:36.746Z\",\n        \"updated_at\": \"1952-11-08T23:05:12.187Z\"\n      },\n      \"relationships\": {\n        \"offer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"customer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"transactions\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        },\n        \"products\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 4719,\n        \"payment_type\": \"string\",\n        \"multipay_payments_made\": 7151,\n        \"opt_in\": true,\n        \"raw_extra_contact_information\": {},\n        \"currency\": \"string\",\n        \"effective_start_at\": null,\n        \"cardholder_name\": \"string\",\n        \"billing_address_zip\": null,\n        \"deactivated_at\": null,\n        \"deactivation_reason\": null,\n        \"coupon_code\": null,\n        \"source\": null,\n        \"referrer\": \"string\",\n        \"quantity\": 9981,\n        \"created_at\": \"1962-02-14T20:23:38.950Z\",\n        \"updated_at\": \"2026-05-29T16:35:29.807Z\"\n      },\n      \"relationships\": {\n        \"offer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"customer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"transactions\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        },\n        \"products\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82e3a1e5-7aae-4f9a-89ce-db7dbdf36fc4",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[deactivated]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[referrer]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[coupon_code_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f8f1c8c-18e4-445e-bd32-c0a219daff4a",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[active]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[deactivated]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[referrer]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[coupon_code_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21e9d546-34b2-44f2-baab-7e9fd9ccff81",
+          "name": "Purchase details",
+          "request": {
+            "name": "Purchase details",
+            "description": {
+              "content": "Details of a purchase (of an offer)\n\n## Purchase Attributes\n* `amount_in_cents` (integer) - Price of the purchase in cents\n* `payment_type` (string) - Type of payment\n* `trial` (integer) - Number of trial days. (subscription and payment plans only)\n* `trial_end_at` (string) - Date the trial ends\n* `multipay_payments_made` (integer) - Number of payments made\n* `payment_plan_total_payments` (integer) - Total number of payments in the payment plan\n* `status` (string) - The status of the purchase. For one-time purchases this will match the transaction detail status. For subscriptions and payment plans this status represents the status of the plan as compared to the transaction status which represents the individual payment.\n* `opt_in` (boolean) - Whether the purchase was opt-in\n* `raw_extra_contact_information` (object) - Extra contact information\n* `currency` (string) - Currency of the purchase\n* `effective_start_at` (string) - Start date of the purchase\n* `cardholder_name` (string) - Name of the cardholder\n* `billing_address_zip` (string) - Zip code of the billing address\n* `deactivated_at` (string) - Date and time the purchase was deactivated\n* `deactivation_reason` (string) - Reason for deactivation\n* `coupon_code` (string) - Coupon code used for the purchase\n* `source` (string) - Source of the purchase\n* `referrer` (string) - Referrer of the purchase\n* `quantity` (integer) - Quantity of the purchase\n* `created_at` (string) - Date and time the purchase was created\n* `updated_at` (string) - Date and time the purchase was updated_at\n\n## Sparse Fields\n### Only return amount_in_cents and multipay_payments_made attributes\n* `GET /v1/purchases/123?fields[purchases]=amount_in_cents,multipay_payments_made`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 19900,\n      \"multipay_payments_made\": 1\n    }\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "purchases",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[purchases]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[purchases]=amount_in_cents"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Purchase ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fd3e31e0-88de-49e9-9320-35375e8aa776",
+              "name": "Success, shows details of a purchase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 6275,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": null,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": \"string\",\n      \"cardholder_name\": \"string\",\n      \"billing_address_zip\": null,\n      \"deactivated_at\": \"string\",\n      \"deactivation_reason\": \"string\",\n      \"coupon_code\": null,\n      \"source\": \"string\",\n      \"referrer\": \"string\",\n      \"quantity\": 4030,\n      \"created_at\": \"1957-05-09T09:03:31.998Z\",\n      \"updated_at\": \"2017-03-25T20:29:59.800Z\"\n    },\n    \"relationships\": {\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"transactions\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1eb38212-07d6-4d7d-8309-af7609fa3f64",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbc6cfed-576f-4d7e-bb74-6aeda11359f1",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8189781-1932-4875-962a-728ac833d295",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[purchases]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2dcb726a-6941-49b8-828f-9d1c4a94021e",
+          "name": "Reactivate purchase",
+          "request": {
+            "name": "Reactivate purchase",
+            "description": {
+              "content": "Reactivate a purchase by ID, this will not reactivate the subscription.\n\nIf the product can be reactivated the response will be successful.\nOtherwise, the response will be an error.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "purchases",
+                ":id",
+                "reactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Purchase ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "be29df35-809f-4c33-b05d-21760109a9c7",
+              "name": "Success, reactivated purchase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 8595,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": 523,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": null,\n      \"billing_address_zip\": null,\n      \"deactivated_at\": \"string\",\n      \"deactivation_reason\": null,\n      \"coupon_code\": null,\n      \"source\": \"string\",\n      \"referrer\": null,\n      \"quantity\": 9334,\n      \"created_at\": \"2015-07-11T17:57:39.721Z\",\n      \"updated_at\": \"1956-09-09T17:13:19.706Z\"\n    },\n    \"relationships\": {\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"transactions\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ff3041-dad1-4560-82df-8fbcf25a5234",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56c314e0-b533-4b92-b5bd-bd52ec009632",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3ecbdb5-0233-4c9c-8649-d604565e0ec1",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "reactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f83c6a8-b0fc-4f87-abd8-2195557a24b2",
+          "name": "Deactivate purchase",
+          "request": {
+            "name": "Deactivate purchase",
+            "description": {
+              "content": "Deactivate a purchase by ID, this will not cancel the subscription.\n\nUse the `cancel_subscription` endpoint to cancel the subscription. Otherwise, the purchase will be deactivated and the subscription will remain active.\n\nFor a free purchase, the purchase may be later reactivated.\n\nIf the product can be deactivated the response will be successful.\nOtherwise, the response will be an error.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "purchases",
+                ":id",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Purchase ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c039f700-655d-4674-8236-3d58ff412eab",
+              "name": "Success, deactivated purchase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 8595,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": 523,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": null,\n      \"billing_address_zip\": null,\n      \"deactivated_at\": \"string\",\n      \"deactivation_reason\": null,\n      \"coupon_code\": null,\n      \"source\": \"string\",\n      \"referrer\": null,\n      \"quantity\": 9334,\n      \"created_at\": \"2015-07-11T17:57:39.721Z\",\n      \"updated_at\": \"1956-09-09T17:13:19.706Z\"\n    },\n    \"relationships\": {\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"transactions\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f490565-24b0-4ae4-a921-7c314f57ab7b",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a804d55e-91dc-446f-9c81-08071c78335d",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7469b1a-3125-466d-8e16-a0368d3dc1cf",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5f65fff-f73a-4f47-8c86-75021dccae0d",
+          "name": "Cancel subscription",
+          "request": {
+            "name": "Cancel subscription",
+            "description": {
+              "content": "Cancel the subscription associated with a purchase by ID\n\nThis endpoint cancels the underlying subscription (Stripe, PayPal, or Kajabi Payments)\nassociated with the purchase. The purchase will be deactivated and the subscription\nwill be cancelled immediately, according to the payment provider's cancellation rules.\n\nIf the payment can be cancelled the response will be successful.\nOtherwise, the response will be an error with validation details.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "purchases",
+                ":id",
+                "cancel_subscription"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Purchase ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9e1cc42e-de87-43ad-9954-1e097924607c",
+              "name": "Success, cancelled subscription and deactivated purchase",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "cancel_subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 8595,\n      \"payment_type\": \"string\",\n      \"multipay_payments_made\": 523,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"string\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": null,\n      \"billing_address_zip\": null,\n      \"deactivated_at\": \"string\",\n      \"deactivation_reason\": null,\n      \"coupon_code\": null,\n      \"source\": \"string\",\n      \"referrer\": null,\n      \"quantity\": 9334,\n      \"created_at\": \"2015-07-11T17:57:39.721Z\",\n      \"updated_at\": \"1956-09-09T17:13:19.706Z\"\n    },\n    \"relationships\": {\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"transactions\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      },\n      \"products\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd7c9a06-c86e-4ad1-b998-18db106bb8e9",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "cancel_subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "207d9125-67b6-4e64-81be-d5190671deb5",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "cancel_subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab0a47bd-89d2-4592-8b4c-1661db4cd1f0",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "cancel_subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "135d9b60-99f9-4762-a961-9476de088766",
+              "name": "Unprocessable Entity, validation errors in cancelling subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "purchases",
+                    ":id",
+                    "cancel_subscription"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Purchase ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0c1ddb13-b433-4b20-a3c3-47bc4c257ea7",
+    "name": "Kajabi API V1 Authentication Purchases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

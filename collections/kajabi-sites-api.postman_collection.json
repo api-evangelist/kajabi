@@ -1,0 +1,1096 @@
+{
+  "item": [
+    {
+      "id": "808fad50-18e2-4cf8-a73a-c29c2a4d83f5",
+      "name": "Sites",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d50588c8-17a0-484f-aa69-56473fde705c",
+          "name": "List sites",
+          "request": {
+            "name": "List sites",
+            "description": {
+              "content": "List of sites that the current user has access to\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/sites?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/sites?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/sites?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/sites?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/sites?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/sites?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/sites?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by title in ascending order\n* `GET /v1/sites?sort=title`\n### Sort by title in descending order\n* `GET /v1/sites?sort=-title`\n\nResponse will include sites sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"sites\",\n      \"attributes\": {\n        \"title\": \"Advanced Training Site\",\n        \"subdomain\": \"advanced-training\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"sites\",\n      \"attributes\": {\n        \"title\": \"Beginner Training Site\",\n        \"subdomain\": \"beginner-training\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[sites]` parameter to request only specific attributes:\n### Only return title and subdomain attributes\n* `GET /v1/sites?fields[sites]=title,subdomain`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Advanced Training Site\",\n      \"subdomain\": \"advanced-training\"\n    }\n  }]\n}\n```\n## Filter by Title Contains\nUse the `filter[title_cont]` parameter to find sites where the title contains specific text:\n### Get sites with titles containing \"training\"\n* `GET /v1/sites?filter[title_cont]=training`\n\nResponse will include sites with matching titles\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Advanced Training Site\",\n      \"subdomain\": \"advanced-training\"\n    }\n  },\n  {\n    \"id\": \"456\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Beginner Training Site\",\n      \"subdomain\": \"beginner-training\"\n    }\n  }]\n}\n```\n## Filter by Subdomain Contains\nUse the `filter[subdomain_cont]` parameter to find sites where the subdomain contains specific text:\n### Get sites with subdomains containing \"training\"\n* `GET /v1/sites?filter[subdomain_cont]=training`\n\nResponse will include sites with matching subdomains\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Advanced Training Site\",\n      \"subdomain\": \"advanced-training\"\n    }\n  },\n  {\n    \"id\": \"456\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Beginner Training Site\",\n      \"subdomain\": \"beginner-training\"\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine pagination, sorting and sparse fields in a single request:\n### Get page 2 of sites, sorted by title descending, including only title and subdomain fields\n* `GET /v1/sites?page[number]=2&page[size]=10&sort=-title&fields[sites]=title,subdomain`\n\nResponse will include paginated sites with sparse fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"sites\",\n      \"attributes\": {\n        \"title\": \"Beginner Training Site\",\n        \"subdomain\": \"beginner-training\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/sites?page[number]=2&page[size]=10&sort=-title&fields[sites]=title,subdomain\",\n    \"first\": \"https://api.kajabi.com/v1/sites?page[number]=1&page[size]=10&sort=-title&fields[sites]=title,subdomain\",\n    \"prev\": \"https://api.kajabi.com/v1/sites?page[number]=1&page[size]=10&sort=-title&fields[sites]=title,subdomain\",\n    \"next\": null,\n    \"last\": \"https://api.kajabi.com/v1/sites?page[number]=2&page[size]=10&sort=-title&fields[sites]=title,subdomain\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: title, subdomain, for descending order use '-' e.g. &sort=-title"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<number>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[sites]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[sites]=title,subdomain"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title contains, for example ?filter[title_cont]=training"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[subdomain_cont]",
+                  "value": "<string>",
+                  "description": "Filter by subdomain contains, for example ?filter[subdomain_cont]=training"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa60eab8-e7a3-4679-a9df-5d042dd36a49",
+              "name": "Success, lists sites which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subdomain_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"subdomain\": \"string\",\n        \"created_at\": \"2026-01-26T04:28:46.052Z\",\n        \"updated_at\": \"1948-12-27T23:22:35.067Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"subdomain\": \"string\",\n        \"created_at\": \"2021-03-04T19:09:43.465Z\",\n        \"updated_at\": \"2015-09-12T07:57:02.464Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24c075a8-93a1-47f9-af19-7accd644bc89",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subdomain_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9786db4a-e5d9-4b16-bcaa-954df76ff9d9",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[subdomain_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d787239-2073-4385-8121-04f001eebb68",
+          "name": "Site details",
+          "request": {
+            "name": "Site details",
+            "description": {
+              "content": "The site system is a fundamental part of Kajabi's platform, representing a customer's branded presence and serving as the container for their products, courses, and other content. Each site can be customized extensively while maintaining the core functionality needed for e-learning and digital product delivery.\n\n## Site Attributes\n* `title` (string) - A required field that represents the name of the site\n* `subdomain` (string) - The subdomain of the site, used for routing and site identification\n* `created_at` (string) - A read-only timestamp, ISO date string format, that indicates when the site was created\n* `updated_at` (string) - A read-only timestamp, ISO date string format, that indicates when the site was last modified\n\n## Sparse Fields\nUse the `fields[sites]` parameter to request only specific attributes:\n### Only return title and subdomain attributes\n* `GET /v1/sites/123?fields[sites]=title,subdomain`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"sites\",\n    \"attributes\": {\n      \"title\": \"Advanced Training Site\",\n      \"subdomain\": \"advanced-training\"\n    }\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sites",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[sites]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[sites]=title,subdomain"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6a8b3f0-3199-4dae-bede-23b304c0b348",
+              "name": "Success, shows details of a specified site",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"subdomain\": \"string\",\n      \"created_at\": \"2011-11-30T10:39:32.381Z\",\n      \"updated_at\": \"1978-07-08T17:39:32.459Z\"\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5def516a-1955-4e43-b6f9-6a66b69e575d",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "885f46cd-6e91-44ca-ba13-3608584e2f68",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[sites]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2eac561-0ebc-4f75-877c-69094c0d796a",
+          "name": "List website pages",
+          "request": {
+            "name": "List website pages",
+            "description": {
+              "content": "Returns a list of website pages which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/website_pages[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/website_pages[number]=2&page[size]=25`\n\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by created_at in ascending order\n* `GET /v1/website_pages?sort=created_at&fields[website_pages]=created_at`\n\n## Filters\nUse the `filter[site_id]` parameter to get website pages for a specific site:\n### Get website pages for site with ID 123\n* `GET /v1/website_pages?filter[site_id]=123`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "website_pages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: created_at for descending order use '-' e.g. &sort=-created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[website_pages]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[website_pages]=title"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b81072ea-3a9f-4816-a779-dfdf85f3ea96",
+              "name": "Success, list of website pages which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"website_pages\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": null,\n        \"created_at\": \"1967-08-22T05:49:43.070Z\",\n        \"updated_at\": \"2021-11-28T19:13:56.755Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"website_pages\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"url\": null,\n        \"created_at\": \"2017-04-08T15:28:59.410Z\",\n        \"updated_at\": \"1949-12-20T04:28:45.793Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1de340e-8e48-4558-ac3f-e90a5c65b88e",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4011c07e-917d-4190-bb6f-544e7b852bc1",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bbf240f1-e1aa-4357-b10f-ab43c3761178",
+          "name": "Website page details",
+          "request": {
+            "name": "Website page details",
+            "description": {
+              "content": "Details of a website page\n\n## Website Page Attributes\n* `title` (string) - Title of the website page\n* `url` (string) - URL of the website page\n* `created_at` (string) - Date and time the website page was created\n* `updated_at` (string) - Date and time the website page was updated_at\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "website_pages",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields[website_pages]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[website_pages]=title"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Website page ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3f5e7634-8cd5-454f-bfe3-251ab11c84bd",
+              "name": "Success, shows details of a website page",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Website page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"website_pages\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"url\": \"string\",\n      \"created_at\": \"1989-06-02T09:30:54.414Z\",\n      \"updated_at\": \"2015-07-18T22:15:28.775Z\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "adb8da36-f8ee-46aa-9976-0dde829e5a95",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Website page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5148749e-f73e-4601-ba06-993383dd29b1",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Website page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed618375-4682-4b78-ac6b-14d17fd5b9b4",
+              "name": "website page not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "website_pages",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields[website_pages]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Website page ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "12b0220f-186d-4d51-a21c-c73c30357fbb",
+    "name": "Kajabi API V1 Authentication Sites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

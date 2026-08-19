@@ -1,0 +1,1447 @@
+{
+  "item": [
+    {
+      "id": "cc7e7996-cb5a-42e7-aefe-c947c377db57",
+      "name": "Forms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58c6d7c5-c573-4955-9e5a-7151f72143bd",
+          "name": "List form submissions",
+          "request": {
+            "name": "List form submissions",
+            "description": {
+              "content": "Form submissions for authorized sites\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/form_submissions?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/form_submissions?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/form_submissions?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/form_submissions?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/form_submissions?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/form_submissions?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/form_submissions?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n\n## Filtering\nUse filter parameters to narrow down results:\n### Filter by site ID\n* `GET /v1/form_submissions?filter[site_id]=123`\n### Filter by form ID\n* `GET /v1/form_submissions?filter[form_id]=456`\n\n## Sorting\nUse the `sort` parameter to sort results:\n### Sort by creation date (oldest first)\n* `GET /v1/form_submissions?sort=created_at`\n### Sort by name (alphabetical)\n* `GET /v1/form_submissions?sort=name`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "form_submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: name, email, created_at. For descending order use '-' e.g. &sort=-name"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site ID, example: filter[site_id]=123"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[form_id]",
+                  "value": "<string>",
+                  "description": "Filter by form ID, example: filter[form_id]=456"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "842d4885-a1e6-43f8-85e1-3433313a8082",
+              "name": "Success, filtered by form_id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[form_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"phone_number\": \"string\",\n        \"business_number\": \"string\",\n        \"address_line_1\": null,\n        \"address_line_2\": null,\n        \"address_city\": null,\n        \"address_state\": null,\n        \"address_country\": \"string\",\n        \"address_zip\": \"string\",\n        \"custom_1\": \"string\",\n        \"custom_2\": \"string\",\n        \"custom_3\": \"string\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"form\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"string\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"email\": \"string\",\n        \"phone_number\": \"string\",\n        \"business_number\": null,\n        \"address_line_1\": \"string\",\n        \"address_line_2\": null,\n        \"address_city\": null,\n        \"address_state\": null,\n        \"address_country\": \"string\",\n        \"address_zip\": null,\n        \"custom_1\": \"string\",\n        \"custom_2\": \"string\",\n        \"custom_3\": \"string\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"form\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bec6b5b-d17b-46d8-b64b-627bc88c680f",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[form_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d7a25e27-7cba-4831-97cc-89392e224778",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[form_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12cb7e42-9e39-4205-9a88-3cd4126374b2",
+          "name": "Form submission details",
+          "request": {
+            "name": "Form submission details",
+            "description": {
+              "content": "Shows details of a form submission\n\n## Form Submission Attributes\n* `name` (string) - The name of the person who submitted the form\n* `email` (string) - The email address of the person who submitted the form\n* `address_line_1` (string) - First line of address if provided\n* `address_line_2` (string) - Second line of address if provided\n* `address_city` (string) - City if provided\n* `address_country` (string) - Country if provided\n* `address_state` (string) - State if provided\n* `address_zip` (string) - ZIP/postal code if provided\n* `phone_number` (string) - Phone number if provided\n* `business_number` (string) - Business number if provided\n* `mobile_phone_number` (string) - Mobile phone number if provided\n\n## Custom Fields\nForm submissions may also include custom field values that were collected through the form.\n\n## Relationships\nForm submissions belong to:\n* A site\n* A form\n\n## Include Related Resources\nUse the `include` parameter to load related resources:\n### Include site and form\n* `GET /v1/form_submissions/123?include=site,form`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "form_submissions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Load the related resources, for example ?include=site,form"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9721e028-dd05-44a5-80f8-38e143a65b4a",
+              "name": "Success, shows details of a form submission",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"email\": \"string\",\n      \"phone_number\": \"string\",\n      \"business_number\": \"string\",\n      \"address_line_1\": null,\n      \"address_line_2\": null,\n      \"address_city\": \"string\",\n      \"address_state\": \"string\",\n      \"address_country\": \"string\",\n      \"address_zip\": \"string\",\n      \"custom_1\": \"string\",\n      \"custom_2\": \"string\",\n      \"custom_3\": \"string\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"form\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dded8d14-3688-4e4c-beab-6284cac57a0f",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0756885d-b028-4adc-b384-fee9b683e586",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23e406fb-197f-4c1f-b13d-e1019771afc7",
+              "name": "Form submission not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "form_submissions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55a951ad-2b60-433b-bb27-70c173e2f0c4",
+          "name": "List forms",
+          "request": {
+            "name": "List forms",
+            "description": {
+              "content": "Contact forms for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/forms?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/forms?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/forms?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/forms?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/forms?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/forms?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/forms?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by title in ascending order\n* `GET /v1/forms?sort=title`\n### Sort by title in descending order\n* `GET /v1/forms?sort=-title`\n\nResponse will include forms sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"forms\",\n      \"attributes\": {\n        \"title\": \"Contact Form A\",\n        \"description\": \"General contact form\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"forms\",\n      \"attributes\": {\n        \"title\": \"Contact Form B\",\n        \"description\": \"Newsletter signup form\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[forms]` parameter to request only specific attributes:\n### Only return title and description attributes\n* `GET /v1/forms?fields[forms]=title,description`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Contact Form A\",\n      \"description\": \"General contact form\"\n    }\n  }]\n}\n```\n## Filter by Site ID\nUse the `filter[site_id]` parameter to get forms for a specific site:\n### Get forms for site with ID 123\n* `GET /v1/forms?filter[site_id]=123`\n\nResponse will only include forms for that site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Contact Form A\",\n      \"description\": \"General contact form\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filter by Title Contains\nUse the `filter[title_cont]` parameter to find forms where the title contains specific text:\n### Get forms with titles containing \"course\"\n* `GET /v1/forms?filter[title_cont]=course`\n\nResponse will include forms with matching titles\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Course Registration Form\",\n      \"description\": \"Sign up form for online courses\"\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine pagination, sorting, sparse fields and filtering in a single request:\n### Get page 2 of forms for site 123, sorted by title descending, including only title and description fields\n* `GET /v1/forms?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[forms]=title,description`\n\nResponse will include paginated and filtered forms with sparse fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"forms\",\n      \"attributes\": {\n        \"title\": \"Newsletter Form\",\n        \"description\": \"Newsletter signup form\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"123\",\n            \"type\": \"sites\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/forms?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[forms]=title,description\",\n    \"first\": \"https://api.kajabi.com/v1/forms?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[forms]=title,description\",\n    \"prev\": \"https://api.kajabi.com/v1/forms?page[number]=1&page[size]=10&sort=-title&filter[site_id]=123&fields[forms]=title,description\",\n    \"next\": null,\n    \"last\": \"https://api.kajabi.com/v1/forms?page[number]=2&page[size]=10&sort=-title&filter[site_id]=123&fields[forms]=title,description\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: title for descending order use '-' e.g. &sort=-title"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[forms]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[forms]=title"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site_id, for example ?filter[site_id]=111"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[title_cont]",
+                  "value": "<string>",
+                  "description": "Filter by title contains, for example ?filter[title_cont]=course"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acb538f5-4435-42e2-b958-6be52c775276",
+              "name": "Success, list of forms which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"forms\",\n      \"attributes\": {\n        \"title\": null,\n        \"default\": false,\n        \"webhook_url\": {},\n        \"url\": \"string\",\n        \"created_at\": \"2016-09-05T01:53:08.504Z\",\n        \"updated_at\": \"1977-09-29T05:59:52.720Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"offer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"fields\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"forms\",\n      \"attributes\": {\n        \"title\": \"string\",\n        \"default\": true,\n        \"webhook_url\": {},\n        \"url\": \"string\",\n        \"created_at\": \"2016-01-22T00:37:17.599Z\",\n        \"updated_at\": \"1947-09-13T09:32:13.931Z\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"offer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"fields\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55684c35-415b-4770-bcf9-f742c3977d28",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68199baf-5724-441b-a4b0-a42ffa841171",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[title_cont]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a99154a6-f208-44a2-89b8-f5bdc5b45cdd",
+          "name": "Form details",
+          "request": {
+            "name": "Form details",
+            "description": {
+              "content": "Shows details of a form\n\nForms belong to a site and can be associated with:\n* Landing pages\n* Offers\n* Email sequences\n* Events\n* Newsletters\n\n## Form Attributes\n* `title` (string) - A required field that represents the name or heading of the form. This is used to identify and display the form in the user interface. Forms must have a unique title within a site and can be searched and sorted by this attribute.\n* `default` (boolean) - A boolean flag indicating whether this is the default form for the site. Each site can have one default form, which is typically used when no specific form is specified. The default form can be accessed using the special ID \"default\" in API calls. When true, this form is considered the site's primary contact form.\n* `webhook_url` (string) - An optional URL where form submission data will be sent via webhook. This allows integration with external systems. The URL:\n  * Must be a valid URL format\n  * Cannot be a redirecting URL\n  * Is automatically transformed and validated\n  * Can be used to send form submission data to external services\n* `created_at` (string) - Timestamp indicating when the form was created. This is automatically set when the form is first created.\n* `updated_at` (string) - Timestamp indicating when the form was last modified. This is automatically updated whenever the form is changed.\n\n## Include Related Resources\nUse the `include` parameter to load related resources:\n### Include fields, offer, contact_tags\n* `GET /v1/forms/123?include=fields,offer,contact_tags`\n\nResponse will include the requested related resources\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Contact Form\",\n      \"default\": false,\n      \"webhook_url\": null,\n      \"created_at\": \"2025-02-27T01:03:09.179Z\",\n      \"updated_at\": \"2025-02-27T01:03:25.365Z\"\n    },\n    \"relationships\": {\n      \"fields\": {\n        \"data\": [\n          { \"id\": \"456\", \"type\": \"fields\" },\n          { \"id\": \"789\", \"type\": \"fields\" }\n        ]\n      },\n      \"offer\": {\n        \"data\": { \"id\": \"123\", \"type\": \"offers\" }\n      },\n      \"contact_tags\": {\n        \"data\": [\n          { \"id\": \"456\", \"type\": \"contact_tags\" },\n          { \"id\": \"789\", \"type\": \"contact_tags\" }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"fields\", \"attributes\": { \"name\": \"Name\" }\n    },\n    {\n      \"id\": \"789\",\n      \"type\": \"fields\", \"attributes\": { \"name\": \"Email\" }\n    },\n    {\n      \"id\": \"123\",\n      \"type\": \"offers\", \"attributes\": { \"name\": \"Offer A\" }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"contact_tags\", \"attributes\": { \"name\": \"Tag A\" }\n    },\n    {\n      \"id\": \"789\",\n      \"type\": \"contact_tags\", \"attributes\": { \"name\": \"Tag B\" }\n    }\n  ]\n}\n```\n### Field Attributes\nFields are used in:\n* Contact forms\n* Offer forms\n* Custom field sets\n* Form submissions\n\nThe system maintains default fields like `name`, `email`, etc. that cannot be removed\n\n* `title` (string) - The display name or label of the field. This is a required attribute that represents how the field will be shown to users in forms and interfaces. Aside from default fields, custom fields can have user-defined titles.\n* `type` (string) - The type of field, which must be one of these predefined types:\n  * `TextField` - Standard text input\n  * `PhoneField` - Phone number input\n  * `EmailField` - Email address input\n  * `TextAreaField` - Multi-line text input\n  * `CheckboxField` - Boolean checkbox\n  * `SelectBoxField` - Dropdown select\n  * `RadioButtonsField` - Radio button group\n  * `CountryField` - Country selector\n  * `MobilePhoneField` - Mobile phone input\n* `required` (boolean) - A boolean indicating whether the field must be filled out. For default fields, this is set in the configuration, while custom fields can be marked as required or optional.\n* `handle` (string) - A unique identifier for the field within a site.\n  * A custom handle in the format custom_N where N is a number from 1 to 150\n  * The handle is used to reference the field in code and templates.\n* `select_options` (string) - For fields that have choices (`SelectBoxField`, `RadioButtonsField`), this contains the available options. The options are stored as newline-separated values and must be unique within the field.\n* `editable` (boolean) - A boolean indicating whether the field can be modified. Default fields typically have this set to false, while custom fields can be editable.\n* `created_at` (string) - Timestamp when the field was created.\n* `updated_at` (string) - Timestamp when the field was last updated.\n\n## Sparse Fields\nUse the `fields[forms]` parameter to request only specific attributes:\n### Only return title and webhook_url attributes\n* `GET /v1/forms/123?fields[forms]=title,webhook_url`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Contact Form A\",\n      \"webhook_url\": \"https://example.com/webhook\"\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine include and sparse fields in a single request:\n### Include fields (only name attribute) and only return title and webhook_url attributes\n* `GET /v1/forms/123?include=fields&fields[forms]=title,webhook_url&&fields[fields]=title`\n\nResponse will include related fields with sparse fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"Contact Form A\",\n      \"webhook_url\": \"https://example.com/webhook\"\n    },\n    \"relationships\": {}\n  },\n  \"included\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"fields\",\n      \"attributes\": {\n        \"title\": \"Name\"\n      }\n    },\n    {\n      \"id\": \"789\",\n      \"type\": \"fields\",\n      \"attributes\": {\n        \"title\": \"Email\"\n      }\n    }\n  ]\n}\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Load the related resources, for example ?include=fields,site,offer,contact_tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[forms]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[forms]=title,webhook_url"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0bb2aa12-dca9-4cc1-928a-e9ee34d97451",
+              "name": "Success, shows details of a form",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"forms\",\n    \"attributes\": {\n      \"title\": \"string\",\n      \"default\": false,\n      \"webhook_url\": {},\n      \"url\": \"string\",\n      \"created_at\": \"1992-03-12T19:05:46.049Z\",\n      \"updated_at\": \"2024-06-25T20:53:07.545Z\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"offer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"fields\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bde126e4-faf4-45a5-8a47-7cd3b45a6174",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6d1e997-b464-48c0-bf3e-2301f876e93f",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79015e9f-a80c-48c9-9f1a-a29095fb3e3b",
+              "name": "form not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[forms]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a946795-840d-4620-bfc5-35ec44c5ae37",
+          "name": "Submit form",
+          "request": {
+            "name": "Submit form",
+            "description": {
+              "content": "## Submit a form\n* The `name` and `email` attributes are required.\n* The `email` attribute must be a valid and deliverable email address.\n\nExample request body:\n```json\n{\n  \"data\": {\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\"\n    }\n  }\n}\n```\n\nResponse will include the newly created form submission resource.\n```json\n{\n  \"data\": {\n    \"id\": \"313\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"address_line_1\": null,\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_country\": null,\n      \"address_state\": null,\n      \"address_zip\": null,\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"mobile_phone_number\": null\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"2\",\n          \"type\": \"sites\"\n        }\n      },\n      \"form\": {\n        \"data\": {\n          \"id\": \"15\",\n          \"type\": \"forms\"\n        }\n      }\n    }\n  }\n}\n```\n## Behaviors and side effects\n* Checks for disposable emails\n* Validates email deliverability\n* Sends double opt-in email if needed\n* Subscribes contact (with opt-in handling)\n* Subscribes to SMS if applicable\n* Adds tags to contact\n* Grants offers if configured\n* Subscribes to email sequences\n* Delivers webhooks\n* Triggers automations\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms",
+                ":id",
+                "submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone_number\": \"<string,null>\",\n      \"business_number\": \"<string,null>\",\n      \"address_line_1\": \"<string,null>\",\n      \"address_line_2\": \"<string,null>\",\n      \"address_city\": \"<string,null>\",\n      \"address_state\": \"<string,null>\",\n      \"address_country\": \"<string,null>\",\n      \"address_zip\": \"<string,null>\",\n      \"custom_1\": \"<string>\",\n      \"custom_2\": \"<string>\",\n      \"custom_3\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b5c1eb7-efaa-4b2f-ae44-68be2f6a7d30",
+              "name": "Success, shows the form submission data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone_number\": \"<string,null>\",\n      \"business_number\": \"<string,null>\",\n      \"address_line_1\": \"<string,null>\",\n      \"address_line_2\": \"<string,null>\",\n      \"address_city\": \"<string,null>\",\n      \"address_state\": \"<string,null>\",\n      \"address_country\": \"<string,null>\",\n      \"address_zip\": \"<string,null>\",\n      \"custom_1\": \"<string>\",\n      \"custom_2\": \"<string>\",\n      \"custom_3\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"string\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone_number\": \"<string,null>\",\n      \"business_number\": \"<string,null>\",\n      \"address_line_1\": \"<string,null>\",\n      \"address_line_2\": \"<string,null>\",\n      \"address_city\": \"<string,null>\",\n      \"address_state\": \"<string,null>\",\n      \"address_country\": \"<string,null>\",\n      \"address_zip\": \"<string,null>\",\n      \"custom_1\": \"<string>\",\n      \"custom_2\": \"<string>\",\n      \"custom_3\": \"<string>\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"form\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3cf8e86-dc78-4793-8da4-e3f05a48d86f",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone_number\": \"<string,null>\",\n      \"business_number\": \"<string,null>\",\n      \"address_line_1\": \"<string,null>\",\n      \"address_line_2\": \"<string,null>\",\n      \"address_city\": \"<string,null>\",\n      \"address_state\": \"<string,null>\",\n      \"address_country\": \"<string,null>\",\n      \"address_zip\": \"<string,null>\",\n      \"custom_1\": \"<string>\",\n      \"custom_2\": \"<string>\",\n      \"custom_3\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03633067-b5f8-4bda-86ea-8c72c07214f0",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":id",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"phone_number\": \"<string,null>\",\n      \"business_number\": \"<string,null>\",\n      \"address_line_1\": \"<string,null>\",\n      \"address_line_2\": \"<string,null>\",\n      \"address_city\": \"<string,null>\",\n      \"address_state\": \"<string,null>\",\n      \"address_country\": \"<string,null>\",\n      \"address_zip\": \"<string,null>\",\n      \"custom_1\": \"<string>\",\n      \"custom_2\": \"<string>\",\n      \"custom_3\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f8dd2b0b-0bf4-4132-ac80-9b5b850de4aa",
+    "name": "Kajabi API V1 Authentication Forms API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}

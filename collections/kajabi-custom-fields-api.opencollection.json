@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Custom Fields API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List custom fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/custom_fields",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title, handle, type, required for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[custom_fields]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[custom_fields]=handle,title,required"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=favorite"
+              },
+              {
+                "name": "filter[type_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by field type equals, for example ?filter[type_eq]=TextField"
+              },
+              {
+                "name": "filter[required_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by required field equals, for example ?filter[required_eq]=true"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Custom Field attributes\nThe 'handle' attribute may be used as a key for a contact resource, e.g. custom_1, custom_2, custom_3\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/custom_fields?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/custom_fields?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://app.kajabi.com/ap"
+        },
+        {
+          "info": {
+            "name": "Custom field details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/custom_fields/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields[custom_fields]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[custom_fields]=title,handle"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Custom Field attributes\n* `handle` (string) - The key for a `contact` resource, e.g. `custom_1`, `custom_2`, `custom_3`\n* `title` (string) - The title of the custom field\n* `type` (string) - The type of the custom field\n* `required` (boolean) - Whether the custom field is required\n* `archived` (boolean) - Whether the custom field is archived\n## Sparse Fields\nUse the `fields[custom_fields]` parameter to include only specific attributes:\n### Include only handle and title fields\n* `GET /v1/custo"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Contact Tags API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contact Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contact tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contact_tags",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: name, email, for descending order use '-' e.g. &sort=-name"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[contact_tags]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[contact_tags]=name"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[name_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name contains, for example ?filter[name_cont]=vip"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Tags (not archived) for a site\n\n## Contact Tag Attributes\n* `name` (string) - The name of the contact tag\n\n## Pagination\nUse the `page[number]` and `page[size]` query parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/contact_tags?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/contact_tags?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/contact_tags?"
+        },
+        {
+          "info": {
+            "name": "Contact tag details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contact_tags/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Contact Tag Attributes\n* `name` (string) - The name of the contact tag\n\n## Contact Tag Relationships\nThe contact tag belongs to a site\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

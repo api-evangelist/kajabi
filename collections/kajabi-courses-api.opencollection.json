@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Courses API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Courses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List courses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/courses",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title, for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[courses]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[courses]=title,thumbnail_url"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=marketing"
+              },
+              {
+                "name": "filter[description_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by description contains, for example ?filter[description_cont]=marketing"
+              },
+              {
+                "name": "filter[publish_status_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by publish status, for example ?filter[publish_status_eq]=published"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of courses that can be offered to a contact or purchased\n## Pagination\nUse the `page[number]` and `page[size]` query parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/courses?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/courses?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/courses?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kaj"
+        },
+        {
+          "info": {
+            "name": "Course details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/courses/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=modules,lessons,lessons.media"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Details of a course that can be offered to a contact or purchased\n\n## Course Attributes\n* `created_at` (string) - The date and time the course was created\n* `title` (string) - The title of the course\n* `description` (string) - The description of the course\n* `thumbnail_url` (string) - The URL of the course thumbnail\n\n## Including Relationships\nUse the `include` query parameter to load related resources:\n### Include modules, lessons and related media, and offers\n* `GET /v1/courses/123?include=mod"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

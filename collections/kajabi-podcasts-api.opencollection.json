@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Podcasts API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Podcasts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List podcasts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/podcasts",
+            "params": [
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site ID, for example ?filter[site_id]=123"
+              },
+              {
+                "name": "filter[title_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by exact title match, for example ?filter[title_eq]=My Podcast"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title containing text, for example ?filter[title_cont]=technology"
+              },
+              {
+                "name": "filter[status_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status, for example ?filter[status_eq]=ready"
+              },
+              {
+                "name": "filter[show_type_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by show type, for example ?filter[show_type_eq]=episodic"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by field, for example ?sort=title or ?sort=-title (descending)"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination, for example ?page[number]=1"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page, for example ?page[size]=10"
+              },
+              {
+                "name": "fields[podcasts]",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include, for example ?fields[podcasts]=title,description"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Podcasts for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/podcasts?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/podcasts?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/podcasts?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/podcasts?page[number]=1&page[size]=10\""
+        },
+        {
+          "info": {
+            "name": "Show podcast",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/podcasts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Podcast ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get details for a specific podcast\n## Attributes\n- **title**: The podcast title\n- **description**: The podcast description\n- **language**: The podcast language (e.g., \"en\", \"es\")\n- **owner_email**: The podcast owner's email address\n- **owner_name**: The podcast owner's name\n- **status**: The podcast status (ready, importing, failed)\n- **show_type**: The show type (episodic, serial)\n- **thumbnail_url**: URL to the podcast thumbnail image\n- **cover_art_url**: URL to the podcast cover art image\n- *"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

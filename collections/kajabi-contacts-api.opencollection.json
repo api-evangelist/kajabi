@@ -1,0 +1,797 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Contacts API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contacts",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: name, email, created_at, for descending order use '-' e.g. &sort=-name"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[contacts]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fields, use: name, email for example ?fields[contacts]=name,email"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "It is recommended to always filter by site_id, for example ?filter[site_id]=111. This param is required when the account has multiple sites"
+              },
+              {
+                "name": "filter[search]",
+                "value": "",
+                "type": "query",
+                "description": "Filter with fuzzy search of name/email, for example ?filter[search]=alexa"
+              },
+              {
+                "name": "filter[created_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts created in the last N days, e.g. ?filter[created_in_last]=30"
+              },
+              {
+                "name": "filter[not_created_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts not created in the last N days"
+              },
+              {
+                "name": "filter[is_hidden]",
+                "value": "",
+                "type": "query",
+                "description": "Filter hidden contacts"
+              },
+              {
+                "name": "filter[joined_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who joined in the last N days"
+              },
+              {
+                "name": "filter[active_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts active in the last N days"
+              },
+              {
+                "name": "filter[inactive_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts inactive in the last N days"
+              },
+              {
+                "name": "filter[name_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose name contains the given value"
+              },
+              {
+                "name": "filter[email_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose email contains the given value"
+              },
+              {
+                "name": "filter[phone_number_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose phone number contains the given value"
+              },
+              {
+                "name": "filter[address_line_1_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose address line 1 contains the given value"
+              },
+              {
+                "name": "filter[address_line_2_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose address line 2 contains the given value"
+              },
+              {
+                "name": "filter[address_city_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose city contains the given value"
+              },
+              {
+                "name": "filter[address_state_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose state contains the given value"
+              },
+              {
+                "name": "filter[address_country_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose country contains the given value"
+              },
+              {
+                "name": "filter[address_zip_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose zip code contains the given value"
+              },
+              {
+                "name": "filter[has_tag_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts with a specific tag ID"
+              },
+              {
+                "name": "filter[has_all_tag_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts with all specified tag IDs"
+              },
+              {
+                "name": "filter[has_no_tag_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts without the specified tag ID"
+              },
+              {
+                "name": "filter[subscribed]",
+                "value": "",
+                "type": "query",
+                "description": "Filter subscribed contacts"
+              },
+              {
+                "name": "filter[has_offer_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts with a specific offer ID"
+              },
+              {
+                "name": "filter[has_no_offer_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts without the specified offer ID"
+              },
+              {
+                "name": "filter[has_product_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who own a specific product ID"
+              },
+              {
+                "name": "filter[has_active_product_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts with an active membership to a specific product ID"
+              },
+              {
+                "name": "filter[has_no_product_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who do not own a specific product ID"
+              },
+              {
+                "name": "filter[previously_owned_product_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who previously owned a specific product ID"
+              },
+              {
+                "name": "filter[used_coupon_code]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who used a specific coupon code"
+              },
+              {
+                "name": "filter[submitted_form_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who submitted a specific form ID"
+              },
+              {
+                "name": "filter[no_submitted_form_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who have not submitted the specified form ID"
+              },
+              {
+                "name": "filter[registered_event_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who registered for a specific event ID"
+              },
+              {
+                "name": "filter[not_registered_event_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who have not registered for the specified event ID"
+              },
+              {
+                "name": "filter[completed_assessment_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who completed a specific assessment ID"
+              },
+              {
+                "name": "filter[passed_assessment_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who passed a specific assessment ID"
+              },
+              {
+                "name": "filter[failed_assessment_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who failed a specific assessment ID"
+              },
+              {
+                "name": "filter[net_revenue_equal_to]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose net revenue equals the given value"
+              },
+              {
+                "name": "filter[net_revenue_greater_than]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose net revenue is greater than the given value"
+              },
+              {
+                "name": "filter[net_revenue_less_than]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose net revenue is less than the given value"
+              },
+              {
+                "name": "filter[subscribed_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts subscribed in the last N days"
+              },
+              {
+                "name": "filter[unsubscribed_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts unsubscribed in the last N days"
+              },
+              {
+                "name": "filter[never_subscribed]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who have never subscribed"
+              },
+              {
+                "name": "filter[sent_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who were sent a specific email broadcast ID"
+              },
+              {
+                "name": "filter[no_sent_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who were not sent the specified email broadcast ID"
+              },
+              {
+                "name": "filter[no_sent_email_broadcast_ids]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who were not sent any of the specified email broadcast IDs"
+              },
+              {
+                "name": "filter[no_delivered_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not receive the specified email broadcast ID"
+              },
+              {
+                "name": "filter[opened_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who opened a specific email broadcast ID"
+              },
+              {
+                "name": "filter[no_opened_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not open the specified email broadcast ID"
+              },
+              {
+                "name": "filter[clicked_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who clicked a specific email broadcast ID"
+              },
+              {
+                "name": "filter[no_clicked_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not click the specified email broadcast ID"
+              },
+              {
+                "name": "filter[bounced_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who bounced a specific email broadcast ID"
+              },
+              {
+                "name": "filter[no_bounced_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not bounce the specified email broadcast ID"
+              },
+              {
+                "name": "filter[dropped_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who dropped a specific email broadcast ID"
+              },
+              {
+                "name": "filter[no_dropped_email_broadcast_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not drop the specified email broadcast ID"
+              },
+              {
+                "name": "filter[opened_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who opened an email in the last N days"
+              },
+              {
+                "name": "filter[not_opened_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not open an email in the last N days"
+              },
+              {
+                "name": "filter[delivered_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who were delivered an email in the last N days"
+              },
+              {
+                "name": "filter[not_delivered_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who were not delivered an email in the last N days"
+              },
+              {
+                "name": "filter[clicked_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who clicked an email in the last N days"
+              },
+              {
+                "name": "filter[not_clicked_email_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who did not click an email in the last N days"
+              },
+              {
+                "name": "filter[is_hard_bouncing]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts that are hard bouncing"
+              },
+              {
+                "name": "filter[bounced_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who bounced in the last N days"
+              },
+              {
+                "name": "filter[complained_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who complained in the last N days"
+              },
+              {
+                "name": "filter[manually_unsubscribed_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts manually unsubscribed in the last N days"
+              },
+              {
+                "name": "filter[opted_out_in_last]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts who opted out in the last N days"
+              },
+              {
+                "name": "filter[healthy_contacts_with_open_data]",
+                "value": "",
+                "type": "query",
+                "description": "Filter healthy contacts with open data"
+              },
+              {
+                "name": "filter[passive_contacts_with_open_data]",
+                "value": "",
+                "type": "query",
+                "description": "Filter passive contacts with open data"
+              },
+              {
+                "name": "filter[unengaged_contacts_with_open_data]",
+                "value": "",
+                "type": "query",
+                "description": "Filter unengaged contacts with open data"
+              },
+              {
+                "name": "filter[inactive_contacts_with_open_data]",
+                "value": "",
+                "type": "query",
+                "description": "Filter inactive contacts with open data"
+              },
+              {
+                "name": "filter[subscribed_newsletter_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts subscribed to a specific newsletter ID"
+              },
+              {
+                "name": "filter[unsubscribed_newsletter_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts unsubscribed from a specific newsletter ID"
+              },
+              {
+                "name": "filter[mobile_phone_number_contains]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts whose mobile phone number contains the given value"
+              },
+              {
+                "name": "filter[subscribed_email_sequence_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts subscribed to a specific email sequence ID"
+              },
+              {
+                "name": "filter[not_subscribed_email_sequence_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter contacts not subscribed to a specific email sequence ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of contacts, we recommended filtering by site.\n\n## Filtering\nUse the `filter[site_id]` parameter to filter contacts by site:\n\n### Get contacts for site with ID 123\n* `GET /v1/contacts?filter[site_id]=123`\n\nResponse will include only contacts for the specified site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"John Smith\",\n      \"email\": \"john@example.com\",\n      \"created_at\": \"2024-01-15T10:30:00Z\",\n      \"updated_at\": \"2024-01-15T10:30:0"
+        },
+        {
+          "info": {
+            "name": "Create a contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/contacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a contact for a site.\n## Contact attributes\n* New contact does not support `external_user_id` attribute.\n* See custom_fields endpoint to discover attributes for using custom fields attributes.\n\n## Create a contact\nRequest body must include a `site` relationship.\nExample request body:\n```json\n{\n  \"data\": {\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"typ"
+        },
+        {
+          "info": {
+            "name": "Contact details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "with ?include=offers,tags,customer the response will include the related contact offers, tags and customer resources"
+              },
+              {
+                "name": "fields[contacts]",
+                "value": "",
+                "type": "query",
+                "description": "Sparse fields, use: name, email for example ?fields[contacts]=name,email"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Show details for a contact\n## Contact Attributes\n* `name` (string) - The name of the contact\n* `email` (string) - The email of the contact, must be a valid and deliverable email address\n* `address_line_1` (string) - The first line of the contact's address\n* `address_line_2` (string) - The second line of the contact's address\n* `address_city` (string) - The city of the contact's address\n* `address_country` (string) - The country of the contact's address\n* `address_state` (string) - The state of t"
+        },
+        {
+          "info": {
+            "name": "Update contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.kajabi.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Contact attributes\n* A contact with a related customer resource does support `external_user_id` attribute.\n* See custom_fields endpoint to discover attributes for using custom fields attributes.\n## Update a contact\nExample request body:\n```json\n{\n  \"data\": {\n    \"type\": \"contacts\",\n    \"id\": \"456\",\n    \"attributes\": {\n      \"phone_number\": \"12134567890\"\n    }\n  }\n}\n```\nResponse will include the update contact resource.\n```json\n{\n  \"data\": {\n    \"id\": \"456\",\n    \"type\": \"contacts\",\n    \"attrib"
+        },
+        {
+          "info": {
+            "name": "Delete contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.kajabi.com/v1/contacts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete contact"
+        },
+        {
+          "info": {
+            "name": "List contact's offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/offers",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the contact's relationship to offers (granted).\n\nResponse is a list of resource identifiers\n```json\n{\n  \"data\": [\n    { \"type\": \"offers\", \"id\": \"123\" },\n    { \"type\": \"offers\", \"id\": \"456\" }\n  ]\n}\n```\nThe related tag resources are available using the GET `api/v1/offers` endpoint.\nThe resource identifier includes the offer id and type.\nExample URLs: `/api/v1/offers/123`, `/api/v1/offers/456`\n"
+        },
+        {
+          "info": {
+            "name": "Grant offer to contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/offers",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Grant offer(s) to a contact\nCreate an offer grant for a contact which results in creating a new customer record for your contact.\n\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n\nTo skip sending a welcome email to the customer include a `meta` object in the request body.\n\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"123\"}], \"meta\": {\"send_customer_welcome_email\": false}}\n```\n\nThe `meta` attribute `send_customer_welcome_email` as `false` will prevent se"
+        },
+        {
+          "info": {
+            "name": "Replace offers for contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/offers",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Replace offer grant(s) for a contact\nReplace offer grants (grants and revokes offers to/from contact) using a list of resource identifiers\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"456\"}, {\"type\": \"offers\", \"id\": \"789\"}] }\n```\n## Response\n* A successful response body will list the offers related to the contact\n* An error response will include a JSON body with error details.\n"
+        },
+        {
+          "info": {
+            "name": "Revoke offer from contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/offers",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Revoke offer grant(s) for a contact\nRevoke offer grant(s) using a list of resource identifiers\nIn the request body inlcude offer resource identifier(s), `id: OFFER_ID`, `type: \"offers\"`.\n```\n{ \"data\": [{\"type\": \"offers\", \"id\": \"123\"}] }\n```\n## Response\n* A successful response body will list the offers related to the contact\n* An error response will include a JSON body with error details.\n\n## Behaviors and side effects\n* Only affects active offers\n* Handles both offer purchases and offer grant"
+        },
+        {
+          "info": {
+            "name": "List contact's tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/tags",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the contact's relationship to tags, response is a list of resource identifiers\n\nResponse is a list of resource identifiers\n```json\n{\n  \"data\": [\n    { \"type\": \"contact_tags\", \"id\": \"123\" },\n    { \"type\": \"contact_tags\", \"id\": \"456\" }\n  ]\n}\n```\nThe related tag resources are available using the GET `api/v1/contact_tags` endpoint.\nThe resource identifier includes the contact tag id and type.\nExample URLs: `/api/v1/contact_tags/123`, `/api/v1/contact_tags/456`\n"
+        },
+        {
+          "info": {
+            "name": "Add tag to contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/tags",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add tag relationships to contact resource using a list of resource identifiers\n\nRequest body includes a list of resource identifiers, `id: CONTACT_TAG_ID`, `type: \"contact_tags\"`.\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"456\" }] }\n```\nThe response body will include the updated list of tag relationships.\n\nExample response body:\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"123\" }, { \"type\": \"contact_tags\", \"id\": \"456\" }] }\n```\n"
+        },
+        {
+          "info": {
+            "name": "Replace tags for contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/tags",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Replace tag relationships to contact resource using a list of resource identifiers.\n\nRequest body includes a list of resource identifiers, `id: CONTACT_TAG_ID`, `type: \"contact_tags\"`.\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"123\" }, { \"type\": \"contact_tags\", \"id\": \"456\" }] }\n```\n\nThe response body will include the updated list of tag relationships.\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"123\" }, { \"type\": \"contact_tags\", \"id\": \"456\" }] }\n```\n"
+        },
+        {
+          "info": {
+            "name": "Remove tag from contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.kajabi.com/v1/contacts/:contact_id/relationships/tags",
+            "params": [
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove tag relationships to contact resource using a list of resource identifiers.\n\nRequest body includes a list of resource identifiers, `id: CONTACT_TAG_ID`, `type: \"contact_tags\"`.\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"456\" }] }\n```\nThe response body will include the updated list of tag relationships.\n\nExample response body:\n```json\n{ \"data\": [{ \"type\": \"contact_tags\", \"id\": \"123\" }] }\n```\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

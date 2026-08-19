@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Offers API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List offers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/offers",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title, price_in_cents, for descending order use '-' e.g. &sort=-price_in_cents"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[offers]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[offers]=title,price_in_cents"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=course"
+              },
+              {
+                "name": "filter[description_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by description contains, for example ?filter[description_cont]=course"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of offers (not archived) for a site that can be granted to a contact\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/offers?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/offers?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/offers?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kaja"
+        },
+        {
+          "info": {
+            "name": "Offer details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/offers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=products"
+              },
+              {
+                "name": "fields[offers]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[offers]=title,price_in_cents"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The offer system is a core part of Kajabi's e-commerce functionality, allowing course creators and digital product owners to monetize their content through various pricing and payment models while maintaining flexibility in how offers are presented and processed.\n\n## Offer attributes\n* `title` (string) - Required, public name of the offer shown to customers\n* `description` (string) - Optional, detailed information about what's included in the offer\n* `internal_title` (string) - Optional, for int"
+        },
+        {
+          "info": {
+            "name": "List offer's products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/offers/:offer_id/relationships/products",
+            "params": [
+              {
+                "name": "offer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "get the offer's relationship to products, response is a list of resource identifiers"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

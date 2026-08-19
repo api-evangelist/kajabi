@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Transactions API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/transactions",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[transactions]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[transactions]=amount_in_cents,sales_tax_in_cents"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[customer_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer_id, for example ?filter[customer_id]=456789"
+              },
+              {
+                "name": "filter[name_or_email]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name or email, for example ?filter[name_or_email]=John"
+              },
+              {
+                "name": "filter[start_date]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start_date, for example ?filter[start_date]=2024-12-01"
+              },
+              {
+                "name": "filter[end_date]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end_date, for example ?filter[end_date]=2024-12-31"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "  List of payment transactions related to completed financial activity (successful charges, refunds, and disputes) that are associated with actual purchases, excluding test transactions, free purchases, failed attempts, and pending transactions.\n\n  ## Pagination\n  Use `page[number]` and `page[size]` parameters to paginate results:\n  ### Get first page of 10 items\n  * `GET /v1/transactions?page[number]=1&page[size]=10`\n  ### Get second page of 25 items\n  * `GET /v1/transactions?page[number]=2&pag"
+        },
+        {
+          "info": {
+            "name": "Transaction details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/transactions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields[transactions]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[transactions]=amount_in_cents,sales_tax_in_cents"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Load the related resources, for example ?include=customer,purchases"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "  The transaction system is a critical part of Kajabi's payment infrastructure, handling all monetary operations while maintaining detailed records for accounting, reporting, and compliance purposes.\n\n  ## Transaction Attributes\n  * `provider` (string) - The payment processor used for the payment\n  * `action` (string) - Indicate the type of transaction:\n    * `charge` - One-time payment\n    * `refund` - Money returned to customer\n    * `subscribe` - New subscription\n    * `subscription_charge` -"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

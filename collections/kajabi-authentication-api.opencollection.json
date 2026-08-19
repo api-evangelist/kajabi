@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/oauth/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "username",
+                  "value": ""
+                },
+                {
+                  "name": "password",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                },
+                {
+                  "name": "refresh_token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "## Request `access_token` and `refresh_token`\nThere are three ways to exchange parameters for tokens\n1. Provide client credentials `client_id` and `client_secret`\n2. Provide a `refresh_token`\n3. Provide `username` and `password` (client credentials is preferred)\n\n### Using grant_type=client_credentials\nOnly include params: `client_id`, `client_secret`, and `grant_type`.\n* The `grant_type` param value must be: `client_credentials`\n\n### Using grant_type=refresh_token\nOnly include params: `refresh_"
+        },
+        {
+          "info": {
+            "name": "Revoke a token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/oauth/revoke",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "token",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "## Revoke an `access_token` and `refresh_token`\nEither token may be provided to \"log out\" of the API session. Both tokens we be invalidated.\n\n* Only include param: `token` with your `access_token` or `refresh_token`\n* Requires an `Authorization` header as `Bearer access_token` to authenticate the request.\n\n## Response\n* A successful response will have an empty body\n* An error response will include a JSON body with error details.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

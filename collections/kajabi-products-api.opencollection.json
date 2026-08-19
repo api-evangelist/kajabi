@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Products API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/products",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order, use: title, description, status, for descending order use '-' e.g. &sort=-title"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "fields[products]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[products]=title,publish_status"
+              },
+              {
+                "name": "filter[site_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by site_id, for example ?filter[site_id]=111"
+              },
+              {
+                "name": "filter[title_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by title contains, for example ?filter[title_cont]=marketing"
+              },
+              {
+                "name": "filter[description_cont]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by description contains, for example ?filter[description_cont]=marketing"
+              },
+              {
+                "name": "filter[status_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status equals, for example ?filter[status_eq]=ready"
+              },
+              {
+                "name": "filter[exclude_product_types][]",
+                "value": "",
+                "type": "query",
+                "description": "Exclude products by productizable_type (fully-qualified, e.g. Courses::CohortCourse). Repeatable."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List of products (not archived) that can be granted to a contact\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/products?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/products?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/products?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi."
+        },
+        {
+          "info": {
+            "name": "Product details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields[products]",
+                "value": "",
+                "type": "query",
+                "description": "Partial attributes as specified, e.g. fields[products]=title,publish_status"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Show details of a product\n## Sparse Fields\nUse the `fields[products]` parameter to request only specific attributes:\n### Get only title and publish_status fields\n* `GET /v1/products/123?fields[products]=title,publish_status`\n\nResponse will only include the requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"products\",\n    \"attributes\": {\n      \"title\": \"Advanced Course\",\n      \"publish_status\": \"published\"\n    },\n    \"relationships\": {}\n  }\n}\n```\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

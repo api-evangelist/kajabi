@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kajabi API V1 Authentication Webhooks API",
+    "version": "1.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List hooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents"
+              },
+              {
+                "name": "filter[event_eq]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by event type, for example ?filter[event_eq]=purchase"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists webhooks for a site\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/hooks?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/hooks?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/hooks?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/hooks?page[number]=1&page[size]=10\",\n   "
+        },
+        {
+          "info": {
+            "name": "Create hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.kajabi.com/v1/hooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new webhook subscription\n\n## Request Body\nThe request must include:\n* `data` - parent object which includes the children/nested attributes:\n* `target_url` - The URL where webhook events will be sent\n* `event` - The type of event to subscribe to (see available events below), for example \"tag_added\"\n* `resource_id` (optional) - Specific resource ID to filter events for, for example the id of the Contact Tag. When the property is omitted, the webhook will be triggered for all events of th"
+        },
+        {
+          "info": {
+            "name": "Hook details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns specific hook based on it ID"
+        },
+        {
+          "info": {
+            "name": "Delete hook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.kajabi.com/v1/hooks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a webhook subscription"
+        },
+        {
+          "info": {
+            "name": "Tag added sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/tag_added_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `tag_added` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"Sample Recipient\",\n      \"email\": \"sample@example.com\",\n      \"address_line_1\": \"123 Kajabi Ln\",\n      \"address_line_2\": \"Kajabi Suite 4\",\n      \"address_city\": \"Kajabiwood\",\n      \"address_country\": \"United Sites of Kajabi\",\n      \"address_state\": \"Kajabifornia\",\n      \"address_zip\": \"99999\",\n      \"phone_number\": \"5555555555\",\n      \"business_number\": nu"
+        },
+        {
+          "info": {
+            "name": "Tag removed sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/tag_removed_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `tag_removed` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"contacts\",\n    \"attributes\": {\n      \"name\": \"Sample Recipient\",\n      \"email\": \"sample@example.com\",\n      \"address_line_1\": \"123 Kajabi Ln\",\n      \"address_line_2\": \"Kajabi Suite 4\",\n      \"address_city\": \"Kajabiwood\",\n      \"address_country\": \"United Sites of Kajabi\",\n      \"address_state\": \"Kajabifornia\",\n      \"address_zip\": \"99999\",\n      \"phone_number\": \"5555555555\",\n      \"business_number\": "
+        },
+        {
+          "info": {
+            "name": "Form submission sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/form_submission_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `form_submission` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"form_submissions\",\n    \"attributes\": {\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"address_line_1\": null,\n      \"address_line_2\": null,\n      \"address_city\": null,\n      \"address_country\": null,\n      \"address_state\": null,\n      \"address_zip\": null,\n      \"phone_number\": null,\n      \"business_number\": null,\n      \"mobile_phone_number\": null\n    },\n    \"relationships\""
+        },
+        {
+          "info": {
+            "name": "Purchase sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/purchase_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `purchase` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 1000,\n      \"payment_type\": \"single\",\n      \"multipay_payments_made\": null,\n      \"opt_in\": false,\n      \"raw_extra_contact_information\": {},\n      \"currency\": \"USD\",\n      \"effective_start_at\": null,\n      \"cardholder_name\": null,\n      \"billing_address_zip\": null,\n      \"deactivated_at\": null,\n      \"deactivation_reason\": null,\n      \"coupon_co"
+        },
+        {
+          "info": {
+            "name": "Payment succeeded sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/payment_succeeded_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `payment_succeeded` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"charge\",\n      \"state\": \"succeeded\",\n      \"payment_type\": \"charge\",\n      \"amount_in_cents\": 1000,\n      \"sales_tax_in_cents\": 0,\n      \"currency\": \"USD\",\n      \"currency_symbol\": \"$\",\n      \"formatted_amount\": \"$10.00\",\n      \"created_at\": \"2025-07-31T17:10:19.285Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n       "
+        },
+        {
+          "info": {
+            "name": "Order created sample",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.kajabi.com/v1/hooks/order_created_sample",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns sample webhook payload for the `order_created` event:\n```\n[\n  {\n    \"id\": \"0\",\n    \"type\": \"transactions\",\n    \"attributes\": {\n      \"action\": \"charge\",\n      \"state\": \"succeeded\",\n      \"payment_type\": \"charge\",\n      \"amount_in_cents\": 1000,\n      \"sales_tax_in_cents\": 0,\n      \"currency\": \"USD\",\n      \"currency_symbol\": \"$\",\n      \"formatted_amount\": \"$10.00\",\n      \"created_at\": \"2025-07-31T17:13:05.247Z\"\n    },\n    \"relationships\": {\n      \"customer\": {\n        \"data\": {\n          \""
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

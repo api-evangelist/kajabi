@@ -1,0 +1,1306 @@
+{
+  "item": [
+    {
+      "id": "862d0f15-9ae5-487f-9e58-e52e79b9118f",
+      "name": "Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5c33fe86-897b-4e96-9f37-8cbf1e00ee74",
+          "name": "List order items",
+          "request": {
+            "name": "List order items",
+            "description": {
+              "content": "Order items represent individual products or offers within an order.\n\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/order_items?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/order_items?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/order_items?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/order_items?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/order_items?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/order_items?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/order_items?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Filtering\nUse filter parameters to narrow down results:\n### Filter by site\nUse the `filter[site_id]` parameter to get order items for a specific site:\n* `GET /v1/order_items?filter[site_id]=123`\n### Filter by item type\n* `GET /v1/order_items?filter[item_type_eq]=Offer`\n### Filter by item ID\n* `GET /v1/order_items?filter[item_id_eq]=123`\n### Filter by fulfilled status\n* `GET /v1/order_items?filter[fulfilled_at_null]=true` (unfulfilled items)\n* `GET /v1/order_items?filter[fulfilled_at_null]=false` (fulfilled items)\n\n## Advanced Filtering Examples\n### Range queries\n* `GET /v1/order_items?filter[site_id]=123&filter[quantity_gt]=1`\n* `GET /v1/order_items?filter[site_id]=123&filter[total_price_in_cents_gteq]=1000&filter[total_price_in_cents_lteq]=10000`\n### Pattern matching\n* `GET /v1/order_items?filter[site_id]=123&filter[item_type_cont]=Off`\n* `GET /v1/order_items?filter[site_id]=123&filter[title_i_cont]=course` (case insensitive)\n### Array filters\n* `GET /v1/order_items?filter[site_id]=123&filter[item_id_in]=123,456,789`\n* `GET /v1/order_items?filter[site_id]=123&filter[item_type_not_in]=Bundle,Subscription`\n\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by fulfilled_at in ascending order\n* `GET /v1/order_items?filter[site_id]=123&sort=fulfilled_at`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "order_items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: created_at, quantity, fulfilled_at. For descending order use '-' e.g. &sort=-created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[order_items]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[order_items]=quantity,title,total_price_in_cents"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site_id, for example ?filter[site_id]=111"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[item_type_eq]",
+                  "value": "<string>",
+                  "description": "Filter by item type, for example ?filter[item_type_eq]=Offer"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[item_id_eq]",
+                  "value": "<string>",
+                  "description": "Filter by item ID, for example ?filter[item_id_eq]=123"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[fulfilled_at_null]",
+                  "value": "<boolean>",
+                  "description": "Filter by fulfillment status, for example ?filter[fulfilled_at_null]=true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cab0e4cd-6ad4-4b3d-8b3a-e1e45244042c",
+              "name": "Success, list of order items which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_id_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"order_items\",\n      \"attributes\": {\n        \"quantity\": 9019,\n        \"currency_code\": \"string\",\n        \"item_type\": \"string\",\n        \"item_id\": 9326,\n        \"title\": \"string\",\n        \"fulfilled_at\": null,\n        \"created_at\": \"1991-06-23T02:38:21.170Z\",\n        \"total_price_in_cents\": 483,\n        \"subtotal_in_cents\": 7578,\n        \"sales_tax_amount_in_cents\": 9977,\n        \"discount_amount_in_cents\": 3168,\n        \"formatted_total_price\": \"string\",\n        \"formatted_subtotal\": \"string\",\n        \"currency_symbol\": \"string\"\n      },\n      \"relationships\": {\n        \"order\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"order_items\",\n      \"attributes\": {\n        \"quantity\": 6242,\n        \"currency_code\": \"string\",\n        \"item_type\": \"string\",\n        \"item_id\": 9169,\n        \"title\": \"string\",\n        \"fulfilled_at\": null,\n        \"created_at\": \"1969-06-15T17:32:07.456Z\",\n        \"total_price_in_cents\": 977,\n        \"subtotal_in_cents\": 1974,\n        \"sales_tax_amount_in_cents\": 128,\n        \"discount_amount_in_cents\": 3090,\n        \"formatted_total_price\": \"string\",\n        \"formatted_subtotal\": \"string\",\n        \"currency_symbol\": \"string\"\n      },\n      \"relationships\": {\n        \"order\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f7f834f-95fd-4fed-b4c0-de437776d1e9",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_id_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc31a2df-d45d-4f36-8c38-51e80b315780",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_type_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[item_id_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5f1b2d7-63db-49d7-bf4f-a2cd369d54d0",
+          "name": "Order item details",
+          "request": {
+            "name": "Order item details",
+            "description": {
+              "content": "Shows details of an order item\n\nOrder items represent individual products or offers within an order and contain:\n* Product/offer information\n* Pricing details\n* Quantity information\n* Fulfillment status\n\n## Order Item Attributes\n* `quantity` (integer) - Number of items purchased\n* `currency_code` (string) - The ISO currency code for the item\n* `item_type` (string) - Type of item (e.g., \"Offer\")\n* `item_id` (integer) - ID of the associated item\n* `title` (string) - Title of the item\n* `total_price_in_cents` (integer) - Total price for this line item\n* `subtotal_in_cents` (integer) - Subtotal before taxes and discounts\n* `sales_tax_amount_in_cents` (integer) - Sales tax amount for this item\n* `discount_amount_in_cents` (integer) - Discount amount for this item\n* `fulfilled_at` (string) - Timestamp when the item was fulfilled\n* `created_at` (string) - Timestamp when the order item was created\n\n## Include Related Resources\nUse the `include` parameter to load related resources:\n### Include order\n* `GET /v1/order_items/123?include=order`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "order_items",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Load the related resources, for example ?include=order"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[order_items]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[order_items]=quantity,title,total_price_in_cents"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7cf04c4b-1250-476f-a22d-b9c29c5349b7",
+              "name": "Success, shows details of an order item",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"order_items\",\n    \"attributes\": {\n      \"quantity\": 2714,\n      \"currency_code\": \"string\",\n      \"item_type\": \"string\",\n      \"item_id\": 9291,\n      \"title\": \"string\",\n      \"fulfilled_at\": null,\n      \"created_at\": \"1995-07-06T17:18:53.376Z\",\n      \"total_price_in_cents\": 9819,\n      \"subtotal_in_cents\": 3320,\n      \"sales_tax_amount_in_cents\": 2748,\n      \"discount_amount_in_cents\": 8769,\n      \"formatted_total_price\": \"string\",\n      \"formatted_subtotal\": \"string\",\n      \"currency_symbol\": \"string\"\n    },\n    \"relationships\": {\n      \"order\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5628bf87-00b0-4070-96ea-c89a92f96a0a",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "965dfa37-0815-48aa-98f4-0be91c9d5f0b",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e745db5-2286-4f90-865b-789506a05d08",
+              "name": "order item not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "order_items",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[order_items]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df49ec7b-a3b6-4a5b-9741-e781354b81a5",
+          "name": "List orders",
+          "request": {
+            "name": "List orders",
+            "description": {
+              "content": "Orders for a site\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/orders?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/orders?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/orders?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/orders?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/orders?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/orders?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/orders?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by order_number in ascending order\n* `GET /v1/orders?sort=order_number`\n### Sort by created_at in descending order\n* `GET /v1/orders?sort=-created_at`\n\n## Filtering\nUse filter parameters to narrow down results:\n### Filter by site\nUse the `filter[site_id]` parameter to get orders for a specific site:\n* `GET /v1/orders?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get orders for a specific customer:\n* `GET /v1/orders?filter[customer_id]=456789`\n### Filter by order number\n* `GET /v1/orders?filter[order_number_eq]=12345`\n### Filter by fulfilled status\n* `GET /v1/orders?filter[fulfilled_at_null]=true` (unfulfilled orders)\n* `GET /v1/orders?filter[fulfilled_at_null]=false` (fulfilled orders)\n\n## Advanced Filtering Examples\n### Range queries\n* `GET /v1/orders?filter[site_id]=123&filter[created_at_gteq]=2024-01-01&filter[created_at_lteq]=2024-12-31`\n* `GET /v1/orders?filter[site_id]=123&filter[total_price_in_cents_gt]=5000`\n### Pattern matching\n* `GET /v1/orders?filter[site_id]=123&filter[order_number_cont]=2024`\n* `GET /v1/orders?filter[site_id]=123&filter[currency_code_start]=US`\n### Array filters\n* `GET /v1/orders?filter[site_id]=123&filter[currency_code_in]=USD,EUR,GBP`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order, use: order_number, created_at, fulfilled_at. For descending order use '-' e.g. &sort=-created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<integer>",
+                  "description": "Number of documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[orders]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[orders]=order_number,total_price_in_cents"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "Filter by site_id, for example ?filter[site_id]=111"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[customer_id]",
+                  "value": "<string>",
+                  "description": "Filter by customer_id, for example ?filter[customer_id]=456789"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[order_number_eq]",
+                  "value": "<string>",
+                  "description": "Filter by order number, for example ?filter[order_number_eq]=12345"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[fulfilled_at_null]",
+                  "value": "<boolean>",
+                  "description": "Filter by fulfillment status, for example ?filter[fulfilled_at_null]=true"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "efe014ef-e84c-4816-b9b9-23b5608c2d8a",
+              "name": "Success, list of orders which the current user may access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[order_number_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"orders\",\n      \"attributes\": {\n        \"order_number\": 6612,\n        \"currency_code\": \"string\",\n        \"fulfilled_at\": \"string\",\n        \"created_at\": \"2018-03-24T20:48:55.071Z\",\n        \"total_price_in_cents\": 2937,\n        \"subtotal_in_cents\": 5173,\n        \"sales_tax_amount_in_cents\": 4747,\n        \"discount_amount_in_cents\": 2444,\n        \"formatted_total_price\": \"string\",\n        \"formatted_subtotal\": \"string\",\n        \"currency_symbol\": \"string\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"customer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"order_items\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"orders\",\n      \"attributes\": {\n        \"order_number\": 8091,\n        \"currency_code\": \"string\",\n        \"fulfilled_at\": \"string\",\n        \"created_at\": \"1959-03-21T12:17:53.853Z\",\n        \"total_price_in_cents\": 3916,\n        \"subtotal_in_cents\": 9259,\n        \"sales_tax_amount_in_cents\": 216,\n        \"discount_amount_in_cents\": 773,\n        \"formatted_total_price\": \"string\",\n        \"formatted_subtotal\": \"string\",\n        \"currency_symbol\": \"string\"\n      },\n      \"relationships\": {\n        \"site\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"customer\": {\n          \"data\": {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        },\n        \"order_items\": {\n          \"data\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7bd86196-8837-4bfc-a2e7-56fa62eff6d2",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[order_number_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8417eeb0-1324-4c12-b9b0-161a0b06fefe",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[customer_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[order_number_eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[fulfilled_at_null]",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e92b6c73-ee31-4b12-b65d-1bb8cf069db1",
+          "name": "Order details",
+          "request": {
+            "name": "Order details",
+            "description": {
+              "content": "Shows details of an order\n\nOrders represent completed purchase transactions and contain:\n* Order items (products/offers purchased)\n* Payment information\n* Customer information\n* Fulfillment status\n\n## Order Attributes\n* `order_number` (integer) - A unique identifier for the order within the site\n* `currency_code` (string) - The ISO currency code for the order (e.g., \"USD\")\n* `total_price_in_cents` (integer) - Total price including taxes and discounts\n* `subtotal_in_cents` (integer) - Subtotal before taxes and discounts\n* `sales_tax_amount_in_cents` (integer) - Total sales tax amount\n* `discount_amount_in_cents` (integer) - Total discount amount\n* `fulfilled_at` (string) - Timestamp when the order was fulfilled\n* `created_at` (string) - Timestamp when the order was created\n\n## Include Related Resources\nUse the `include` parameter to load related resources:\n### Include order items, customer\n* `GET /v1/orders/123?include=order_items,customer`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Load the related resources, for example ?include=order_items,customer,site"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields[orders]",
+                  "value": "<string>",
+                  "description": "Partial attributes as specified, e.g. fields[orders]=order_number,total_price_in_cents"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bae9de5a-cee0-41d9-ba42-4a0b99756884",
+              "name": "Success, shows details of an order",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"orders\",\n    \"attributes\": {\n      \"order_number\": 7147,\n      \"currency_code\": \"string\",\n      \"fulfilled_at\": null,\n      \"created_at\": \"2009-07-25T10:08:07.603Z\",\n      \"total_price_in_cents\": 7699,\n      \"subtotal_in_cents\": 2082,\n      \"sales_tax_amount_in_cents\": 4054,\n      \"discount_amount_in_cents\": 8549,\n      \"formatted_total_price\": \"string\",\n      \"formatted_subtotal\": \"string\",\n      \"currency_symbol\": \"string\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"customer\": {\n        \"data\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      \"order_items\": {\n        \"data\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"links\": {\n    \"self\": \"string\",\n    \"current\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebc53535-4aff-4fd9-b21c-65cb9caa90c1",
+              "name": "Unauthorized, Authorization header is missing or invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "685baf27-173f-4a5b-af85-60d7e0bd1d96",
+              "name": "Forbidden, insufficient permission to access the resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad7b9c48-ad7b-49bc-9a44-385c4bb99745",
+              "name": "order not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields[orders]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"source\": {\n        \"pointer\": \"string\"\n      },\n      \"title\": \"string\",\n      \"detail\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.kajabi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e8517902-8f0a-4e59-a7bf-6af3268b09ff",
+    "name": "Kajabi API V1 Authentication Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n\n\nContact Support:\n Name: Support\n Email: support@kajabi.com",
+      "type": "text/plain"
+    }
+  }
+}
