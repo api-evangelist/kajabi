@@ -18,7 +18,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kajabi.png
 url: https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 description: 'Kajabi is an all-in-one creator platform that enables entrepreneurs
   and knowledge creators to build, market, and sell digital products including online
   courses, membership sites, coaching programs, and communities. The Kajabi Public
