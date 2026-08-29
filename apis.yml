@@ -830,6 +830,9 @@ apis:
   - type: GraphQL
     url: graphql/kajabi-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/kajabi-capability-edges.yml
+  name: Kajabi Business Capability Map
 - type: AgenticAccess
   url: agentic-access/kajabi-agentic-access.yml
 - type: DomainSecurity
