@@ -102,7 +102,7 @@ apis:
   humanURL: https://help.kajabi.com/api-reference/introduction
   baseURL: https://api.kajabi.com
   tags:
-  - Blog Posts
+  - Blog posts
   tags_raw:
   - Blog posts
   properties:
@@ -429,7 +429,7 @@ apis:
   humanURL: https://help.kajabi.com/api-reference/introduction
   baseURL: https://api.kajabi.com
   tags:
-  - Landing Pages
+  - Landing pages
   tags_raw:
   - Landing pages
   properties:
