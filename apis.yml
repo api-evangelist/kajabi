@@ -30,16 +30,14 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kajabi.png
 url: https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
 created: 2026-06-12
-modified: 2026-06-12
+modified: '2026-09-16'
 specificationVersion: '0.23'
-description: 'Kajabi is an all-in-one creator platform that enables entrepreneurs
-  and knowledge creators to build, market, and sell digital products including online
-  courses, membership sites, coaching programs, and communities. The Kajabi Public
-  API provides a RESTful interface for managing contacts, products, offers, purchases,
-  orders, transactions, forms, webhooks, and more. API access requires OAuth 2.0 authentication
-  and is available exclusively on the Pro plan. The API base URL is https://api.kajabi.com
-  with versioned endpoints under /v1, and an OpenAPI specification is published in
-  the public_api_docs GitHub repository.
+description: 'Kajabi is an all-in-one creator platform that enables entrepreneurs and knowledge creators
+  to build, market, and sell digital products including online courses, membership sites, coaching programs,
+  and communities. The Kajabi Public API provides a RESTful interface for managing contacts, products,
+  offers, purchases, orders, transactions, forms, webhooks, and more. API access requires OAuth 2.0 authentication
+  and is available exclusively on the Pro plan. The API base URL is https://api.kajabi.com with versioned
+  endpoints under /v1, and an OpenAPI specification is published in the public_api_docs GitHub repository.
 
   '
 tags:
@@ -388,9 +386,8 @@ apis:
   - type: GraphQL
     url: graphql/kajabi-graphql.md
 - aid: kajabi:kajabi-kajabi-payments-payouts-api
-  name: Kajabi Kajabi Payments Payouts API
-  description: >-
-    The Kajabi Payments Payouts API from Kajabi — 2 operation(s) for kajabi payments payouts.
+  name: Kajabi Payments Payouts API
+  description: The Kajabi Payments Payouts API from Kajabi — 2 operation(s) for kajabi payments payouts.
   humanURL: https://help.kajabi.com/api-reference/introduction
   baseURL: https://api.kajabi.com
   tags:
