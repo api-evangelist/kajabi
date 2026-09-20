@@ -1,113 +1,69 @@
-name: Kajabi Plans and Pricing
-description: >
-  Kajabi offers four subscription tiers for creators. API access is restricted
-  to the Pro plan. Pricing reflects 2026 rates following the January 2026
-  restructure — the first major change since 2015. Annual billing saves
-  approximately 20% versus monthly billing.
-specificationVersion: "0.1"
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.kajabi.com/pricing
+sources:
+- https://www.kajabi.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+note: 'Annual (Save 20%) and monthly prices both shown. API listed as included on Pro ($25/mo value).
+  Third-party payment provider fees: 2% / 1% / 0.5% by tier.'
+plan_count: 7
+currency: USD
 plans:
-  - name: Kickstarter
-    description: >
-      Legacy entry-level plan with selective availability not shown on the main
-      pricing page. Suitable for creators just starting out. No API access.
-    url: https://www.kajabi.com/pricing
-    price: 89.00
-    currency: USD
-    billingCycle: monthly
-    annualPrice: 71.00
-    limits:
-      products: 1
-      contacts: 250
-      websites: 1
-      adminUsers: 1
-      marketingEmails: unlimited
-      landingPages: unlimited
-      funnels: unlimited
-    features:
-      - Online courses
-      - Membership sites
-      - Coaching products
-      - Landing pages
-      - Email marketing
-    apiAccess: false
-
-  - name: Basic
-    description: >
-      Foundational plan for growing creators supporting up to 5 products and
-      2,500 contacts. Does not include API access.
-    url: https://www.kajabi.com/pricing
-    price: 179.00
-    currency: USD
-    billingCycle: monthly
-    annualPrice: 143.00
-    limits:
-      products: 5
-      contacts: 2500
-      websites: 1
-      adminUsers: 1
-      marketingEmails: unlimited
-      landingPages: unlimited
-      funnels: unlimited
-    features:
-      - Online courses
-      - Membership sites
-      - Coaching products
-      - Communities
-      - Landing pages
-      - Email marketing
-      - Kajabi Payments (2.9% + $0.30)
-    apiAccess: false
-
-  - name: Growth
-    description: >
-      Mid-tier plan for scaling businesses with up to 50 products, 25,000
-      contacts, and 10 admin users. Adds affiliate management and community
-      features. Does not include API access.
-    url: https://www.kajabi.com/pricing
-    price: 249.00
-    currency: USD
-    billingCycle: monthly
-    annualPrice: 199.00
-    limits:
-      products: 50
-      contacts: 25000
-      websites: 1
-      adminUsers: 10
-      marketingEmails: unlimited
-      landingPages: unlimited
-      funnels: unlimited
-    features:
-      - All Basic features
-      - Affiliate management
-      - Advanced community features
-      - Kajabi Payments (2.8% + $0.30)
-    apiAccess: false
-
-  - name: Pro
-    description: >
-      Top-tier plan for established creators with unlimited products, 100,000
-      contacts, 25 admin users, 3 websites, and full API access. Includes
-      branded mobile app, code editor, and Cohort Courses.
-    url: https://www.kajabi.com/pricing
-    price: 499.00
-    currency: USD
-    billingCycle: monthly
-    annualPrice: 399.00
-    limits:
-      products: unlimited
-      contacts: 100000
-      websites: 3
-      adminUsers: 25
-      marketingEmails: unlimited
-      landingPages: unlimited
-      funnels: unlimited
-    features:
-      - All Growth features
-      - Public API access
-      - Code editor
-      - Branded mobile app
-      - Cohort Courses
-      - Comment-to-DM
-      - Video Translations
-      - Kajabi Payments (2.7% + $0.30)
-    apiAccess: true
+- name: Basic
+  price_text: $143
+  price: 143
+  currency: USD
+  period: month
+  included_quota: 5 Products, 2,500 Contacts, 1 Website, 1 Community, 2 Admin Users; 0 AI Credits; Kajabi
+    Payments 2.9% + $0.30
+  overage: Contacts come in blocks of 25,000 for $125 a month
+- name: Basic (monthly)
+  price_text: $179
+  price: 179
+  currency: USD
+  period: month
+  included_quota: 5 Products, 2,500 Contacts, 1 Website, 1 Community, 2 Admin Users
+- name: Growth
+  price_text: $199
+  price: 199
+  currency: USD
+  period: month
+  included_quota: 50 Products, 25,000 Contacts, 1 Website, 1 Community, 11 Admin Users; 500 AI Credits;
+    Kajabi Payments 2.8% + $0.30
+  overage: Contacts come in blocks of 25,000 for $125 a month
+- name: Growth (monthly)
+  price_text: $249
+  price: 249
+  currency: USD
+  period: month
+  included_quota: 50 Products, 25,000 Contacts
+- name: Pro
+  price_text: $399
+  price: 399
+  currency: USD
+  period: month
+  included_quota: Unlimited Products, 100,000 Contacts, 3 Websites, 3 Communities, 26 Admin Users; 1,000
+    AI Credits; Branded Mobile App Included ($199/mo value); API Included ($25/mo value); Kajabi Payments
+    2.7% + $0.30
+  overage: Contacts come in blocks of 25,000 for $125 a month
+- name: Pro (monthly)
+  price_text: $499
+  price: 499
+  currency: USD
+  period: month
+  included_quota: Unlimited Products, 100,000 Contacts, 3 Websites
+- name: AI Credits add-on
+  price_text: $15/mo for 500 ai credits
+  price: 15
+  currency: USD
+  period: month
+  unit: 500 ai credits
+  included_quota: 500 AI credits
+  overage: one-time top-up purchases coming end of cycle
