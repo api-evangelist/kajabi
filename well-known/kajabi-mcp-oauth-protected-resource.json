@@ -1,0 +1,1 @@
+{"resource":"https://mcp.kajabi.com/mcp","authorization_servers":["https://mcp.kajabi.com"],"scopes_supported":["read","write:content","write:commerce","write:contacts","write:community","write:emails","write:automations","publish","write:theme","admin:users"],"bearer_methods_supported":["header"]}

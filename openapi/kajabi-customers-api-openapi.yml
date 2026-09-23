@@ -1,8 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Kajabi API V1 Authentication Customers API
+  title: Kajabi API V1 Customers API
   version: 1.1.0
-  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  description: '## Public API
+
+    * Server URL `https://api.kajabi.com`
+
+    * Endpoint paths are prefixed with `/v1`
+
+    * Version endpoint `GET https://api.kajabi.com/v1/version`
+
+    * See the Developers Site for documentation and examples.'
   contact:
     email: support@kajabi.com
     name: Support
@@ -19,7 +27,348 @@ paths:
   /v1/customers:
     get:
       summary: List customers
-      description: "List of customers\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/customers?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/customers?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://app.kajabi.com/api/v1/customers?page[number]=2&page[size]=10\",\n    \"first\": \"https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10\",\n    \"prev\": \"https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10\",\n    \"next\": \"https://app.kajabi.com/api/v1/customers?page[number]=3&page[size]=10\",\n    \"last\": \"https://app.kajabi.com/api/v1/customers?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"total_pages\": 5,\n    \"total_count\": 50,\n    \"current_page\": 2\n  }\n}\n```\n## Sorting\n* The default Sorting is by created_at in descending order (newest first)\n\nSorting by created_at in ascending order (oldest first)\n* `GET /v1/customers?filter[site_id]=123&sort=created_at`\n\nUse the `sort` parameter to sort the results:\n### Sort by name in ascending order\n* `GET /v1/customers?filter[site_id]=123&sort=name`\n### Sort by email in descending order\n* `GET /v1/customers?filter[site_id]=123&sort=-email`\n### Sort by net_revenue in ascending order\n* `GET /v1/customers?filter[site_id]=123&sort=net_revenue`\n### Sort by last_request_at in descending order\n* `GET /v1/customers?filter[site_id]=123&sort=-last_request_at`\n\nResponse will include customers sorted by the specified field\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    }\n  }]\n}\n```\n## Sparse Fields\nUse the `fields[customers]` parameter to request only specific attributes:\n### Only return name and email attributes\n* `GET /v1/customers?fields[customers]=name,email`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [{\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\"\n    }\n  }]\n}\n```\n## Filtering\nUse the `filter[site_id]` parameter to filter customers by site:\n### Get customers for site with ID 123\n* `GET /v1/customers?filter[site_id]=123`\n\nResponse will include only customers from the specified site\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Using Indexed Data Search\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Smith\",\n      \"email\": \"smith.john@example.com\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n\n## Using Multiple Filters\nYou can combine multiple filter parameters to refine your search:\n### Get customers from site 123 matching search term\n* `GET /v1/customers?filter[site_id]=123&filter[search]=smith`\n\nResponse will include only customers from the specified site matching the search term\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filtering by Site and Offer\nYou can filter customers by both site and offer ownership:\n### Get customers from site 123 who have been granted offer 789\n* `GET /v1/customers?filter[site_id]=123&filter[has_offer_id]=789`\n\nResponse will include only customers from the specified site who have been granted the offer\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      },\n      \"offers\": {\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/456/relationships/offers\",\n          \"related\": \"https://app.kajabi.com/api/v1/customers/456/offers\"\n        }\n      }\n    }\n  }]\n}\n```\n## Filtering by Site and Product\nYou can filter customers by both site and product ownership:\n### Get customers from site 123 who have purchased product 789\n* `GET /v1/customers?filter[site_id]=123&filter[has_product_id]=789`\n\nResponse will include only customers from the specified site who have purchased the product\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"external_user_id\": \"cust_123\"\n    },\n    \"relationships\": {\n      \"site\": {\n        \"data\": {\n          \"id\": \"123\",\n          \"type\": \"sites\"\n        }\n      },\n      \"offers\": {\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/456/relationships/offers\",\n          \"related\": \"https://app.kajabi.com/api/v1/customers/456/offers\"\n        }\n      }\n    }\n  }]\n}\n```\n## Using Multiple Parameters Together\nYou can combine filtering, sparse fields, pagination and search in a single request:\n### Get page 2 of customers from site 123, including only name and email fields, searching for \"smith\"\n* `GET /v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith`\n\nResponse will include paginated, filtered customers with sparse fields\n```json\n{\n  \"data\": [{\n    \"id\": \"456\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"John Smith\",\n      \"email\": \"john.smith@example.com\"\n    }\n  }],\n  \"links\": {\n    \"self\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith\",\n    \"first\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=1&page[size]=10&filter[search]=smith\",\n    \"prev\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=1&page[size]=10&filter[search]=smith\",\n    \"next\": null,\n    \"last\": \"https://app.kajabi.com/api/v1/customers?filter[site_id]=123&fields[customers]=name,email&page[number]=2&page[size]=10&filter[search]=smith\"\n  },\n  \"meta\": {\n    \"total_pages\": 2,\n    \"total_count\": 15,\n    \"current_page\": 2\n  }\n}\n```\n"
+      description: 'List of customers
+
+        ## Pagination
+
+        Use `page[number]` and `page[size]` parameters to paginate results:
+
+        ### Get first page of 10 items
+
+        * `GET /v1/customers?page[number]=1&page[size]=10`
+
+        ### Get second page of 25 items
+
+        * `GET /v1/customers?page[number]=2&page[size]=25`
+
+
+        The response includes pagination links and meta data:
+
+        ```json
+
+        {
+
+        "links": {
+
+        "self": "https://app.kajabi.com/api/v1/customers?page[number]=2&page[size]=10",
+
+        "first": "https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10",
+
+        "prev": "https://app.kajabi.com/api/v1/customers?page[number]=1&page[size]=10",
+
+        "next": "https://app.kajabi.com/api/v1/customers?page[number]=3&page[size]=10",
+
+        "last": "https://app.kajabi.com/api/v1/customers?page[number]=5&page[size]=10"
+
+        },
+
+        "meta": {
+
+        "total_pages": 5,
+
+        "total_count": 50,
+
+        "current_page": 2
+
+        }
+
+        }
+
+        ```
+
+        ## Sorting
+
+        * The default Sorting is by created_at in descending order (newest first)
+
+
+        Sorting by created_at in ascending order (oldest first)
+
+        * `GET /v1/customers?filter[site_id]=123&sort=created_at`
+
+
+        Use the `sort` parameter to sort the results:
+
+        ### Sort by name in ascending order
+
+        * `GET /v1/customers?filter[site_id]=123&sort=name`
+
+        ### Sort by email in descending order
+
+        * `GET /v1/customers?filter[site_id]=123&sort=-email`
+
+        ### Sort by net_revenue in ascending order
+
+        * `GET /v1/customers?filter[site_id]=123&sort=net_revenue`
+
+        ### Sort by last_request_at in descending order
+
+        * `GET /v1/customers?filter[site_id]=123&sort=-last_request_at`
+
+
+        Response will include customers sorted by the specified field
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "123",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "Alice Smith",
+
+        "email": "alice@example.com",
+
+        "external_user_id": "cust_123"
+
+        }
+
+        }]
+
+        }
+
+        ```
+
+        ## Sparse Fields
+
+        Use the `fields[customers]` parameter to request only specific attributes:
+
+        ### Only return name and email attributes
+
+        * `GET /v1/customers?fields[customers]=name,email`
+
+
+        Response will only include requested fields
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "123",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "Alice Smith",
+
+        "email": "alice@example.com"
+
+        }
+
+        }]
+
+        }
+
+        ```
+
+        ## Filtering
+
+        Use the `filter[site_id]` parameter to filter customers by site:
+
+        ### Get customers for site with ID 123
+
+        * `GET /v1/customers?filter[site_id]=123`
+
+
+        Response will include only customers from the specified site
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "456",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "Alice Smith",
+
+        "email": "alice@example.com",
+
+        "external_user_id": "cust_123"
+
+        },
+
+        "relationships": {
+
+        "site": {
+
+        "data": {
+
+        "id": "123",
+
+        "type": "sites"
+
+        }
+
+        }
+
+        }
+
+        }]
+
+        }
+
+        ```
+
+        ## Using Indexed Data Search
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "456",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "John Smith",
+
+        "email": "smith.john@example.com"
+
+        },
+
+        "relationships": {
+
+        "site": {
+
+        "data": {
+
+        "id": "123",
+
+        "type": "sites"
+
+        }
+
+        }
+
+        }
+
+        }]
+
+        }
+
+        ```
+
+
+        ## Using Multiple Filters
+
+        You can combine multiple filter parameters to refine your search:
+
+        ### Get customers from site 123 matching search term
+
+        * `GET /v1/customers?filter[site_id]=123&filter[search]=smith`
+
+
+        Response will include only customers from the specified site matching the search term
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "456",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "Alice Smith",
+
+        "email": "alice@example.com",
+
+        "external_user_id": "cust_123"
+
+        },
+
+        "relationships": {
+
+        "site": {
+
+        "data": {
+
+        "id": "123",
+
+        "type": "sites"
+
+        }
+
+        }
+
+        }
+
+        }]
+
+        }
+
+        ```
+
+        ## Filtering by Site and Offer
+
+        You can filter customers by both site and offer ownership:
+
+        ### Get customers from site 123 who have been granted offer 789
+
+        * `GET /v1/customers?filter[site_id]=123&filter[has_offer_id]=789`
+
+
+        Response will include only customers from the specified site who have been granted the offer
+
+        ```json
+
+        {
+
+        "data": [{
+
+        "id": "456",
+
+        "type": "customers",
+
+        "attributes": {
+
+        "name": "Alice Smith",
+
+        "email": "alice@example.com",
+
+        "external_user_id": "cust_123"
+
+        },
+
+        "relationships": {
+
+        "site": {
+
+        "data": {
+
+        "id": "123",
+
+        "type": "sites"
+
+        }
+
+        },
+
+        "offers": {
+
+        "links": {
+
+        "self": "https://app.kajabi.com/api/v1/customers/456/relationships/offers",
+
+        "related"…'
       tags:
       - Customers
       security:
@@ -505,10 +854,21 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_forbidden'
+      operationId: getV1Customers
+      x-operation-id-source: derived
   /v1/customers/{id}:
     get:
       summary: Customer details
-      description: "Show customer details\n* The `name` and `email` attributes are kept in sync with the related `contact` resource\n* The `external_user_id` attribute may be used as a customer reference in an external system\n\n## Customer Attributes\n* `name` (string) - The customer's full name. This is a required field and can be either user-provided or auto-generated from their email address if left blank.\n* `email` (string) - The customer's email address. This is a required field and must be unique within a site. It's automatically downcased and stripped of whitespace. Used for authentication and communication.\n* `avatar` (string) - A URL to the customer's profile image. Can be either a custom uploaded avatar or falls back to Gravatar. If not set, defaults to a blank image.\n* `external_user_id` (string) - An optional external identifier that can be used to link the customer to external systems. Must be unique within a site.\n* `public_bio` (string) - A text field containing the customer's public biography or description. This is optional and can be displayed in community/social features.\n* `public_location` (string) - A text field for the customer's public location information. Optional field used for community/social features.\n* `public_website` (string) - The customer's website URL. This is validated to ensure it's a proper URL format and is transformed to ensure proper formatting.\n* `socials` (object) - A collection of the customer's social media links and profiles.\n* `net_revenue` (string) - The total revenue generated by this customer through their purchases. This is calculated from their successful payment transactions.\n* `sign_in_count` (integer) - A counter tracking how many times the customer has signed into their account.\n* `last_request_at` (string) - Timestamp of the customer's most recent activity or request. Used to track user engagement and activity.\n* `bounced_at` (string) - Timestamp indicating when the customer's email started bouncing. This is reset if the email address is changed.\n* `created_at` (string) - Timestamp when the customer record was created.\n* `updated_at` (string) - Timestamp when the customer record was last updated.\n\n## Include Related Resources\nUse the `include` parameter to include related resources:\n### Include offers and products\n* `GET /v1/customers/123?include=contact,offers,products`\n\nResponse will include related resources\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\",\n      \"avatar\": null,\n      \"external_user_id\": \"cust_123\",\n      \"public_bio\": null,\n      \"public_location\": null,\n      \"public_website\": null,\n      \"socials\": null,\n      \"net_revenue\": \"0.0\",\n      \"sign_in_count\": 0,\n      \"last_request_at\": null,\n      \"bounced_at\": null,\n      \"created_at\": \"2021-01-01T00:00:00Z\",\n      \"updated_at\": \"2021-01-01T00:00:00Z\"\n    },\n    \"links\": {\n      \"contact\": \"https://app.kajabi.com/api/v1/contacts/321\"\n    },\n    \"relationships\": {\n      \"contact\": {\n        \"data\": {\n          \"id\": \"321\",\n          \"type\": \"contacts\"\n        }\n      },\n      \"offers\": {\n        \"data\": [{ \"id\": \"456\", \"type\": \"offers\" }],\n        \"links\": {\n          \"self\": \"https://app.kajabi.com/api/v1/customers/123/relationships/offers\"\n        }\n      },\n      \"products\": {\n        \"data\": [{ \"id\": \"789\", \"type\": \"products\" }]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"456\",\n      \"type\": \"offers\",\n      \"attributes\": {\n        \"name\": \"Offer 1\",\n        \"description\": \"Offer 1 description\",\n        \"internal_title\": \"Offer 1\",\n        \"price_in_cents\": 0,\n        \"payment_type\": \"free\",\n        \"token\": \"offer_123\",\n        \"payment_method\": \"none\",\n        \"price_description\": \"Free\",\n        \"checkout_url\": \"https://mywebsite.com/offers/456\",\n        \"recurring_offer\": false,\n        \"subscription\": false,\n        \"one_time\": true,\n        \"single\": false,\n        \"free\": true\n      }\n    },\n    {\n      \"id\": \"789\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"created_at\": \"2024-11-12T23:43:09.551Z\",\n        \"title\": \"Course 1\",\n        \"description\": \"Course 1 description\",\n        \"status\": \"ready\",\n        \"members_aggregate_count\": 0,\n        \"product_type_name\": \"Course\",\n        \"product_type_id\": 789,\n        \"publish_status\": \"published\",\n        \"thumbnail_url\": null\n      }\n    },\n    {\n      \"id\": \"321\",\n      \"type\": \"contacts\",\n      \"attributes\": {\n        \"name\": \"Alice Smith\",\n        \"email\": \"alice@example.com\",\n        \"address_line_1\": null,\n        \"address_line_2\": null,\n        \"address_city\": null,\n        \"address_country\": null,\n        \"address_state\": null,\n        \"address_zip\": null,\n        \"phone_number\": null,\n        \"business_number\": null,\n        \"subscribed\": false,\n        \"external_user_id\": null,\n        \"created_at\": \"2024-11-20T18:53:19.389Z\",\n        \"updated_at\": \"2024-11-20T18:53:19.389Z\"\n      }\n    }\n  ]\n}\n```\n## Sparse Fields\nUse the `fields[customers]` parameter to request only specific attributes:\n### Only return name and email attributes\n* `GET /v1/customers/123?fields[customers]=name,email`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\",\n      \"email\": \"alice@example.com\"\n    }\n  }\n}\n```\n## Using Multiple Parameters Together\nYou can combine filtering, sparse fields, pagination and search in a single request:\n* `GET /v1/customers/123?include=products&fields[customers]=name&fields[product]=title`\n\nResponse will include related resources with sparse fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"customers\",\n    \"attributes\": {\n      \"name\": \"Alice Smith\"\n    },\n    \"relationships\": {}\n  },\n  \"included\": [\n    {\n      \"id\": \"789\",\n      \"type\": \"products\",\n      \"attributes\": {\n        \"title\": \"Course 1\"\n      }\n    }\n  ]\n}\n```\n"
+      description: 'Show customer details
+
+        * The `name` and `email` attributes are kept in sync with the related `contact` resource
+
+        * The `external_user_id` attribute may be used as a customer reference in an external system
+
+
+        ## Customer Attributes
+
+        * `name` (string) - The customer''s full name.'
       tags:
       - Customers
       security:
@@ -629,10 +989,37 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_forbidden'
+      operationId: getV1CustomersById
+      x-operation-id-source: derived
   /v1/customers/{customer_id}/relationships/offers:
     get:
       summary: List customer's offers
-      description: "Get the customer's relationship to offers (granted).\n\nResponse is a list of resource identifiers\n```json\n{\n  \"data\": [\n    { \"type\": \"offers\", \"id\": \"123\" },\n    { \"type\": \"offers\", \"id\": \"456\" }\n  ]\n}\n```\nThe related tag resources are available using the GET `api/v1/offers` endpoint.\nThe resource identifier includes the offer id and type.\nExample URLs: `/api/v1/offers/123`, `/api/v1/offers/456`\n"
+      description: 'Get the customer''s relationship to offers (granted).
+
+
+        Response is a list of resource identifiers
+
+        ```json
+
+        {
+
+        "data": [
+
+        { "type": "offers", "id": "123" },
+
+        { "type": "offers", "id": "456" }
+
+        ]
+
+        }
+
+        ```
+
+        The related tag resources are available using the GET `api/v1/offers` endpoint.
+
+        The resource identifier includes the offer id and type.
+
+        Example URLs: `/api/v1/offers/123`, `/api/v1/offers/456`'
       tags:
       - Customers
       security:
@@ -668,6 +1055,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_forbidden'
+      operationId: getV1CustomersByCustomerIdRelationshipsOffers
+      x-operation-id-source: derived
     post:
       summary: Grant offer to customer
       description: '## Grant offer(s) to a customer
@@ -698,9 +1087,7 @@ paths:
 
         * May send a gift granted email if this is a gift offer
 
-        * Triggers automations if configured
-
-        '
+        * Triggers automations if configured'
       tags:
       - Customers
       security:
@@ -752,6 +1139,8 @@ paths:
                   $ref: '#/components/schemas/resource_identifiers'
               required:
               - data
+      operationId: postV1CustomersByCustomerIdRelationshipsOffers
+      x-operation-id-source: derived
     delete:
       summary: Revoke offer from customer
       description: '## Revoke offer grant(s) for a customer
@@ -779,9 +1168,7 @@ paths:
 
         * Handles both offer purchases and offer grants
 
-        * Deactivates all associated product memberships
-
-        '
+        * Deactivates all associated product memberships'
       tags:
       - Customers
       security:
@@ -833,6 +1220,8 @@ paths:
                   $ref: '#/components/schemas/resource_identifiers'
               required:
               - data
+      operationId: deleteV1CustomersByCustomerIdRelationshipsOffers
+      x-operation-id-source: derived
     patch:
       summary: Replace offers for customer
       description: '## Replace offer grant(s) for a customer
@@ -851,9 +1240,7 @@ paths:
 
         * A successful response body will list the offers related to the customer
 
-        * An error response will include a JSON body with error details.
-
-        '
+        * An error response will include a JSON body with error details.'
       tags:
       - Customers
       security:
@@ -907,88 +1294,19 @@ paths:
                     $ref: '#/components/schemas/resource_identifier'
               required:
               - data
+      operationId: patchV1CustomersByCustomerIdRelationshipsOffers
+      x-operation-id-source: derived
 components:
   schemas:
-    customers_relationships_offers_response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/resource_identifiers'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    customers_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/customers_attributes'
-              relationships:
-                type: object
-                properties:
-                  contact:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  offers:
-                    type: object
-                    properties:
-                      links:
-                        type: object
-                        properties:
-                          self:
-                            type: string
-                  products:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifiers'
-              links:
-                type: object
-                properties:
-                  contact:
-                    type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
     errors_attributes:
       type: object
       properties:
         status:
           type: string
         source:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           properties:
             pointer:
               type: string
@@ -996,6 +1314,20 @@ components:
           type: string
         detail:
           type: string
+    errors_bad_request:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     customers_show_response:
       type: object
       properties:
@@ -1048,6 +1380,10 @@ components:
               type: string
             current:
               type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
     customers_attributes:
       type: object
       properties:
@@ -1060,8 +1396,9 @@ components:
           - string
           - 'null'
         external_user_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Supported once contact is granted an offer or makes a purchase
         public_bio:
           type:
@@ -1076,8 +1413,9 @@ components:
           - string
           - 'null'
         socials:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           properties:
             twitter:
               type:
@@ -1096,16 +1434,19 @@ components:
           - string
           - 'null'
         sign_in_count:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Read only
         last_request_at:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ISO 8601 date-time, read only
         bounced_at:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: ISO 8601 date-time, read only
         created_at:
           type: string
@@ -1117,17 +1458,68 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    errors_unauthorized:
+    customers_index_response:
       type: object
       properties:
-        errors:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/errors_attributes'
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/customers_attributes'
+              relationships:
+                type: object
+                properties:
+                  contact:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  offers:
+                    type: object
+                    properties:
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                  products:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifiers'
+              links:
+                type: object
+                properties:
+                  contact:
+                    type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    customers_relationships_offers_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/resource_identifiers'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
     errors_forbidden:
       type: object
       properties:
@@ -1135,13 +1527,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    errors_bad_request:
+    resource_identifier:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
   securitySchemes:
     Bearer:
       type: http

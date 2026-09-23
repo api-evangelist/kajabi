@@ -1,8 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Kajabi API V1 Authentication Version API
+  title: Kajabi API V1 Version API
   version: 1.1.0
-  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  description: '## Public API
+
+    * Server URL `https://api.kajabi.com`
+
+    * Endpoint paths are prefixed with `/v1`
+
+    * Version endpoint `GET https://api.kajabi.com/v1/version`
+
+    * See the Developers Site for documentation and examples.'
   contact:
     email: support@kajabi.com
     name: Support
@@ -19,7 +27,29 @@ paths:
   /v1/version:
     get:
       summary: Version
-      description: "Returns the current version of the Kajabi API and links to the API documentation.\n\nThis endpoint does not require authentication; it can be used as a health check.\n\n## Response attributes\n* `meta` (object) - Meta information about the API.\n  * `title` (string) - The title of the API.\n  * `version` (string) - The version of the API.\n* `links` (object) - Links to the API documentation.\n  * `documentation` (string) - The URL to the API documentation.\n* `jsonapi` (object) - JSON API information.\n  * `version` (string) - The version of the JSON API.\n  * `specficiation` (string) - The URL to the JSON API specification.\n"
+      description: 'Returns the current version of the Kajabi API and links to the API documentation.
+
+
+        This endpoint does not require authentication; it can be used as a health check.
+
+
+        ## Response attributes
+
+        * `meta` (object) - Meta information about the API.
+
+        * `title` (string) - The title of the API.
+
+        * `version` (string) - The version of the API.
+
+        * `links` (object) - Links to the API documentation.
+
+        * `documentation` (string) - The URL to the API documentation.
+
+        * `jsonapi` (object) - JSON API information.
+
+        * `version` (string) - The version of the JSON API.
+
+        * `specficiation` (string) - The URL to the JSON API specification.'
       tags:
       - Version
       responses:
@@ -35,6 +65,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_unavailable'
+      operationId: getV1Version
+      x-operation-id-source: derived
 components:
   schemas:
     version_response:
@@ -65,8 +97,9 @@ components:
         status:
           type: string
         source:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           properties:
             pointer:
               type: string

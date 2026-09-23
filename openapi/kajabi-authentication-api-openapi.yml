@@ -1,8 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Kajabi API V1 Authentication API
   version: 1.1.0
-  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  description: '## Public API
+
+    * Server URL `https://api.kajabi.com`
+
+    * Endpoint paths are prefixed with `/v1`
+
+    * Version endpoint `GET https://api.kajabi.com/v1/version`
+
+    * See the Developers Site for documentation and examples.'
   contact:
     email: support@kajabi.com
     name: Support
@@ -71,9 +79,7 @@ paths:
 
         * `token_type` (string) - The type of token, always `Bearer`
 
-        * `expires_in` (integer) - The number of seconds the access token will be valid for
-
-        '
+        * `expires_in` (integer) - The number of seconds the access token will be valid for'
       parameters: []
       responses:
         '200':
@@ -114,6 +120,8 @@ paths:
                   type: string
                 refresh_token:
                   type: string
+      operationId: postV1OauthToken
+      x-operation-id-source: derived
   /v1/oauth/revoke:
     post:
       summary: Revoke a token
@@ -133,9 +141,7 @@ paths:
 
         * A successful response will have an empty body
 
-        * An error response will include a JSON body with error details.
-
-        '
+        * An error response will include a JSON body with error details.'
       security:
       - Bearer: []
       parameters: []
@@ -154,6 +160,8 @@ paths:
                   type: string
               required:
               - token
+      operationId: postV1OauthRevoke
+      x-operation-id-source: derived
 components:
   schemas:
     errors_authentication_failed:

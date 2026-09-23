@@ -1,0 +1,26 @@
+# Front Door AI Index — kajabi — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: kajabi
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.kajabi.com
+  final_host: www.kajabi.com
+  ownership: own
+  owner: kajabi
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 5
+  host_score: 5
+  density: 3.25
+  words: 1539
+  tiers:
+    agentic: 0
+    core: 5
+    model: 0
+  ambiguous: 1
+  top_terms:
+    AI: 5
+    automation: 1

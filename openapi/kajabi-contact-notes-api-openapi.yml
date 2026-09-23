@@ -1,8 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Kajabi API V1 Authentication Contact Notes API
+  title: Kajabi API V1 Contact Notes API
   version: 1.1.0
-  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  description: '## Public API
+
+    * Server URL `https://api.kajabi.com`
+
+    * Endpoint paths are prefixed with `/v1`
+
+    * Version endpoint `GET https://api.kajabi.com/v1/version`
+
+    * See the Developers Site for documentation and examples.'
   contact:
     email: support@kajabi.com
     name: Support
@@ -42,9 +50,7 @@ paths:
 
         - Use `page[number]` and `page[size]` parameters
 
-        - Default page size is 20, maximum is 100
-
-        '
+        - Default page size is 20, maximum is 100'
       parameters:
       - name: filter[contact_id]
         in: query
@@ -89,6 +95,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_unauthorized'
+      operationId: getV1ContactNotes
+      x-operation-id-source: derived
     post:
       summary: Create contact note
       tags:
@@ -105,9 +113,7 @@ paths:
 
         **Required Relationships:**
 
-        - `contact` - The contact this note belongs to (resource identifier)
-
-        '
+        - `contact` - The contact this note belongs to (resource identifier)'
       parameters: []
       responses:
         '201':
@@ -133,6 +139,8 @@ paths:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/contact_notes_create_request'
+      operationId: postV1ContactNotes
+      x-operation-id-source: derived
   /v1/contact_notes/{id}:
     parameters:
     - name: id
@@ -156,9 +164,7 @@ paths:
 
         **Relationships:**
 
-        - `contact` - The contact this note belongs to
-
-        '
+        - `contact` - The contact this note belongs to'
       tags:
       - Contact Notes
       security:
@@ -195,6 +201,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_unauthorized'
+      operationId: getV1ContactNotesById
+      x-operation-id-source: derived
     patch:
       summary: Update contact note
       tags:
@@ -209,9 +217,7 @@ paths:
         - `body` (string) - The note content
 
 
-        Contact relationship cannot be changed after creation.
-
-        '
+        Contact relationship cannot be changed after creation.'
       parameters: []
       responses:
         '200':
@@ -243,15 +249,15 @@ paths:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/contact_notes_update_request'
+      operationId: patchV1ContactNotesById
+      x-operation-id-source: derived
     delete:
       summary: Delete contact note
       tags:
       - Contact Notes
       security:
       - Bearer: []
-      description: 'Deletes a contact note by ID. This action is permanent and cannot be undone.
-
-        '
+      description: Deletes a contact note by ID. This action is permanent and cannot be undone.
       responses:
         '200':
           description: Contact note deleted successfully
@@ -267,23 +273,33 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_unauthorized'
+      operationId: deleteV1ContactNotesById
+      x-operation-id-source: derived
 components:
   schemas:
-    contact_notes_attributes:
+    errors_attributes:
       type: object
       properties:
-        body:
+        status:
           type: string
-        created_at:
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
           type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
+        detail:
           type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     contact_notes_index_response:
       type: object
       properties:
@@ -315,23 +331,6 @@ components:
               type: string
             current:
               type: string
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_unprocessable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     contact_notes_update_request:
       type: object
       properties:
@@ -358,21 +357,13 @@ components:
           - attributes
       required:
       - data
-    errors_attributes:
+    errors_not_found:
       type: object
       properties:
-        status:
-          type: string
-        source:
-          type: object
-          nullable: true
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     contact_notes_create_request:
       type: object
       properties:
@@ -409,6 +400,38 @@ components:
           - relationships
       required:
       - data
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_notes_attributes:
+      type: object
+      properties:
+        body:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     contact_notes_show_response:
       type: object
       properties:
@@ -438,20 +461,6 @@ components:
               type: string
             current:
               type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

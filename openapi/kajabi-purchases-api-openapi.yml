@@ -1,8 +1,16 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Kajabi API V1 Authentication Purchases API
+  title: Kajabi API V1 Purchases API
   version: 1.1.0
-  description: "## Public API\n* Server URL `https://api.kajabi.com`\n* Endpoint paths are prefixed with `/v1`\n* Version endpoint `GET https://api.kajabi.com/v1/version`\n* See the [Developers Site](https://developers.kajabi.com) for documentation and examples.\n* Try the demo [Postman collection](https://www.postman.com/kajabi-apis/beta-public-api-demo/collection/fg4iyaz/kajabi-public-api-v1)\n## API Keys\n* Your API `client_id` and `client_secret` are available on the [User API Keys](https://app.kajabi.com/admin/settings/security) section of the Kajabi Admin Portal.\n  * Custom API Keys can be created with specific permissions.\n  * Click the \"Create User API Key\" button, enter a name (e.g. \"My project\"), select the user and permissions, and click \"Create\".\n  * For security purposes, you may \"Delete\" or \"Rotate\" the api credentials at any time; which will invalidate any access tokens granted with the credentials.\n## Video Walkthroughs\n* [Capabilities](https://drive.google.com/file/d/1Puc9B2sSdA-RQb7YMxmUXg4FVoEXytoc/view?usp=sharing)\n* [Getting Started](https://drive.google.com/file/d/1hbGRShkxven_QMWvgYrerHKURbcZrnvJ/view?usp=sharing)\n* [Error Examples](https://drive.google.com/file/d/1i0wQK71I1jpaZVsxYwsn62gVj40S_E7Y/view?usp=sharing)\n* [External Contact Form](https://drive.google.com/file/d/1HqpULXvan5TOK3LvM7nILCuCkCaX0kFT/view?usp=sharing)\n"
+  description: '## Public API
+
+    * Server URL `https://api.kajabi.com`
+
+    * Endpoint paths are prefixed with `/v1`
+
+    * Version endpoint `GET https://api.kajabi.com/v1/version`
+
+    * See the Developers Site for documentation and examples.'
   contact:
     email: support@kajabi.com
     name: Support
@@ -19,7 +27,206 @@ paths:
   /v1/purchases:
     get:
       summary: List purchases
-      description: "Returns a list of purchases (offer purchases) which the current user may access\n## Pagination\nUse `page[number]` and `page[size]` parameters to paginate results:\n### Get first page of 10 items\n* `GET /v1/purchases?page[number]=1&page[size]=10`\n### Get second page of 25 items\n* `GET /v1/purchases?page[number]=2&page[size]=25`\n\nThe response includes pagination links and meta data:\n```json\n{\n  \"links\": {\n    \"self\": \"https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10\",\n    \"first\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"prev\": \"https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10\",\n    \"next\": \"https://api.kajabi.com/v1/purchases?page[number]=3&page[size]=10\",\n    \"last\": \"https://api.kajabi.com/v1/purchases?page[number]=5&page[size]=10\"\n  },\n  \"meta\": {\n    \"count\": 10,\n    \"total_count\": 50,\n    \"total_pages\": 5\n  }\n}\n```\n## Sparse Fields\nUse the `fields[purchases]` parameter to request only specific attributes:\n### Only return amount_in_cents attributes\n* `GET /v1/purchases?fields[purchases]=amount_in_cents`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 19900\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"amount_in_cents\": 9900\n      }\n    }\n  ]\n}\n```\n## Sorting\nUse the `sort` parameter to sort the results:\n### Sort by effective_start_at in descending order\n* `GET /v1/purchases?sort=-effective_start_at&fields[purchases]=effective_start_at`\n\nResponse will include purchases sorted by the specified field\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-02T00:00:00.000Z\"\n      }\n    },\n    {\n      \"id\": \"456\",\n      \"type\": \"purchases\",\n      \"attributes\": {\n        \"effective_start_at\": \"2025-01-01T00:00:00.000Z\"\n      }\n    }\n  ]\n}\n```\nList of attributes that may be used to sort: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\n## Filters\nUse the `filter[site_id]` parameter to get purchases for a specific site:\n### Get purchases for site with ID 123\n* `GET /v1/purchases?filter[site_id]=123`\n### Filter by customer\nUse the `filter[customer_id]` parameter to get purchases for a specific customer:\n* `GET /v1/purchases?filter[customer_id]=456789`\n\nList of attributes that may be used to filter: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at\n\nThe filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:\n* `eq` for equals\n* `cont` for contains\n* `not_eq` for not equals\n* `not_cont` for not contains\n* `gt` for greater than\n* `gte` for greater than or equal\n* `lt` for less than\n* `lte` for less than or equal\n* `start` for starts with\n* `end` for ends with\n\nFor example:\n* `GET /v1/purchases?filter[amount_in_cents_eq]=19900`\n* `GET /v1/purchases?filter[amount_in_cents_gt]=19900`\n"
+      description: 'Returns a list of purchases (offer purchases) which the current user may access
+
+        ## Pagination
+
+        Use `page[number]` and `page[size]` parameters to paginate results:
+
+        ### Get first page of 10 items
+
+        * `GET /v1/purchases?page[number]=1&page[size]=10`
+
+        ### Get second page of 25 items
+
+        * `GET /v1/purchases?page[number]=2&page[size]=25`
+
+
+        The response includes pagination links and meta data:
+
+        ```json
+
+        {
+
+        "links": {
+
+        "self": "https://api.kajabi.com/v1/purchases?page[number]=2&page[size]=10",
+
+        "first": "https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10",
+
+        "prev": "https://api.kajabi.com/v1/purchases?page[number]=1&page[size]=10",
+
+        "next": "https://api.kajabi.com/v1/purchases?page[number]=3&page[size]=10",
+
+        "last": "https://api.kajabi.com/v1/purchases?page[number]=5&page[size]=10"
+
+        },
+
+        "meta": {
+
+        "count": 10,
+
+        "total_count": 50,
+
+        "total_pages": 5
+
+        }
+
+        }
+
+        ```
+
+        ## Sparse Fields
+
+        Use the `fields[purchases]` parameter to request only specific attributes:
+
+        ### Only return amount_in_cents attributes
+
+        * `GET /v1/purchases?fields[purchases]=amount_in_cents`
+
+
+        Response will only include requested fields
+
+        ```json
+
+        {
+
+        "data": [
+
+        {
+
+        "id": "123",
+
+        "type": "purchases",
+
+        "attributes": {
+
+        "amount_in_cents": 19900
+
+        }
+
+        },
+
+        {
+
+        "id": "456",
+
+        "type": "purchases",
+
+        "attributes": {
+
+        "amount_in_cents": 9900
+
+        }
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+        ## Sorting
+
+        Use the `sort` parameter to sort the results:
+
+        ### Sort by effective_start_at in descending order
+
+        * `GET /v1/purchases?sort=-effective_start_at&fields[purchases]=effective_start_at`
+
+
+        Response will include purchases sorted by the specified field
+
+        ```json
+
+        {
+
+        "data": [
+
+        {
+
+        "id": "123",
+
+        "type": "purchases",
+
+        "attributes": {
+
+        "effective_start_at": "2025-01-02T00:00:00.000Z"
+
+        }
+
+        },
+
+        {
+
+        "id": "456",
+
+        "type": "purchases",
+
+        "attributes": {
+
+        "effective_start_at": "2025-01-01T00:00:00.000Z"
+
+        }
+
+        }
+
+        ]
+
+        }
+
+        ```
+
+        List of attributes that may be used to sort: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at
+
+
+        ## Filters
+
+        Use the `filter[site_id]` parameter to get purchases for a specific site:
+
+        ### Get purchases for site with ID 123
+
+        * `GET /v1/purchases?filter[site_id]=123`
+
+        ### Filter by customer
+
+        Use the `filter[customer_id]` parameter to get purchases for a specific customer:
+
+        * `GET /v1/purchases?filter[customer_id]=456789`
+
+
+        List of attributes that may be used to filter: multipay_payments_made, opt_in, currency, effective_start_at, cardholder_name, billing_address_zip, deactivated_at, deactivation_reason, coupon_code, source, referrer, quantity, created_at, updated_at
+
+
+        The filter param uses the following syntax: `filter[attribute_name_suffix]` with suffix for comparison:
+
+        * `eq` for equals
+
+        * `cont` for contains
+
+        * `not_eq` for not equals
+
+        * `not_cont` for not contains
+
+        * `gt` for greater than
+
+        * `gte` for greater than or equal
+
+        * `lt` for less than
+
+        * `lte` for less than or equal
+
+        * `start` for starts with
+
+        * `end` for ends with
+
+
+        For example:
+
+        * `GET /v1/purchases?filter[amount_in_cents_eq]=19900`
+
+        * `GET /v1/purchases?filter[amount_in_cents_gt]=19900`'
       tags:
       - Purchases
       security:
@@ -103,10 +310,91 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_forbidden'
+      operationId: getV1Purchases
+      x-operation-id-source: derived
   /v1/purchases/{id}:
     get:
       summary: Purchase details
-      description: "Details of a purchase (of an offer)\n\n## Purchase Attributes\n* `amount_in_cents` (integer) - Price of the purchase in cents\n* `payment_type` (string) - Type of payment\n* `trial` (integer) - Number of trial days. (subscription and payment plans only)\n* `trial_end_at` (string) - Date the trial ends\n* `multipay_payments_made` (integer) - Number of payments made\n* `payment_plan_total_payments` (integer) - Total number of payments in the payment plan\n* `status` (string) - The status of the purchase. For one-time purchases this will match the transaction detail status. For subscriptions and payment plans this status represents the status of the plan as compared to the transaction status which represents the individual payment.\n* `opt_in` (boolean) - Whether the purchase was opt-in\n* `raw_extra_contact_information` (object) - Extra contact information\n* `currency` (string) - Currency of the purchase\n* `effective_start_at` (string) - Start date of the purchase\n* `cardholder_name` (string) - Name of the cardholder\n* `billing_address_zip` (string) - Zip code of the billing address\n* `deactivated_at` (string) - Date and time the purchase was deactivated\n* `deactivation_reason` (string) - Reason for deactivation\n* `coupon_code` (string) - Coupon code used for the purchase\n* `source` (string) - Source of the purchase\n* `referrer` (string) - Referrer of the purchase\n* `quantity` (integer) - Quantity of the purchase\n* `created_at` (string) - Date and time the purchase was created\n* `updated_at` (string) - Date and time the purchase was updated_at\n\n## Sparse Fields\n### Only return amount_in_cents and multipay_payments_made attributes\n* `GET /v1/purchases/123?fields[purchases]=amount_in_cents,multipay_payments_made`\n\nResponse will only include requested fields\n```json\n{\n  \"data\": {\n    \"id\": \"123\",\n    \"type\": \"purchases\",\n    \"attributes\": {\n      \"amount_in_cents\": 19900,\n      \"multipay_payments_made\": 1\n    }\n  }\n}\n```\n"
+      description: 'Details of a purchase (of an offer)
+
+
+        ## Purchase Attributes
+
+        * `amount_in_cents` (integer) - Price of the purchase in cents
+
+        * `payment_type` (string) - Type of payment
+
+        * `trial` (integer) - Number of trial days. (subscription and payment plans only)
+
+        * `trial_end_at` (string) - Date the trial ends
+
+        * `multipay_payments_made` (integer) - Number of payments made
+
+        * `payment_plan_total_payments` (integer) - Total number of payments in the payment plan
+
+        * `status` (string) - The status of the purchase. For one-time purchases this will match the transaction detail status. For subscriptions and payment plans this status represents the status of the plan as compared to the transaction status which represents the individual payment.
+
+        * `opt_in` (boolean) - Whether the purchase was opt-in
+
+        * `raw_extra_contact_information` (object) - Extra contact information
+
+        * `currency` (string) - Currency of the purchase
+
+        * `effective_start_at` (string) - Start date of the purchase
+
+        * `cardholder_name` (string) - Name of the cardholder
+
+        * `billing_address_zip` (string) - Zip code of the billing address
+
+        * `deactivated_at` (string) - Date and time the purchase was deactivated
+
+        * `deactivation_reason` (string) - Reason for deactivation
+
+        * `coupon_code` (string) - Coupon code used for the purchase
+
+        * `source` (string) - Source of the purchase
+
+        * `referrer` (string) - Referrer of the purchase
+
+        * `quantity` (integer) - Quantity of the purchase
+
+        * `created_at` (string) - Date and time the purchase was created
+
+        * `updated_at` (string) - Date and time the purchase was updated_at
+
+
+        ## Sparse Fields
+
+        ### Only return amount_in_cents and multipay_payments_made attributes
+
+        * `GET /v1/purchases/123?fields[purchases]=amount_in_cents,multipay_payments_made`
+
+
+        Response will only include requested fields
+
+        ```json
+
+        {
+
+        "data": {
+
+        "id": "123",
+
+        "type": "purchases",
+
+        "attributes": {
+
+        "amount_in_cents": 19900,
+
+        "multipay_payments_made": 1
+
+        }
+
+        }
+
+        }
+
+        ```'
       tags:
       - Purchases
       security:
@@ -149,6 +437,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_not_found'
+      operationId: getV1PurchasesById
+      x-operation-id-source: derived
   /v1/purchases/{id}/reactivate:
     post:
       summary: Reactivate purchase
@@ -157,9 +447,7 @@ paths:
 
         If the product can be reactivated the response will be successful.
 
-        Otherwise, the response will be an error.
-
-        '
+        Otherwise, the response will be an error.'
       tags:
       - Purchases
       security:
@@ -196,6 +484,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_not_found'
+      operationId: postV1PurchasesByIdReactivate
+      x-operation-id-source: derived
   /v1/purchases/{id}/deactivate:
     post:
       summary: Deactivate purchase
@@ -210,9 +500,7 @@ paths:
 
         If the product can be deactivated the response will be successful.
 
-        Otherwise, the response will be an error.
-
-        '
+        Otherwise, the response will be an error.'
       tags:
       - Purchases
       security:
@@ -249,6 +537,8 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_not_found'
+      operationId: postV1PurchasesByIdDeactivate
+      x-operation-id-source: derived
   /v1/purchases/{id}/cancel_subscription:
     post:
       summary: Cancel subscription
@@ -264,9 +554,7 @@ paths:
 
         If the payment can be cancelled the response will be successful.
 
-        Otherwise, the response will be an error with validation details.
-
-        '
+        Otherwise, the response will be an error with validation details.'
       tags:
       - Purchases
       security:
@@ -309,8 +597,40 @@ paths:
             application/vnd.api+json:
               schema:
                 $ref: '#/components/schemas/errors_unprocessable'
+      operationId: postV1PurchasesByIdCancelSubscription
+      x-operation-id-source: derived
 components:
   schemas:
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     purchases_index_response:
       type: object
       properties:
@@ -388,28 +708,69 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    errors_unprocessable:
+    purchases_attributes:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_attributes:
-      type: object
-      properties:
-        status:
+        amount_in_cents:
+          type: integer
+        payment_type:
           type: string
-        source:
+        multipay_payments_made:
+          type:
+          - integer
+          - 'null'
+        opt_in:
+          type: boolean
+        raw_extra_contact_information:
           type: object
-          nullable: true
-          properties:
-            pointer:
-              type: string
-        title:
+        currency:
           type: string
-        detail:
+        effective_start_at:
+          type:
+          - string
+          - 'null'
+        cardholder_name:
+          type:
+          - string
+          - 'null'
+        billing_address_zip:
+          type:
+          - string
+          - 'null'
+        deactivated_at:
+          type:
+          - string
+          - 'null'
+        deactivation_reason:
+          type:
+          - string
+          - 'null'
+        coupon_code:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        referrer:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type:
+          - integer
+          - 'null'
+        created_at:
           type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
     purchases_show_response:
       type: object
       properties:
@@ -478,75 +839,6 @@ components:
               type: string
             current:
               type: string
-    purchases_attributes:
-      type: object
-      properties:
-        amount_in_cents:
-          type: integer
-        payment_type:
-          type: string
-        multipay_payments_made:
-          type:
-          - integer
-          - 'null'
-        opt_in:
-          type: boolean
-        raw_extra_contact_information:
-          type: object
-        currency:
-          type: string
-        effective_start_at:
-          type:
-          - string
-          - 'null'
-        cardholder_name:
-          type:
-          - string
-          - 'null'
-        billing_address_zip:
-          type:
-          - string
-          - 'null'
-        deactivated_at:
-          type:
-          - string
-          - 'null'
-        deactivation_reason:
-          type:
-          - string
-          - 'null'
-        coupon_code:
-          type:
-          - string
-          - 'null'
-        source:
-          type:
-          - string
-          - 'null'
-        referrer:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type: integer
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     errors_forbidden:
       type: object
       properties:
