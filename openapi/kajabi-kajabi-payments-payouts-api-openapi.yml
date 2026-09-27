@@ -438,13 +438,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     errors_attributes:
       type: object
       properties:
@@ -462,6 +455,13 @@ components:
         detail:
           type: string
     errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
       type: object
       properties:
         errors:

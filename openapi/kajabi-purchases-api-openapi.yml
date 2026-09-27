@@ -601,29 +601,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     errors_unprocessable:
       type: object
       properties:
@@ -701,76 +678,13 @@ components:
               type: string
             current:
               type: string
-    errors_not_found:
+    errors_forbidden:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    purchases_attributes:
-      type: object
-      properties:
-        amount_in_cents:
-          type: integer
-        payment_type:
-          type: string
-        multipay_payments_made:
-          type:
-          - integer
-          - 'null'
-        opt_in:
-          type: boolean
-        raw_extra_contact_information:
-          type: object
-        currency:
-          type: string
-        effective_start_at:
-          type:
-          - string
-          - 'null'
-        cardholder_name:
-          type:
-          - string
-          - 'null'
-        billing_address_zip:
-          type:
-          - string
-          - 'null'
-        deactivated_at:
-          type:
-          - string
-          - 'null'
-        deactivation_reason:
-          type:
-          - string
-          - 'null'
-        coupon_code:
-          type:
-          - string
-          - 'null'
-        source:
-          type:
-          - string
-          - 'null'
-        referrer:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type:
-          - integer
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
     purchases_show_response:
       type: object
       properties:
@@ -839,7 +753,93 @@ components:
               type: string
             current:
               type: string
-    errors_forbidden:
+    purchases_attributes:
+      type: object
+      properties:
+        amount_in_cents:
+          type: integer
+        payment_type:
+          type: string
+        multipay_payments_made:
+          type:
+          - integer
+          - 'null'
+        opt_in:
+          type: boolean
+        raw_extra_contact_information:
+          type: object
+        currency:
+          type: string
+        effective_start_at:
+          type:
+          - string
+          - 'null'
+        cardholder_name:
+          type:
+          - string
+          - 'null'
+        billing_address_zip:
+          type:
+          - string
+          - 'null'
+        deactivated_at:
+          type:
+          - string
+          - 'null'
+        deactivation_reason:
+          type:
+          - string
+          - 'null'
+        coupon_code:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        referrer:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type:
+          - integer
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unauthorized:
       type: object
       properties:
         errors:

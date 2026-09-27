@@ -220,56 +220,6 @@ components:
               type: string
             current:
               type: string
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    custom_fields_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/custom_fields_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
     errors_forbidden:
       type: object
       properties:
@@ -298,6 +248,56 @@ components:
           type: string
         required:
           type: boolean
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    custom_fields_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/custom_fields_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

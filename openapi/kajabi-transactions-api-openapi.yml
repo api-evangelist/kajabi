@@ -418,6 +418,56 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unavailable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    transactions_attributes:
+      type: object
+      properties:
+        action:
+          type: string
+        state:
+          type: string
+        payment_type:
+          type:
+          - string
+          - 'null'
+        amount_in_cents:
+          type: integer
+        sales_tax_in_cents:
+          type: integer
+        currency:
+          type: string
+        currency_symbol:
+          type: string
+        formatted_amount:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     errors_attributes:
       type: object
       properties:
@@ -434,6 +484,50 @@ components:
           type: string
         detail:
           type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    transactions_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/transactions_attributes'
+            relationships:
+              type: object
+              properties:
+                customer:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                offer:
+                  type: object
+                  deprecated: true
+                  description: 'DEPRECATED: use `purchases`. Populated only for single-offer transactions; null for bundled (multi-offer) transactions.'
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                purchases:
+                  type: object
+                  description: Offer purchases this transaction covers (one entry for single-offer transactions, several for bundled).
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
     errors_unauthorized:
       type: object
       properties:
@@ -476,100 +570,6 @@ components:
                     properties:
                       data:
                         $ref: '#/components/schemas/resource_identifiers'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    errors_unavailable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    transactions_attributes:
-      type: object
-      properties:
-        action:
-          type: string
-        state:
-          type: string
-        payment_type:
-          type:
-          - string
-          - 'null'
-        amount_in_cents:
-          type: integer
-        sales_tax_in_cents:
-          type: integer
-        currency:
-          type: string
-        currency_symbol:
-          type: string
-        formatted_amount:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    transactions_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/transactions_attributes'
-            relationships:
-              type: object
-              properties:
-                customer:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                offer:
-                  type: object
-                  deprecated: true
-                  description: 'DEPRECATED: use `purchases`. Populated only for single-offer transactions; null for bundled (multi-offer) transactions.'
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                purchases:
-                  type: object
-                  description: Offer purchases this transaction covers (one entry for single-offer transactions, several for bundled).
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
         links:
           type: object
           properties:

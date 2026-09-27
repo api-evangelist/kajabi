@@ -91,6 +91,13 @@ components:
               type: string
             specficiation:
               type: string
+    errors_unavailable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     errors_attributes:
       type: object
       properties:
@@ -107,13 +114,6 @@ components:
           type: string
         detail:
           type: string
-    errors_unavailable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

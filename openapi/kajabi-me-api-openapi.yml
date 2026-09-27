@@ -95,17 +95,25 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    me_attributes:
+    me_response:
       type: object
       properties:
-        initials:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        role_level:
-          type: string
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/me_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     errors_attributes:
       type: object
       properties:
@@ -122,26 +130,18 @@ components:
           type: string
         detail:
           type: string
+    me_attributes:
+      type: object
+      properties:
+        initials:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role_level:
+          type: string
     errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    me_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/me_attributes'
-    errors_forbidden:
       type: object
       properties:
         errors:

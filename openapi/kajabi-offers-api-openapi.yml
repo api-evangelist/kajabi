@@ -766,77 +766,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    offers_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/offers_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                products:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    contacts_relationships_tags_response:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/resource_identifiers'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
     errors_forbidden:
       type: object
       properties:
@@ -854,42 +783,32 @@ components:
       required:
       - id
       - type
-    offers_index_response:
+    contacts_relationships_tags_response:
       type: object
       properties:
         data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/offers_attributes'
-              relationships:
-                type: object
-                properties:
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  products:
-                    type: object
-                    properties:
-                      data:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/resource_identifier'
+          $ref: '#/components/schemas/resource_identifiers'
         links:
           type: object
           properties:
             self:
               type: string
-            current:
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
               type: string
+        title:
+          type: string
+        detail:
+          type: string
     offers_attributes:
       type: object
       properties:
@@ -933,6 +852,87 @@ components:
           - 'null'
       required:
       - title
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    offers_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/offers_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  products:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    offers_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/offers_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                products:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
   securitySchemes:
     Bearer:
       type: http

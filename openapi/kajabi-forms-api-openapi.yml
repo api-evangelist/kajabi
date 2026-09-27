@@ -873,29 +873,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     forms_show_response:
       type: object
       properties:
@@ -928,100 +905,6 @@ components:
                   properties:
                     data:
                       $ref: '#/components/schemas/resource_identifiers'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    form_attributes:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        default:
-          type: boolean
-        webhook_url:
-          type:
-          - object
-          - 'null'
-        url:
-          type: string
-        created_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    form_submission_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone_number:
-          type:
-          - string
-          - 'null'
-        business_number:
-          type:
-          - string
-          - 'null'
-        address_line_1:
-          type:
-          - string
-          - 'null'
-        address_line_2:
-          type:
-          - string
-          - 'null'
-        address_city:
-          type:
-          - string
-          - 'null'
-        address_state:
-          type:
-          - string
-          - 'null'
-        address_country:
-          type:
-          - string
-          - 'null'
-        address_zip:
-          type:
-          - string
-          - 'null'
-        custom_1:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_2:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_3:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
     form_submissions_index_response:
       type: object
       properties:
@@ -1056,6 +939,42 @@ components:
               type: string
             current:
               type: string
+    form_attributes:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        default:
+          type: boolean
+        webhook_url:
+          type:
+          - object
+          - 'null'
+        url:
+          type: string
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     form_submission_response:
       type: object
       properties:
@@ -1147,13 +1066,6 @@ components:
                   properties:
                     data:
                       $ref: '#/components/schemas/resource_identifier'
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     resource_identifier:
       type: object
       properties:
@@ -1164,6 +1076,94 @@ components:
       required:
       - id
       - type
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    form_submission_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type:
+          - string
+          - 'null'
+        business_number:
+          type:
+          - string
+          - 'null'
+        address_line_1:
+          type:
+          - string
+          - 'null'
+        address_line_2:
+          type:
+          - string
+          - 'null'
+        address_city:
+          type:
+          - string
+          - 'null'
+        address_state:
+          type:
+          - string
+          - 'null'
+        address_country:
+          type:
+          - string
+          - 'null'
+        address_zip:
+          type:
+          - string
+          - 'null'
+        custom_1:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_2:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_3:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

@@ -2157,6 +2157,306 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    transactions_attributes:
+      type: object
+      properties:
+        action:
+          type: string
+        state:
+          type: string
+        payment_type:
+          type:
+          - string
+          - 'null'
+        amount_in_cents:
+          type: integer
+        sales_tax_in_cents:
+          type: integer
+        currency:
+          type: string
+        currency_symbol:
+          type: string
+        formatted_amount:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    hooks_attributes:
+      type: object
+      properties:
+        event:
+          type: string
+          enum:
+          - purchase
+          - form_submission
+          - tag_added
+          - tag_removed
+          - payment_succeeded
+          - order_created
+        target_url:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        resource_id:
+          type:
+          - integer
+          - 'null'
+      required:
+      - event
+      - target_url
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    form_attributes:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        default:
+          type: boolean
+        webhook_url:
+          type:
+          - object
+          - 'null'
+        url:
+          type: string
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contacts_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type:
+          - string
+          - 'null'
+        business_number:
+          type:
+          - string
+          - 'null'
+        subscribed:
+          type: boolean
+        address_line_1:
+          type:
+          - string
+          - 'null'
+        address_line_2:
+          type:
+          - string
+          - 'null'
+        address_city:
+          type:
+          - string
+          - 'null'
+        address_state:
+          type:
+          - string
+          - 'null'
+        address_country:
+          type:
+          - string
+          - 'null'
+        external_user_id:
+          type:
+          - string
+          - 'null'
+          description: Supported once contact is granted an offer or makes a purchase
+        address_zip:
+          type:
+          - string
+          - 'null'
+        custom_1:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_2:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_3:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    customers_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        avatar:
+          type:
+          - string
+          - 'null'
+        external_user_id:
+          type:
+          - string
+          - 'null'
+          description: Supported once contact is granted an offer or makes a purchase
+        public_bio:
+          type:
+          - string
+          - 'null'
+        public_location:
+          type:
+          - string
+          - 'null'
+        public_website:
+          type:
+          - string
+          - 'null'
+        socials:
+          type:
+          - object
+          - 'null'
+          properties:
+            twitter:
+              type:
+              - string
+              - 'null'
+            facebook:
+              type:
+              - string
+              - 'null'
+            instagram:
+              type:
+              - string
+              - 'null'
+        net_revenue:
+          type:
+          - string
+          - 'null'
+        sign_in_count:
+          type:
+          - integer
+          - 'null'
+          description: Read only
+        last_request_at:
+          type:
+          - string
+          - 'null'
+          description: ISO 8601 date-time, read only
+        bounced_at:
+          type:
+          - string
+          - 'null'
+          description: ISO 8601 date-time, read only
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    hooks_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - hooks
+            attributes:
+              $ref: '#/components/schemas/hooks_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
     hooks_index_response:
       type: object
       properties:
@@ -2181,19 +2481,168 @@ components:
                     properties:
                       data:
                         $ref: '#/components/schemas/resource_identifier'
-    errors_not_found:
+    errors_unauthorized:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
+    contact_tags_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    purchases_attributes:
+      type: object
+      properties:
+        amount_in_cents:
+          type: integer
+        payment_type:
+          type: string
+        multipay_payments_made:
+          type:
+          - integer
+          - 'null'
+        opt_in:
+          type: boolean
+        raw_extra_contact_information:
+          type: object
+        currency:
+          type: string
+        effective_start_at:
+          type:
+          - string
+          - 'null'
+        cardholder_name:
+          type:
+          - string
+          - 'null'
+        billing_address_zip:
+          type:
+          - string
+          - 'null'
+        deactivated_at:
+          type:
+          - string
+          - 'null'
+        deactivation_reason:
+          type:
+          - string
+          - 'null'
+        coupon_code:
+          type:
+          - string
+          - 'null'
+        source:
+          type:
+          - string
+          - 'null'
+        referrer:
+          type:
+          - string
+          - 'null'
+        quantity:
+          type:
+          - integer
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
     orders_attributes:
       type: object
       properties:
         order_number:
           type: integer
         currency_code:
+          type: string
+        fulfilled_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        total_price_in_cents:
+          type: integer
+        subtotal_in_cents:
+          type: integer
+        sales_tax_amount_in_cents:
+          type: integer
+        discount_amount_in_cents:
+          type: integer
+        formatted_total_price:
+          type: string
+        formatted_subtotal:
+          type: string
+        currency_symbol:
+          type: string
+    offers_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        internal_title:
+          type:
+          - string
+          - 'null'
+        currency:
+          type: string
+        price_in_cents:
+          type: integer
+        payment_type:
+          type: string
+        token:
+          type: string
+        payment_method:
+          type: string
+        price_description:
+          type: string
+        checkout_url:
+          type: string
+        recurring_offer:
+          type: boolean
+        subscription:
+          type: boolean
+        one_time:
+          type: boolean
+        single:
+          type: boolean
+        free:
+          type: boolean
+        image_url:
+          type:
+          - string
+          - 'null'
+      required:
+      - title
+    order_items_attributes:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        currency_code:
+          type: string
+        item_type:
+          type: string
+        item_id:
+          type: integer
+        title:
           type: string
         fulfilled_at:
           type:
@@ -2272,455 +2721,6 @@ components:
           - string
           - 'null'
           description: Support depends on custom fields of a site
-    hooks_attributes:
-      type: object
-      properties:
-        event:
-          type: string
-          enum:
-          - purchase
-          - form_submission
-          - tag_added
-          - tag_removed
-          - payment_succeeded
-          - order_created
-        target_url:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        resource_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - event
-      - target_url
-    offers_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        internal_title:
-          type:
-          - string
-          - 'null'
-        currency:
-          type: string
-        price_in_cents:
-          type: integer
-        payment_type:
-          type: string
-        token:
-          type: string
-        payment_method:
-          type: string
-        price_description:
-          type: string
-        checkout_url:
-          type: string
-        recurring_offer:
-          type: boolean
-        subscription:
-          type: boolean
-        one_time:
-          type: boolean
-        single:
-          type: boolean
-        free:
-          type: boolean
-        image_url:
-          type:
-          - string
-          - 'null'
-      required:
-      - title
-    hooks_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - hooks
-            attributes:
-              $ref: '#/components/schemas/hooks_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-    contacts_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone_number:
-          type:
-          - string
-          - 'null'
-        business_number:
-          type:
-          - string
-          - 'null'
-        subscribed:
-          type: boolean
-        address_line_1:
-          type:
-          - string
-          - 'null'
-        address_line_2:
-          type:
-          - string
-          - 'null'
-        address_city:
-          type:
-          - string
-          - 'null'
-        address_state:
-          type:
-          - string
-          - 'null'
-        address_country:
-          type:
-          - string
-          - 'null'
-        external_user_id:
-          type:
-          - string
-          - 'null'
-          description: Supported once contact is granted an offer or makes a purchase
-        address_zip:
-          type:
-          - string
-          - 'null'
-        custom_1:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_2:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_3:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    customers_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        avatar:
-          type:
-          - string
-          - 'null'
-        external_user_id:
-          type:
-          - string
-          - 'null'
-          description: Supported once contact is granted an offer or makes a purchase
-        public_bio:
-          type:
-          - string
-          - 'null'
-        public_location:
-          type:
-          - string
-          - 'null'
-        public_website:
-          type:
-          - string
-          - 'null'
-        socials:
-          type:
-          - object
-          - 'null'
-          properties:
-            twitter:
-              type:
-              - string
-              - 'null'
-            facebook:
-              type:
-              - string
-              - 'null'
-            instagram:
-              type:
-              - string
-              - 'null'
-        net_revenue:
-          type:
-          - string
-          - 'null'
-        sign_in_count:
-          type:
-          - integer
-          - 'null'
-          description: Read only
-        last_request_at:
-          type:
-          - string
-          - 'null'
-          description: ISO 8601 date-time, read only
-        bounced_at:
-          type:
-          - string
-          - 'null'
-          description: ISO 8601 date-time, read only
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    form_attributes:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        default:
-          type: boolean
-        webhook_url:
-          type:
-          - object
-          - 'null'
-        url:
-          type: string
-        created_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    contact_tags_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
-    errors_unprocessable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    order_items_attributes:
-      type: object
-      properties:
-        quantity:
-          type: integer
-        currency_code:
-          type: string
-        item_type:
-          type: string
-        item_id:
-          type: integer
-        title:
-          type: string
-        fulfilled_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        total_price_in_cents:
-          type: integer
-        subtotal_in_cents:
-          type: integer
-        sales_tax_amount_in_cents:
-          type: integer
-        discount_amount_in_cents:
-          type: integer
-        formatted_total_price:
-          type: string
-        formatted_subtotal:
-          type: string
-        currency_symbol:
-          type: string
-    purchases_attributes:
-      type: object
-      properties:
-        amount_in_cents:
-          type: integer
-        payment_type:
-          type: string
-        multipay_payments_made:
-          type:
-          - integer
-          - 'null'
-        opt_in:
-          type: boolean
-        raw_extra_contact_information:
-          type: object
-        currency:
-          type: string
-        effective_start_at:
-          type:
-          - string
-          - 'null'
-        cardholder_name:
-          type:
-          - string
-          - 'null'
-        billing_address_zip:
-          type:
-          - string
-          - 'null'
-        deactivated_at:
-          type:
-          - string
-          - 'null'
-        deactivation_reason:
-          type:
-          - string
-          - 'null'
-        coupon_code:
-          type:
-          - string
-          - 'null'
-        source:
-          type:
-          - string
-          - 'null'
-        referrer:
-          type:
-          - string
-          - 'null'
-        quantity:
-          type:
-          - integer
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    transactions_attributes:
-      type: object
-      properties:
-        action:
-          type: string
-        state:
-          type: string
-        payment_type:
-          type:
-          - string
-          - 'null'
-        amount_in_cents:
-          type: integer
-        sales_tax_in_cents:
-          type: integer
-        currency:
-          type: string
-        currency_symbol:
-          type: string
-        formatted_amount:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
   securitySchemes:
     Bearer:
       type: http
