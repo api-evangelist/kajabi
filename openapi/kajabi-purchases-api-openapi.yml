@@ -601,7 +601,105 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_unprocessable:
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    purchases_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - purchases
+            attributes:
+              $ref: '#/components/schemas/purchases_attributes'
+            relationships:
+              type: object
+              properties:
+                offer:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                customer:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                transactions:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                products:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_forbidden:
       type: object
       properties:
         errors:
@@ -678,81 +776,13 @@ components:
               type: string
             current:
               type: string
-    errors_forbidden:
+    errors_unprocessable:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    purchases_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - purchases
-            attributes:
-              $ref: '#/components/schemas/purchases_attributes'
-            relationships:
-              type: object
-              properties:
-                offer:
-                  type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        type:
-                          type: string
-                customer:
-                  type: object
-                  properties:
-                    data:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        type:
-                          type: string
-                transactions:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                          type:
-                            type: string
-                products:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          id:
-                            type: string
-                          type:
-                            type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
     purchases_attributes:
       type: object
       properties:
@@ -816,36 +846,6 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

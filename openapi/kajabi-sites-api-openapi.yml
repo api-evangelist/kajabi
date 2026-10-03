@@ -627,13 +627,43 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_forbidden:
+    errors_attributes:
       type: object
       properties:
-        errors:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    sites_index_response:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/errors_attributes'
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/sites_attributes'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
     website_pages_show_response:
       type: object
       properties:
@@ -663,6 +693,39 @@ components:
               type: string
             current:
               type: string
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    sites_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/sites_attributes'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
     resource_identifier:
       type: object
       properties:
@@ -673,6 +736,49 @@ components:
       required:
       - id
       - type
+    sites_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        subdomain:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    website_pages_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
     website_pages_index_response:
       type: object
       properties:
@@ -704,112 +810,6 @@ components:
               type: string
             current:
               type: string
-    sites_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/sites_attributes'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    website_pages_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        url:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    sites_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/sites_attributes'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    sites_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        subdomain:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
   securitySchemes:
     Bearer:
       type: http

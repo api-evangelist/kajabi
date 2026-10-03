@@ -873,140 +873,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    forms_show_response:
+    errors_attributes:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - forms
-            attributes:
-              $ref: '#/components/schemas/form_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                offer:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                fields:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
-    form_submissions_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/form_submission_attributes'
-              relationships:
-                type: object
-                properties:
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  form:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    form_attributes:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        default:
-          type: boolean
-        webhook_url:
+        status:
+          type: string
+        source:
           type:
           - object
           - 'null'
-        url:
+          properties:
+            pointer:
+              type: string
+        title:
           type: string
-        created_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    form_submission_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/form_submission_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                form:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
+        detail:
+          type: string
     forms_index_response:
       type: object
       properties:
@@ -1041,6 +923,38 @@ components:
                     properties:
                       data:
                         $ref: '#/components/schemas/resource_identifiers'
+    form_submission_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/form_submission_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                form:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
     form_submissions_show_response:
       type: object
       properties:
@@ -1066,43 +980,6 @@ components:
                   properties:
                     data:
                       $ref: '#/components/schemas/resource_identifier'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
     form_submission_attributes:
       type: object
       properties:
@@ -1157,7 +1034,130 @@ components:
           - string
           - 'null'
           description: Support depends on custom fields of a site
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    form_attributes:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        default:
+          type: boolean
+        webhook_url:
+          type:
+          - object
+          - 'null'
+        url:
+          type: string
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    forms_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - forms
+            attributes:
+              $ref: '#/components/schemas/form_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                offer:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                fields:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
     errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    form_submissions_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/form_submission_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  form:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_forbidden:
       type: object
       properties:
         errors:

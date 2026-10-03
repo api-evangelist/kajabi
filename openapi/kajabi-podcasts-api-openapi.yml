@@ -430,23 +430,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
     errors_attributes:
       type: object
       properties:
@@ -544,7 +527,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
       type: object
       properties:
         errors:

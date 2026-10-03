@@ -250,13 +250,51 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_forbidden:
+    errors_attributes:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    blog_posts_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        content:
+          type: string
+        slug:
+          type: string
+        page_title:
+          type: string
+        page_description:
+          type: string
+        published_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
     resource_identifier:
       type: object
       properties:
@@ -298,22 +336,13 @@ components:
               type: string
             current:
               type: string
-    errors_attributes:
+    errors_unauthorized:
       type: object
       properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     blog_posts_show_response:
       type: object
       properties:
@@ -343,42 +372,13 @@ components:
               type: string
             current:
               type: string
-    errors_unauthorized:
+    errors_forbidden:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    blog_posts_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        url:
-          type: string
-        content:
-          type: string
-        slug:
-          type: string
-        page_title:
-          type: string
-        page_description:
-          type: string
-        published_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
   securitySchemes:
     Bearer:
       type: http

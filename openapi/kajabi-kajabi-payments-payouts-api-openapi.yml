@@ -454,13 +454,6 @@ components:
           type: string
         detail:
           type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     errors_forbidden:
       type: object
       properties:
@@ -469,6 +462,13 @@ components:
           items:
             $ref: '#/components/schemas/errors_attributes'
     errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unauthorized:
       type: object
       properties:
         errors:

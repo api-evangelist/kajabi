@@ -337,30 +337,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    contact_tags_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
     errors_attributes:
       type: object
       properties:
@@ -377,40 +353,6 @@ components:
           type: string
         detail:
           type: string
-    contact_tags_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/contact_tags_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     contact_tags_index_response:
       type: object
       properties:
@@ -440,6 +382,64 @@ components:
               type: string
             current:
               type: string
+    contact_tags_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/contact_tags_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_tags_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
   securitySchemes:
     Bearer:
       type: http
