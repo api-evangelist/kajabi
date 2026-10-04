@@ -766,55 +766,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    offers_show_response:
+    contacts_relationships_tags_response:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/offers_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                products:
-                  type: object
-                  properties:
-                    data:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/resource_identifier'
+          $ref: '#/components/schemas/resource_identifiers'
         links:
           type: object
           properties:
             self:
-              type: string
-            current:
               type: string
     offers_index_response:
       type: object
@@ -852,20 +812,6 @@ components:
               type: string
             current:
               type: string
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
     offers_attributes:
       type: object
       properties:
@@ -909,6 +855,26 @@ components:
           - 'null'
       required:
       - title
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
     errors_unauthorized:
       type: object
       properties:
@@ -916,16 +882,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    contacts_relationships_tags_response:
+    resource_identifier:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/resource_identifiers'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     errors_forbidden:
       type: object
       properties:
@@ -933,6 +899,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
+    offers_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/offers_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                products:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
   securitySchemes:
     Bearer:
       type: http

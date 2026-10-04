@@ -639,51 +639,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
+    courses_attributes:
       type: object
       properties:
-        status:
+        created_at:
           type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
         title:
           type: string
-        detail:
-          type: string
-    courses_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/courses_attributes'
-              relationships:
-                type: object
-                properties:
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
+        description:
+          type:
+          - string
+          - 'null'
+        thumbnail_url:
+          type:
+          - string
+          - 'null'
+      required:
+      - title
     courses_show_response:
       type: object
       properties:
@@ -744,39 +719,6 @@ components:
               relationships:
                 type: object
                 properties: {}
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    course_modules_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        position:
-          type:
-          - string
-          - 'null'
-        poster_image_url:
-          type:
-          - string
-          - 'null'
-        publishing_option:
-          type: string
     offers_attributes:
       type: object
       properties:
@@ -820,6 +762,97 @@ components:
           - 'null'
       required:
       - title
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    course_modules_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        position:
+          type:
+          - string
+          - 'null'
+        poster_image_url:
+          type:
+          - string
+          - 'null'
+        publishing_option:
+          type: string
+    courses_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/courses_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    course_lessons_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        position:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        publishing_option:
+          type: string
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     errors_unauthorized:
       type: object
       properties:
@@ -834,39 +867,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    course_lessons_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        position:
-          type:
-          - string
-          - 'null'
-        status:
-          type: string
-        publishing_option:
-          type: string
-    courses_attributes:
-      type: object
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        title:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        thumbnail_url:
-          type:
-          - string
-          - 'null'
-      required:
-      - title
   securitySchemes:
     Bearer:
       type: http

@@ -418,33 +418,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_unavailable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
     transactions_index_response:
       type: object
       properties:
@@ -487,56 +460,22 @@ components:
               type: string
             current:
               type: string
-    transactions_attributes:
+    errors_attributes:
       type: object
       properties:
-        action:
+        status:
           type: string
-        state:
-          type: string
-        payment_type:
+        source:
           type:
-          - string
+          - object
           - 'null'
-        amount_in_cents:
-          type: integer
-        sales_tax_in_cents:
-          type: integer
-        currency:
+          properties:
+            pointer:
+              type: string
+        title:
           type: string
-        currency_symbol:
+        detail:
           type: string
-        formatted_amount:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     transactions_show_response:
       type: object
       properties:
@@ -577,6 +516,67 @@ components:
               type: string
             current:
               type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_unavailable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    transactions_attributes:
+      type: object
+      properties:
+        action:
+          type: string
+        state:
+          type: string
+        payment_type:
+          type:
+          - string
+          - 'null'
+        amount_in_cents:
+          type: integer
+        sales_tax_in_cents:
+          type: integer
+        currency:
+          type: string
+        currency_symbol:
+          type: string
+        formatted_amount:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
   securitySchemes:
     Bearer:
       type: http

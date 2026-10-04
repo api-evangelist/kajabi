@@ -577,34 +577,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
+    orders_attributes:
       type: object
       properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    order_items_attributes:
-      type: object
-      properties:
-        quantity:
+        order_number:
           type: integer
         currency_code:
-          type: string
-        item_type:
-          type: string
-        item_id:
-          type: integer
-        title:
           type: string
         fulfilled_at:
           type:
@@ -629,28 +607,23 @@ components:
           type: string
         currency_symbol:
           type: string
-    errors_not_found:
+    errors_attributes:
       type: object
       properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    resource_identifier:
-      type: object
-      properties:
-        id:
+        status:
           type: string
-        type:
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
           type: string
-      required:
-      - id
-      - type
-    order_items_show_response:
+        detail:
+          type: string
+    orders_show_response:
       type: object
       properties:
         data:
@@ -661,17 +634,27 @@ components:
             type:
               type: string
               enum:
-              - order_items
+              - orders
             attributes:
-              $ref: '#/components/schemas/order_items_attributes'
+              $ref: '#/components/schemas/orders_attributes'
             relationships:
               type: object
               properties:
-                order:
+                site:
                   type: object
                   properties:
                     data:
                       $ref: '#/components/schemas/resource_identifier'
+                customer:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                order_items:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
         links:
           type: object
           properties:
@@ -679,13 +662,6 @@ components:
               type: string
             current:
               type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     orders_index_response:
       type: object
       properties:
@@ -727,13 +703,34 @@ components:
               type: string
             current:
               type: string
-    errors_forbidden:
+    errors_not_found:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
     order_items_index_response:
       type: object
       properties:
@@ -765,7 +762,7 @@ components:
               type: string
             current:
               type: string
-    orders_show_response:
+    order_items_show_response:
       type: object
       properties:
         data:
@@ -776,27 +773,17 @@ components:
             type:
               type: string
               enum:
-              - orders
+              - order_items
             attributes:
-              $ref: '#/components/schemas/orders_attributes'
+              $ref: '#/components/schemas/order_items_attributes'
             relationships:
               type: object
               properties:
-                site:
+                order:
                   type: object
                   properties:
                     data:
                       $ref: '#/components/schemas/resource_identifier'
-                customer:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                order_items:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
         links:
           type: object
           properties:
@@ -804,12 +791,25 @@ components:
               type: string
             current:
               type: string
-    orders_attributes:
+    errors_forbidden:
       type: object
       properties:
-        order_number:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    order_items_attributes:
+      type: object
+      properties:
+        quantity:
           type: integer
         currency_code:
+          type: string
+        item_type:
+          type: string
+        item_id:
+          type: integer
+        title:
           type: string
         fulfilled_at:
           type:

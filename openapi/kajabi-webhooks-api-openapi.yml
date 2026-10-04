@@ -2157,126 +2157,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
+    hooks_show_response:
       type: object
       properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
+        data:
+          type: object
           properties:
-            pointer:
+            id:
               type: string
-        title:
-          type: string
-        detail:
-          type: string
-    form_submission_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        phone_number:
-          type:
-          - string
-          - 'null'
-        business_number:
-          type:
-          - string
-          - 'null'
-        address_line_1:
-          type:
-          - string
-          - 'null'
-        address_line_2:
-          type:
-          - string
-          - 'null'
-        address_city:
-          type:
-          - string
-          - 'null'
-        address_state:
-          type:
-          - string
-          - 'null'
-        address_country:
-          type:
-          - string
-          - 'null'
-        address_zip:
-          type:
-          - string
-          - 'null'
-        custom_1:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_2:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-        custom_3:
-          type:
-          - string
-          - 'null'
-          description: Support depends on custom fields of a site
-    offers_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        internal_title:
-          type:
-          - string
-          - 'null'
-        currency:
-          type: string
-        price_in_cents:
-          type: integer
-        payment_type:
-          type: string
-        token:
-          type: string
-        payment_method:
-          type: string
-        price_description:
-          type: string
-        checkout_url:
-          type: string
-        recurring_offer:
-          type: boolean
-        subscription:
-          type: boolean
-        one_time:
-          type: boolean
-        single:
-          type: boolean
-        free:
-          type: boolean
-        image_url:
-          type:
-          - string
-          - 'null'
-      required:
-      - title
-    errors_unprocessable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
+            type:
+              type: string
+              enum:
+              - hooks
+            attributes:
+              $ref: '#/components/schemas/hooks_attributes'
+            relationships:
+              type: object
+              properties:
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
     purchases_attributes:
       type: object
       properties:
@@ -2340,130 +2242,6 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    hooks_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-                enum:
-                - hooks
-              attributes:
-                $ref: '#/components/schemas/hooks_attributes'
-              relationships:
-                type: object
-                properties:
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-    transactions_attributes:
-      type: object
-      properties:
-        action:
-          type: string
-        state:
-          type: string
-        payment_type:
-          type:
-          - string
-          - 'null'
-        amount_in_cents:
-          type: integer
-        sales_tax_in_cents:
-          type: integer
-        currency:
-          type: string
-        currency_symbol:
-          type: string
-        formatted_amount:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    contact_tags_attributes:
-      type: object
-      properties:
-        name:
-          type: string
-      required:
-      - name
-    order_items_attributes:
-      type: object
-      properties:
-        quantity:
-          type: integer
-        currency_code:
-          type: string
-        item_type:
-          type: string
-        item_id:
-          type: integer
-        title:
-          type: string
-        fulfilled_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        total_price_in_cents:
-          type: integer
-        subtotal_in_cents:
-          type: integer
-        sales_tax_amount_in_cents:
-          type: integer
-        discount_amount_in_cents:
-          type: integer
-        formatted_total_price:
-          type: string
-        formatted_subtotal:
-          type: string
-        currency_symbol:
-          type: string
     customers_attributes:
       type: object
       properties:
@@ -2538,28 +2316,54 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    hooks_show_response:
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    hooks_index_response:
       type: object
       properties:
         data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - hooks
-            attributes:
-              $ref: '#/components/schemas/hooks_attributes'
-            relationships:
-              type: object
-              properties:
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - hooks
+              attributes:
+                $ref: '#/components/schemas/hooks_attributes'
+              relationships:
+                type: object
+                properties:
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     contacts_attributes:
       type: object
       properties:
@@ -2631,6 +2435,261 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
+    form_attributes:
+      type: object
+      properties:
+        title:
+          type:
+          - string
+          - 'null'
+        default:
+          type: boolean
+        webhook_url:
+          type:
+          - object
+          - 'null'
+        url:
+          type: string
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    transactions_attributes:
+      type: object
+      properties:
+        action:
+          type: string
+        state:
+          type: string
+        payment_type:
+          type:
+          - string
+          - 'null'
+        amount_in_cents:
+          type: integer
+        sales_tax_in_cents:
+          type: integer
+        currency:
+          type: string
+        currency_symbol:
+          type: string
+        formatted_amount:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+    offers_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        internal_title:
+          type:
+          - string
+          - 'null'
+        currency:
+          type: string
+        price_in_cents:
+          type: integer
+        payment_type:
+          type: string
+        token:
+          type: string
+        payment_method:
+          type: string
+        price_description:
+          type: string
+        checkout_url:
+          type: string
+        recurring_offer:
+          type: boolean
+        subscription:
+          type: boolean
+        one_time:
+          type: boolean
+        single:
+          type: boolean
+        free:
+          type: boolean
+        image_url:
+          type:
+          - string
+          - 'null'
+      required:
+      - title
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    order_items_attributes:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        currency_code:
+          type: string
+        item_type:
+          type: string
+        item_id:
+          type: integer
+        title:
+          type: string
+        fulfilled_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        total_price_in_cents:
+          type: integer
+        subtotal_in_cents:
+          type: integer
+        sales_tax_amount_in_cents:
+          type: integer
+        discount_amount_in_cents:
+          type: integer
+        formatted_total_price:
+          type: string
+        formatted_subtotal:
+          type: string
+        currency_symbol:
+          type: string
+    orders_attributes:
+      type: object
+      properties:
+        order_number:
+          type: integer
+        currency_code:
+          type: string
+        fulfilled_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        total_price_in_cents:
+          type: integer
+        subtotal_in_cents:
+          type: integer
+        sales_tax_amount_in_cents:
+          type: integer
+        discount_amount_in_cents:
+          type: integer
+        formatted_total_price:
+          type: string
+        formatted_subtotal:
+          type: string
+        currency_symbol:
+          type: string
+    form_submission_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_number:
+          type:
+          - string
+          - 'null'
+        business_number:
+          type:
+          - string
+          - 'null'
+        address_line_1:
+          type:
+          - string
+          - 'null'
+        address_line_2:
+          type:
+          - string
+          - 'null'
+        address_city:
+          type:
+          - string
+          - 'null'
+        address_state:
+          type:
+          - string
+          - 'null'
+        address_country:
+          type:
+          - string
+          - 'null'
+        address_zip:
+          type:
+          - string
+          - 'null'
+        custom_1:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_2:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+        custom_3:
+          type:
+          - string
+          - 'null'
+          description: Support depends on custom fields of a site
+    contact_tags_attributes:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+      - name
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     hooks_attributes:
       type: object
       properties:
@@ -2662,65 +2721,6 @@ components:
       required:
       - event
       - target_url
-    form_attributes:
-      type: object
-      properties:
-        title:
-          type:
-          - string
-          - 'null'
-        default:
-          type: boolean
-        webhook_url:
-          type:
-          - object
-          - 'null'
-        url:
-          type: string
-        created_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-    orders_attributes:
-      type: object
-      properties:
-        order_number:
-          type: integer
-        currency_code:
-          type: string
-        fulfilled_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        total_price_in_cents:
-          type: integer
-        subtotal_in_cents:
-          type: integer
-        sales_tax_amount_in_cents:
-          type: integer
-        discount_amount_in_cents:
-          type: integer
-        formatted_total_price:
-          type: string
-        formatted_subtotal:
-          type: string
-        currency_symbol:
-          type: string
   securitySchemes:
     Bearer:
       type: http
