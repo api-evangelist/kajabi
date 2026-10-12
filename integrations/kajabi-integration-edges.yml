@@ -1,0 +1,448 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/kajabi/integrations
+checked:
+- https://composio.dev/toolkits/kajabi
+- https://monid.ai/tools/kajabi
+- https://n8n.io/integrations/kajabi/
+- https://zapier.com/apps/kajabi/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: kajabi
+  url: https://zapier.com/apps/kajabi/integrations
+  external_url: http://kajabi.com/
+  partner_tier: BRONZE
+  triggers:
+  - key: assessment_completed
+    label: Assessment Completed
+  - key: form_submission_v2
+    label: New Form Submission
+  - key: order_created
+    label: Cart Purchase
+  - key: payment_succeeded
+    label: New Payment
+  - key: purchase
+    label: New Purchase
+  - key: tag_added
+    label: Tag Added
+  - key: tag_removed
+    label: Tag Removed
+  actions:
+  - key: activate_offer
+    label: Grant Access to an Offer
+  - key: create_form_submission
+    label: Create Form Submission
+  - key: deactivate_offer
+    label: Revoke Access to an Offer
+  searches: []
+edges:
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Flodesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/flodesk
+  direction: third-party
+  category: Email Newsletters
+  partner_url: https://flodesk.com/
+- partner_name: ClickFunnels Classic
+  partner: clickfunnels
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/clickfunnels-classic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.clickfunnels.com/
+- partner_name: ThriveCart
+  partner: thrivecart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/thrivecart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://thrivecart.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: ActiveCampaign
+  partner: activecampaign
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/activecampaign
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.activecampaign.com/?utm_source=unpaid_syndication_website&utm_medium=referral&utm_campaign=zapier_listing
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: Manychat
+  partner: manychat
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/manychat
+  direction: third-party
+  category: Social Media Marketing
+  partner_url: https://manychat.com/
+- partner_name: LeadConnector
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/leadconnector
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.leadconnectorhq.com/
+- partner_name: WooCommerce
+  partner: woocommerce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/woocommerce
+  direction: third-party
+  category: eCommerce
+  partner_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Google Slides
+  partner: google-slides
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/google-slides
+  direction: third-party
+  category: Documents
+  partner_url: https://www.google.com/slides/about/
+- partner_name: Interact
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/interact
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.tryinteract.com/
+- partner_name: SamCart
+  partner: samcart
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/samcart
+  direction: third-party
+  category: eCommerce
+  partner_url: https://samcart.com/
+- partner_name: monday.com
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Deadline Funnel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/deadline-funnel
+  direction: third-party
+  category: eCommerce
+  partner_url: https://deadlinefunnel.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Keap
+  partner: keap
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/keap
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://keap.com/
+- partner_name: Close
+  partner: close
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/close
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://www.close.com/?utm_source=Partner&utm_medium=Integration_Listing&utm_campaign=2025_Partnerships&utm_content=Home
+- partner_name: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/acuity-scheduling
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://acuityscheduling.com/?utm_source=zapier.com&utm_medium=referral&utm_campaign=integration-page
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Circle
+  partner: circle-community
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/circle
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://circle.so/
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: Demio
+  partner: demio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/demio
+  direction: third-party
+  category: Webinars
+  partner_url: https://demio.com/
+- partner_name: ablefy
+  partner: ablefy
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/ablefy
+  direction: third-party
+  category: eCommerce
+  partner_url: https://ablefy.io/?utm_source=zapier&utm_medium=coop&utm_campaign=about_page
+- partner_name: Notion
+  partner: notion
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/notion
+  direction: third-party
+  category: Task Management
+  partner_url: https://www.notion.so/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: Slack
+  partner: slack
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/slack
+  direction: third-party
+  category: Team Chat
+  partner_url: https://slack.com/
+- partner_name: highlevel
+  partner: highlevel
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/highlevel/blob/main/openapi/highlevel-templates-api-openapi.yml
+  contract_reference:
+    repo: highlevel
+    spec_file: highlevel-templates-api-openapi.yml
+    value: kajabi
+    property: schemas.CreateBuilderDto.importProvider
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+templates:
+- title: Create Kajabi form submissions from new Interact leads
+  url: https://zapier.com/apps/interact/integrations/kajabi/152480/create-kajabi-form-submissions-from-new-interact-leads
+  apps:
+  - interact
+  - kajabi
+- title: Add new Kajabi form submissions to Google Sheets rows
+  url: https://zapier.com/apps/google-sheets/integrations/kajabi/12444/add-new-kajabi-form-submissions-to-google-sheets-rows
+  apps:
+  - kajabi
+  - google-sheets
+- title: 'Get email notifications for new Kajabi purchases '
+  url: https://zapier.com/apps/email/integrations/kajabi/12393/get-email-notifications-for-new-kajabi-purchases
+  apps:
+  - kajabi
+  - email
+- title: Create form submissions in Kajabi from new submissions in Jotform
+  url: https://zapier.com/apps/jotform/integrations/kajabi/352685/create-form-submissions-in-kajabi-from-new-submissions-in-jotform
+  apps:
+  - jotform
+  - kajabi
+- title: Add new Kajabi customers as Mailchimp subscribers
+  url: https://zapier.com/apps/kajabi/integrations/mailchimp/12903/add-new-kajabi-customers-as-mailchimp-subscribers
+  apps:
+  - kajabi
+  - mailchimp
+- title: Turn new Leadpages form submissions into Kajabi form submissions
+  url: https://zapier.com/apps/kajabi/integrations/leadpages/67639/turn-new-leadpages-form-submissions-into-kajabi-form-submissions
+  apps:
+  - leadpages
+  - kajabi
+- title: Add new Kajabi customers to ActiveCampaign
+  url: https://zapier.com/apps/activecampaign/integrations/kajabi/12905/add-new-kajabi-customers-to-activecampaign
+  apps:
+  - kajabi
+  - activecampaign
+- title: Add rows to Excel with new Kajabi form submissions
+  url: https://zapier.com/apps/excel/integrations/kajabi/12443/add-rows-to-excel-with-new-kajabi-form-submissions
+  apps:
+  - kajabi
+  - excel
+- title: Add new Kajabi contacts as subscribers to Flodesk
+  url: https://zapier.com/apps/flodesk/integrations/kajabi/113778/add-new-kajabi-contacts-as-subscribers-to-flodesk
+  apps:
+  - kajabi
+  - flodesk
+- title: Grant new Stripe customers access to Kajabi orders
+  url: https://zapier.com/apps/kajabi/integrations/stripe/12439/grant-new-stripe-customers-access-to-kajabi-orders
+  apps:
+  - stripe
+  - kajabi
+- title: Create Bonjoro tasks for new purchases in Kajabi
+  url: https://zapier.com/apps/bonjoro/integrations/kajabi/199369/create-bonjoro-tasks-for-new-purchases-in-kajabi
+  apps:
+  - kajabi
+  - bonjoro
+- title: Grant access to Kajabi offers for new ThriveCart product purchases
+  url: https://zapier.com/apps/kajabi/integrations/thrivecart/962626/grant-access-to-kajabi-offers-for-new-thrivecart-product-purchases
+  apps:
+  - thrivecart
+  - kajabi
+template_total: 2519

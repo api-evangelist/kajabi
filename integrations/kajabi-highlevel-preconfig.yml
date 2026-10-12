@@ -1,0 +1,51 @@
+arazzo: 1.0.1
+info:
+  title: 'kajabi through highlevel: create-template preconfigured with kajabi'
+  summary: Calls highlevel's create-template with `kajabi` preset, the way kajabi is used inside highlevel.
+  description: 'A PRECONFIGURATION, not an orchestration: kajabi is a processor-connection inside highlevel, so
+    the integration is highlevel''s own operation with kajabi''s enum value set. Derived from highlevel''s contract
+    (highlevel-templates-api-openapi.yml); required properties are inputs.'
+  version: 1.0.0
+x-integration:
+  partner: highlevel
+  relationship: processor-connection
+  preconfig: true
+  edge_evidence: https://github.com/api-evangelist/highlevel/blob/main/openapi/highlevel-templates-api-openapi.yml
+  edge_type: contract
+  preset:
+    importProvider: kajabi
+  method: derived
+  generated: '2026-10-12'
+  generator: build-integration-preconfigs.py
+sourceDescriptions:
+- name: highlevelTemplatesApiOpenapi
+  url: https://raw.githubusercontent.com/api-evangelist/highlevel/refs/heads/main/openapi/highlevel-templates-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: kajabi-via-highlevel-create-template
+  summary: create-template with kajabi preset
+  inputs:
+    type: object
+    required:
+    - locationId
+    - type
+    properties:
+      locationId:
+        type: string
+      type:
+        type: string
+  steps:
+  - stepId: call-with-preset
+    operationId: $sourceDescriptions.highlevelTemplatesApiOpenapi.create-template
+    requestBody:
+      contentType: application/json
+      payload:
+        locationId: $inputs.locationId
+        type: $inputs.type
+        importProvider: kajabi
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      id: $response.body#/id
+  outputs:
+    id: $steps.call-with-preset.outputs.id
