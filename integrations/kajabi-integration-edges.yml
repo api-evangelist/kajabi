@@ -6,6 +6,7 @@ checked:
 - https://composio.dev/toolkits/kajabi
 - https://monid.ai/tools/kajabi
 - https://n8n.io/integrations/kajabi/
+- https://registry.modelcontextprotocol.io/v0/servers
 - https://zapier.com/apps/kajabi/integrations
 summary: null
 marketplace_apps:
@@ -384,6 +385,37 @@ edges:
     property: schemas.CreateBuilderDto.importProvider
     detected_by: detect-payment-method-edges.py
     detected: '2026-10-12'
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.kajabi
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.kajabi/kajabi
+    register_id: com.kajabi/kajabi
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-14'
+  mcp_registry:
+    servers:
+    - com.kajabi/kajabi
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 0
+    catalog_declared: true
+    namespace_domains:
+    - kajabi.com
+  matched_by:
+  - namespace-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
 templates:
 - title: Create Kajabi form submissions from new Interact leads
   url: https://zapier.com/apps/interact/integrations/kajabi/152480/create-kajabi-form-submissions-from-new-interact-leads
