@@ -2,11 +2,11 @@
   "repo": "kajabi",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/kajabi",
-      "feed_url": "https://www.linkedin.com/company/kajabi",
+      "source": "https://www.kajabi.com/blog",
+      "feed_url": "https://www.kajabi.com/blog/rss.xml",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://www.kajabi.com/blog/rss.xml",
@@ -14,9 +14,16 @@
       "title": "",
       "saved": 0,
       "method": "feed"
+    },
+    {
+      "source": "https://www.linkedin.com/company/kajabi",
+      "feed_url": "https://www.linkedin.com/company/kajabi",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 184,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",
