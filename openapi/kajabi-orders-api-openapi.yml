@@ -577,52 +577,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    orders_attributes:
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_not_found:
       type: object
       properties:
-        order_number:
-          type: integer
-        currency_code:
-          type: string
-        fulfilled_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        total_price_in_cents:
-          type: integer
-        subtotal_in_cents:
-          type: integer
-        sales_tax_amount_in_cents:
-          type: integer
-        discount_amount_in_cents:
-          type: integer
-        formatted_total_price:
-          type: string
-        formatted_subtotal:
-          type: string
-        currency_symbol:
-          type: string
-    errors_attributes:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
       type: object
       properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    order_items_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - order_items
+              attributes:
+                $ref: '#/components/schemas/order_items_attributes'
+              relationships:
+                type: object
+                properties:
+                  order:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
           properties:
-            pointer:
+            self:
               type: string
-        title:
-          type: string
-        detail:
-          type: string
+            current:
+              type: string
     orders_show_response:
       type: object
       properties:
@@ -662,6 +665,117 @@ components:
               type: string
             current:
               type: string
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    order_items_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - order_items
+            attributes:
+              $ref: '#/components/schemas/order_items_attributes'
+            relationships:
+              type: object
+              properties:
+                order:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    order_items_attributes:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        currency_code:
+          type: string
+        item_type:
+          type: string
+        item_id:
+          type: integer
+        title:
+          type: string
+        fulfilled_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        total_price_in_cents:
+          type: integer
+        subtotal_in_cents:
+          type: integer
+        sales_tax_amount_in_cents:
+          type: integer
+        discount_amount_in_cents:
+          type: integer
+        formatted_total_price:
+          type: string
+        formatted_subtotal:
+          type: string
+        currency_symbol:
+          type: string
+    orders_attributes:
+      type: object
+      properties:
+        order_number:
+          type: integer
+        currency_code:
+          type: string
+        fulfilled_at:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: ISO 8601 date-time, read only
+        total_price_in_cents:
+          type: integer
+        subtotal_in_cents:
+          type: integer
+        sales_tax_amount_in_cents:
+          type: integer
+        discount_amount_in_cents:
+          type: integer
+        formatted_total_price:
+          type: string
+        formatted_subtotal:
+          type: string
+        currency_symbol:
+          type: string
     orders_index_response:
       type: object
       properties:
@@ -703,24 +817,6 @@ components:
               type: string
             current:
               type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     resource_identifier:
       type: object
       properties:
@@ -731,109 +827,13 @@ components:
       required:
       - id
       - type
-    order_items_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-                enum:
-                - order_items
-              attributes:
-                $ref: '#/components/schemas/order_items_attributes'
-              relationships:
-                type: object
-                properties:
-                  order:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    order_items_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - order_items
-            attributes:
-              $ref: '#/components/schemas/order_items_attributes'
-            relationships:
-              type: object
-              properties:
-                order:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_forbidden:
+    errors_unauthorized:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    order_items_attributes:
-      type: object
-      properties:
-        quantity:
-          type: integer
-        currency_code:
-          type: string
-        item_type:
-          type: string
-        item_id:
-          type: integer
-        title:
-          type: string
-        fulfilled_at:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          description: ISO 8601 date-time, read only
-        total_price_in_cents:
-          type: integer
-        subtotal_in_cents:
-          type: integer
-        sales_tax_amount_in_cents:
-          type: integer
-        discount_amount_in_cents:
-          type: integer
-        formatted_total_price:
-          type: string
-        formatted_subtotal:
-          type: string
-        currency_symbol:
-          type: string
   securitySchemes:
     Bearer:
       type: http

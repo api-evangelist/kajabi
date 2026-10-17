@@ -430,6 +430,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
     podcasts_attributes:
       type: object
       properties:
@@ -504,36 +534,6 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     resource_identifier:
       type: object
       properties:
@@ -544,7 +544,7 @@ components:
       required:
       - id
       - type
-    errors_forbidden:
+    errors_unauthorized:
       type: object
       properties:
         errors:

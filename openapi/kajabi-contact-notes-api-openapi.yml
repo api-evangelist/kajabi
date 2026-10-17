@@ -277,139 +277,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
-    contact_notes_update_request:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - contact_notes
-            attributes:
-              type: object
-              properties:
-                body:
-                  type: string
-                  description: The note content
-              required:
-              - body
-          required:
-          - id
-          - type
-          - attributes
-      required:
-      - data
-    contact_notes_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-                enum:
-                - contact_notes
-              attributes:
-                $ref: '#/components/schemas/contact_notes_attributes'
-              relationships:
-                type: object
-                properties:
-                  contact:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_not_found:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_unprocessable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    contact_notes_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-              enum:
-              - contact_notes
-            attributes:
-              $ref: '#/components/schemas/contact_notes_attributes'
-            relationships:
-              type: object
-              properties:
-                contact:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
     contact_notes_create_request:
       type: object
       properties:
@@ -446,6 +313,58 @@ components:
           - relationships
       required:
       - data
+    errors_not_found:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_notes_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - contact_notes
+            attributes:
+              $ref: '#/components/schemas/contact_notes_attributes'
+            relationships:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
     contact_notes_attributes:
       type: object
       properties:
@@ -461,6 +380,87 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
+    contact_notes_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+                enum:
+                - contact_notes
+              attributes:
+                $ref: '#/components/schemas/contact_notes_attributes'
+              relationships:
+                type: object
+                properties:
+                  contact:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contact_notes_update_request:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+              enum:
+              - contact_notes
+            attributes:
+              type: object
+              properties:
+                body:
+                  type: string
+                  description: The note content
+              required:
+              - body
+          required:
+          - id
+          - type
+          - attributes
+      required:
+      - data
   securitySchemes:
     Bearer:
       type: http

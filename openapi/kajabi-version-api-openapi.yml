@@ -69,28 +69,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    version_response:
-      type: object
-      properties:
-        meta:
-          type: object
-          properties:
-            title:
-              type: string
-            version:
-              type: string
-        links:
-          type: object
-          properties:
-            documentation:
-              type: string
-        jsonapi:
-          type: object
-          properties:
-            version:
-              type: string
-            specficiation:
-              type: string
     errors_unavailable:
       type: object
       properties:
@@ -114,6 +92,28 @@ components:
           type: string
         detail:
           type: string
+    version_response:
+      type: object
+      properties:
+        meta:
+          type: object
+          properties:
+            title:
+              type: string
+            version:
+              type: string
+        links:
+          type: object
+          properties:
+            documentation:
+              type: string
+        jsonapi:
+          type: object
+          properties:
+            version:
+              type: string
+            specficiation:
+              type: string
   securitySchemes:
     Bearer:
       type: http

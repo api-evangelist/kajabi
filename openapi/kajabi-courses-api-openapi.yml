@@ -659,6 +659,17 @@ components:
           - 'null'
       required:
       - title
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     courses_show_response:
       type: object
       properties:
@@ -719,6 +730,35 @@ components:
               relationships:
                 type: object
                 properties: {}
+    errors_attributes:
+      type: object
+      properties:
+        status:
+          type: string
+        source:
+          type:
+          - object
+          - 'null'
+          properties:
+            pointer:
+              type: string
+        title:
+          type: string
+        detail:
+          type: string
+    course_lessons_attributes:
+      type: object
+      properties:
+        title:
+          type: string
+        position:
+          type:
+          - string
+          - 'null'
+        status:
+          type: string
+        publishing_option:
+          type: string
     offers_attributes:
       type: object
       properties:
@@ -762,22 +802,6 @@ components:
           - 'null'
       required:
       - title
-    errors_attributes:
-      type: object
-      properties:
-        status:
-          type: string
-        source:
-          type:
-          - object
-          - 'null'
-          properties:
-            pointer:
-              type: string
-        title:
-          type: string
-        detail:
-          type: string
     course_modules_attributes:
       type: object
       properties:
@@ -797,6 +821,23 @@ components:
           - 'null'
         publishing_option:
           type: string
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     courses_index_response:
       type: object
       properties:
@@ -826,47 +867,6 @@ components:
               type: string
             current:
               type: string
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    course_lessons_attributes:
-      type: object
-      properties:
-        title:
-          type: string
-        position:
-          type:
-          - string
-          - 'null'
-        status:
-          type: string
-        publishing_option:
-          type: string
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

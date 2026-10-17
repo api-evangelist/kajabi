@@ -1898,22 +1898,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    contacts_relationships_tags_response:
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_forbidden:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/resource_identifiers'
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-    empty_response:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_bad_request:
       type: object
       properties:
-        data:
-          type: object
-          properties: {}
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     contacts_index_response:
       type: object
       properties:
@@ -1986,104 +1988,6 @@ components:
           type: string
         detail:
           type: string
-    contacts_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/contacts_attributes'
-            relationships:
-              type: object
-              properties:
-                customer:
-                  type:
-                  - object
-                  - 'null'
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                offers:
-                  type:
-                  - object
-                  - 'null'
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
-                    links:
-                      type: object
-                      properties:
-                        self:
-                          type: string
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                tags:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
-            links:
-              type: object
-              properties:
-                customer:
-                  type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_bad_request:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    errors_unprocessable:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    resource_identifier:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-      required:
-      - id
-      - type
-    errors_forbidden:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     contacts_attributes:
       type: object
       properties:
@@ -2155,6 +2059,102 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
+    contacts_relationships_tags_response:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/resource_identifiers'
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+    errors_unprocessable:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    contacts_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/contacts_attributes'
+            relationships:
+              type: object
+              properties:
+                customer:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                offers:
+                  type:
+                  - object
+                  - 'null'
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+                    links:
+                      type: object
+                      properties:
+                        self:
+                          type: string
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                tags:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+            links:
+              type: object
+              properties:
+                customer:
+                  type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    empty_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties: {}
+    resource_identifier:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      required:
+      - id
+      - type
+    errors_unauthorized:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
   securitySchemes:
     Bearer:
       type: http

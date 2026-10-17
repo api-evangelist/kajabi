@@ -1308,6 +1308,24 @@ components:
           properties:
             self:
               type: string
+    resource_identifiers:
+      type: array
+      items:
+        $ref: '#/components/schemas/resource_identifier'
+    errors_forbidden:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
+    errors_bad_request:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/errors_attributes'
     errors_attributes:
       type: object
       properties:
@@ -1324,6 +1342,110 @@ components:
           type: string
         detail:
           type: string
+    customers_index_response:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+              attributes:
+                $ref: '#/components/schemas/customers_attributes'
+              relationships:
+                type: object
+                properties:
+                  contact:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  site:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifier'
+                  offers:
+                    type: object
+                    properties:
+                      links:
+                        type: object
+                        properties:
+                          self:
+                            type: string
+                  products:
+                    type: object
+                    properties:
+                      data:
+                        $ref: '#/components/schemas/resource_identifiers'
+              links:
+                type: object
+                properties:
+                  contact:
+                    type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
+    customers_show_response:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            attributes:
+              $ref: '#/components/schemas/customers_attributes'
+            relationships:
+              type: object
+              properties:
+                contact:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                site:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifier'
+                offers:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+                    links:
+                      type: object
+                      properties:
+                        self:
+                          type: string
+                products:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/resource_identifiers'
+            links:
+              type: object
+              properties:
+                contact:
+                  type: string
+        links:
+          type: object
+          properties:
+            self:
+              type: string
+            current:
+              type: string
     customers_attributes:
       type: object
       properties:
@@ -1398,24 +1520,6 @@ components:
           format: date-time
           readOnly: true
           description: ISO 8601 date-time, read only
-    resource_identifiers:
-      type: array
-      items:
-        $ref: '#/components/schemas/resource_identifier'
-    errors_bad_request:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
-    errors_unauthorized:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/errors_attributes'
     resource_identifier:
       type: object
       properties:
@@ -1426,117 +1530,13 @@ components:
       required:
       - id
       - type
-    customers_show_response:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            id:
-              type: string
-            type:
-              type: string
-            attributes:
-              $ref: '#/components/schemas/customers_attributes'
-            relationships:
-              type: object
-              properties:
-                contact:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                site:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifier'
-                offers:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
-                    links:
-                      type: object
-                      properties:
-                        self:
-                          type: string
-                products:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/resource_identifiers'
-            links:
-              type: object
-              properties:
-                contact:
-                  type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
-    errors_forbidden:
+    errors_unauthorized:
       type: object
       properties:
         errors:
           type: array
           items:
             $ref: '#/components/schemas/errors_attributes'
-    customers_index_response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              type:
-                type: string
-              attributes:
-                $ref: '#/components/schemas/customers_attributes'
-              relationships:
-                type: object
-                properties:
-                  contact:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  site:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifier'
-                  offers:
-                    type: object
-                    properties:
-                      links:
-                        type: object
-                        properties:
-                          self:
-                            type: string
-                  products:
-                    type: object
-                    properties:
-                      data:
-                        $ref: '#/components/schemas/resource_identifiers'
-              links:
-                type: object
-                properties:
-                  contact:
-                    type: string
-        links:
-          type: object
-          properties:
-            self:
-              type: string
-            current:
-              type: string
   securitySchemes:
     Bearer:
       type: http
