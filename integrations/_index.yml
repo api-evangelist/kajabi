@@ -14,6 +14,7 @@
   evidence: https://zapier.com/apps/interact/integrations/kajabi/152480/create-kajabi-form-submissions-from-new-interact-leads
   template: https://zapier.com/apps/interact/integrations/kajabi/152480/create-kajabi-form-submissions-from-new-interact-leads
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: kajabi-add-new-kajabi-form-submissions-to-google-sheets-rows
@@ -28,6 +29,7 @@
   evidence: https://zapier.com/apps/google-sheets/integrations/kajabi/12444/add-new-kajabi-form-submissions-to-google-sheets-rows
   template: https://zapier.com/apps/google-sheets/integrations/kajabi/12444/add-new-kajabi-form-submissions-to-google-sheets-rows
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: kajabi-add-new-kajabi-customers-as-mailchimp-subscribers
@@ -42,6 +44,7 @@
   evidence: https://zapier.com/apps/kajabi/integrations/mailchimp/12903/add-new-kajabi-customers-as-mailchimp-subscribers
   template: https://zapier.com/apps/kajabi/integrations/mailchimp/12903/add-new-kajabi-customers-as-mailchimp-subscribers
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: kajabi-add-new-kajabi-customers-to-activecampaign
@@ -56,6 +59,7 @@
   evidence: https://zapier.com/apps/activecampaign/integrations/kajabi/12905/add-new-kajabi-customers-to-activecampaign
   template: https://zapier.com/apps/activecampaign/integrations/kajabi/12905/add-new-kajabi-customers-to-activecampaign
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: kajabi-add-new-kajabi-contacts-as-subscribers-to-flodesk
@@ -69,6 +73,7 @@
   evidence: https://zapier.com/apps/flodesk/integrations/kajabi/113778/add-new-kajabi-contacts-as-subscribers-to-flodesk
   template: https://zapier.com/apps/flodesk/integrations/kajabi/113778/add-new-kajabi-contacts-as-subscribers-to-flodesk
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: kajabi-grant-access-to-kajabi-offers-for-new-thrivecart-product-purchases
@@ -83,291 +88,7 @@
   evidence: https://zapier.com/apps/kajabi/integrations/thrivecart/962626/grant-access-to-kajabi-offers-for-new-thrivecart-product-purchases
   template: https://zapier.com/apps/kajabi/integrations/thrivecart/962626/grant-access-to-kajabi-offers-for-new-thrivecart-product-purchases
   source: template
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-hubspot
-  label: HubSpot
-  partner: hubspot
-  partner_name: HubSpot
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/hubspot
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-clickfunnels-classic
-  label: ClickFunnels Classic
-  partner: clickfunnels
-  partner_name: ClickFunnels Classic
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/clickfunnels-classic
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/airtable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-shopify
-  label: Shopify
-  partner: shopify
-  partner_name: Shopify
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/shopify
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-zoom
-  label: Zoom
-  partner: zoom
-  partner_name: Zoom
-  category: Video Conferencing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/zoom
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-manychat
-  label: Manychat
-  partner: manychat
-  partner_name: Manychat
-  category: Social Media Marketing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/manychat
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-leadconnector
-  label: LeadConnector
-  partner_name: LeadConnector
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/leadconnector
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: kajabi-woocommerce
-  label: WooCommerce
-  partner: woocommerce
-  partner_name: WooCommerce
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/woocommerce
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-typeform
-  label: Typeform
-  partner: typeform
-  partner_name: Typeform
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/typeform
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-google-slides
-  label: Google Slides
-  partner: google-slides
-  partner_name: Google Slides
-  category: Documents
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/google-slides
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-samcart
-  label: SamCart
-  partner: samcart
-  partner_name: SamCart
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/samcart
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-monday-com
-  label: monday.com
-  partner_name: monday.com
-  category: Project Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/monday
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: kajabi-deadline-funnel
-  label: Deadline Funnel
-  partner_name: Deadline Funnel
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/deadline-funnel
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: kajabi-pipedrive
-  label: Pipedrive
-  partner: pipedrive
-  partner_name: Pipedrive
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/pipedrive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-keap
-  label: Keap
-  partner: keap
-  partner_name: Keap
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/keap
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-close
-  label: Close
-  partner: close
-  partner_name: Close
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/close
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-acuity-scheduling
-  label: Acuity Scheduling
-  partner: acuity-scheduling
-  partner_name: Acuity Scheduling
-  category: Scheduling & Booking
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/acuity-scheduling
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-circle
-  label: Circle
-  partner: circle-community
-  partner_name: Circle
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/circle
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-squarespace-forms
-  label: Squarespace Forms
-  partner: squarespace
-  partner_name: Squarespace Forms
-  category: Forms & Surveys
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/squarespace-forms
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-demio
-  label: Demio
-  partner: demio
-  partner_name: Demio
-  category: Webinars
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/demio
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-ablefy
-  label: ablefy
-  partner: ablefy
-  partner_name: ablefy
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/ablefy
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: kajabi-notion
-  label: Notion
-  partner: notion
-  partner_name: Notion
-  category: Task Management
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/notion
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-google-calendar
-  label: Google Calendar
-  partner: google-calendar
-  partner_name: Google Calendar
-  category: Calendar
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/google-calendar
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: kajabi-slack
-  label: Slack
-  partner: slack
-  partner_name: Slack
-  category: Team Chat
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/kajabi/integrations/slack
-  source: edge
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: kajabi-highlevel
@@ -388,25 +109,6 @@
     detected: '2026-10-12'
   arazzo: kajabi-highlevel-preconfig.yml
   status: arazzo
-- slug: kajabi-mcp-registry
-  label: MCP Registry
-  partner: mcp
-  partner_name: MCP Registry
-  type: register
-  channel: standard-directory
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.kajabi
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: com.kajabi/kajabi
-    register_id: com.kajabi/kajabi
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
 - slug: kajabi-zapier
   label: Zapier
   partner: zapier
@@ -431,4 +133,333 @@
     beta: false
     builder: unknown (not in the directory record)
   status: not-a-workflow
+  arazzo: null
+- slug: kajabi-mcp-registry
+  label: MCP Registry
+  partner: mcp
+  partner_name: MCP Registry
+  type: register
+  channel: standard-directory
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.kajabi
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.kajabi/kajabi
+    register_id: com.kajabi/kajabi
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
+- slug: kajabi-hubspot
+  label: HubSpot
+  partner: hubspot
+  partner_name: HubSpot
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/hubspot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-clickfunnels-classic
+  label: ClickFunnels Classic
+  partner: clickfunnels
+  partner_name: ClickFunnels Classic
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/clickfunnels-classic
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/shopify
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-zoom
+  label: Zoom
+  partner: zoom
+  partner_name: Zoom
+  category: Video Conferencing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/zoom
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-manychat
+  label: Manychat
+  partner: manychat
+  partner_name: Manychat
+  category: Social Media Marketing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/manychat
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-leadconnector
+  label: LeadConnector
+  partner_name: LeadConnector
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/leadconnector
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: kajabi-woocommerce
+  label: WooCommerce
+  partner: woocommerce
+  partner_name: WooCommerce
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/woocommerce
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-typeform
+  label: Typeform
+  partner: typeform
+  partner_name: Typeform
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/typeform
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-google-slides
+  label: Google Slides
+  partner: google-slides
+  partner_name: Google Slides
+  category: Documents
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/google-slides
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-klaviyo
+  label: Klaviyo
+  partner: klaviyo
+  partner_name: Klaviyo
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/klaviyo
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-samcart
+  label: SamCart
+  partner: samcart
+  partner_name: SamCart
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/samcart
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-monday-com
+  label: monday.com
+  partner: monday-com
+  partner_name: monday.com
+  category: Project Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/monday
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-deadline-funnel
+  label: Deadline Funnel
+  partner_name: Deadline Funnel
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/deadline-funnel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: kajabi-keap
+  label: Keap
+  partner: keap
+  partner_name: Keap
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/keap
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-close
+  label: Close
+  partner: close
+  partner_name: Close
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/close
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-acuity-scheduling
+  label: Acuity Scheduling
+  partner: acuity-scheduling
+  partner_name: Acuity Scheduling
+  category: Scheduling & Booking
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/acuity-scheduling
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-circle
+  label: Circle
+  partner: circle-community
+  partner_name: Circle
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/circle
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-squarespace-forms
+  label: Squarespace Forms
+  partner: squarespace
+  partner_name: Squarespace Forms
+  category: Forms & Surveys
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/squarespace-forms
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-demio
+  label: Demio
+  partner: demio
+  partner_name: Demio
+  category: Webinars
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/demio
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-ablefy
+  label: ablefy
+  partner: ablefy
+  partner_name: ablefy
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/ablefy
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: kajabi-notion
+  label: Notion
+  partner: notion
+  partner_name: Notion
+  category: Task Management
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/notion
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-slack
+  label: Slack
+  partner: slack
+  partner_name: Slack
+  category: Team Chat
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/slack
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: kajabi-google-calendar
+  label: Google Calendar
+  partner: google-calendar
+  partner_name: Google Calendar
+  category: Calendar
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/kajabi/integrations/google-calendar
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
   arazzo: null
