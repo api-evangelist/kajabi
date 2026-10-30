@@ -1,4 +1,4 @@
-# Kajabi (kajabi)
+# Kajabi
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,93 +64,230 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Kajabi is an all-in-one creator platform that enables entrepreneurs and knowledge creators to build, market, and sell digital products including online courses, membership sites, coaching programs, and communities. The Kajabi Public API provides a RESTful interface for managing contacts, products, offers, purchases, orders, transactions, forms, websites, webhooks, and Kajabi Payments payouts. API access is available exclusively on the Pro plan and uses OAuth 2.0 for authentication. The base URL is `https://api.kajabi.com` with endpoints versioned under `/v1`, and an OpenAPI specification is published in Kajabi's public GitHub repository.
+Kajabi is an all-in-one creator platform that enables entrepreneurs and knowledge creators to build, market, and sell digital products including online courses, membership sites, coaching programs, and communities. The Kajabi Public API provides a RESTful interface for managing contacts, products, offers, purchases, orders, transactions, forms, webhooks, and more. API access requires OAuth 2.0 authentication and is available exclusively on the Pro plan. The API base URL is https://api.kajabi.com with versioned endpoints under /v1, and an OpenAPI specification is published in the public_api_docs GitHub repository.
 
-**APIs.json:** https://raw.githubusercontent.com/api-evangelist/kajabi/refs/heads/main/apis.yml
+**Areas:** Creator Economy · Online Courses · Membership · E-Commerce · Digital Products · Contacts · Webhook · Payments
 
-**Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=kajabi-api-evangelist&utm_content=repo
+## Kajabi on APIs.io
 
----
+Everything profiled for Kajabi is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kajabi/](https://apis.io/providers/kajabi/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (21)
 
-- Creator Economy
-- Online Courses
-- Memberships
-- E-Commerce
-- Digital Products
-- Contacts
-- Webhooks
-- Payments
+- [Kajabi Authentication API](https://apis.io/apis/kajabi/kajabi-authentication-api/) — The Authentication API from Kajabi — 2 operation(s) for authentication.
+- [Kajabi Blog posts API](https://apis.io/apis/kajabi/kajabi-blog-posts-api/) — The Blog posts API from Kajabi — 2 operation(s) for blog posts.
+- [Kajabi Contact Notes API](https://apis.io/apis/kajabi/kajabi-contact-notes-api/) — The Contact Notes API from Kajabi — 2 operation(s) for contact notes.
+- [Kajabi Contact Tags API](https://apis.io/apis/kajabi/kajabi-contact-tags-api/) — The Contact Tags API from Kajabi — 2 operation(s) for contact tags.
+- [Kajabi Contacts API](https://apis.io/apis/kajabi/kajabi-contacts-api/) — The Contacts API from Kajabi — 4 operation(s) for contacts.
+- [Kajabi Courses API](https://apis.io/apis/kajabi/kajabi-courses-api/) — The Courses API from Kajabi — 2 operation(s) for courses.
+- [Kajabi Custom Fields API](https://apis.io/apis/kajabi/kajabi-custom-fields-api/) — The Custom Fields API from Kajabi — 2 operation(s) for custom fields.
+- [Kajabi Customers API](https://apis.io/apis/kajabi/kajabi-customers-api/) — The Customers API from Kajabi — 3 operation(s) for customers.
+- [Kajabi Forms API](https://apis.io/apis/kajabi/kajabi-forms-api/) — The Forms API from Kajabi — 5 operation(s) for forms.
+- [Kajabi Payments Payouts API](https://apis.io/apis/kajabi/kajabi-kajabi-payments-payouts-api/) — The Kajabi Payments Payouts API from Kajabi — 2 operation(s) for kajabi payments payouts.
+- [Kajabi Landing pages API](https://apis.io/apis/kajabi/kajabi-landing-pages-api/) — The Landing pages API from Kajabi — 2 operation(s) for landing pages.
+- [Kajabi Me API](https://apis.io/apis/kajabi/kajabi-me-api/) — The Me API from Kajabi — 1 operation(s) for me.
+- [Kajabi Offers API](https://apis.io/apis/kajabi/kajabi-offers-api/) — The Offers API from Kajabi — 3 operation(s) for offers.
+- [Kajabi Orders API](https://apis.io/apis/kajabi/kajabi-orders-api/) — The Orders API from Kajabi — 4 operation(s) for orders.
+- [Kajabi Podcasts API](https://apis.io/apis/kajabi/kajabi-podcasts-api/) — The Podcasts API from Kajabi — 2 operation(s) for podcasts.
+- [Kajabi Products API](https://apis.io/apis/kajabi/kajabi-products-api/) — The Products API from Kajabi — 2 operation(s) for products.
+- [Kajabi Purchases API](https://apis.io/apis/kajabi/kajabi-purchases-api/) — The Purchases API from Kajabi — 5 operation(s) for purchases.
+- [Kajabi Sites API](https://apis.io/apis/kajabi/kajabi-sites-api/) — The Sites API from Kajabi — 4 operation(s) for sites.
+- [Kajabi Transactions API](https://apis.io/apis/kajabi/kajabi-transactions-api/) — The Transactions API from Kajabi — 2 operation(s) for transactions.
+- [Kajabi Version API](https://apis.io/apis/kajabi/kajabi-version-api/) — The Version API from Kajabi — 1 operation(s) for version.
+- [Kajabi Webhooks API](https://apis.io/apis/kajabi/kajabi-webhooks-api/) — The Webhooks API from Kajabi — 8 operation(s) for webhooks.
 
----
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Kajabi Public API
+#### GraphQL (1)
 
-RESTful API for managing contacts, products, offers, purchases, orders, transactions, courses, forms, landing pages, websites, webhooks, and Kajabi Payments payouts.
+GraphQL schemas.
 
-- **Documentation:** https://help.kajabi.com/api-reference/introduction
-- **Base URL:** https://api.kajabi.com
-- **OpenAPI Spec:** https://github.com/Kajabi/public_api_docs/blob/main/openapi.yaml
+- [Moved to /providers/kajabi/](https://apis.io/graphqls/kajabi/kajabi-graphql/)
 
-**Resources available via API:**
+#### MCP servers (1)
 
-| Resource | Operations |
+Model Context Protocol servers that expose the API to agents.
+
+- [kajabi](https://apis.io/servers/kajabi/kajabi/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Kajabi Agentic Access](https://apis.io/agentic-access/kajabi/kajabi-agentic-access/)
+
+#### JSON Schema (20)
+
+The data models the API reads and writes.
+
+- [Blog Posts](https://apis.io/schemas/kajabi/blog_posts_attributes/)
+- [Contact Notes](https://apis.io/schemas/kajabi/contact_notes_attributes/)
+- [Contact Tags](https://apis.io/schemas/kajabi/contact_tags_attributes/)
+- [Contacts](https://apis.io/schemas/kajabi/contacts_attributes/)
+- [Courses](https://apis.io/schemas/kajabi/courses_attributes/)
+- [Custom Fields](https://apis.io/schemas/kajabi/custom_fields_attributes/)
+- [Customers](https://apis.io/schemas/kajabi/customers_attributes/)
+- [Form](https://apis.io/schemas/kajabi/form_attributes/)
+- [Form Submission](https://apis.io/schemas/kajabi/form_submission_attributes/)
+- [Hooks](https://apis.io/schemas/kajabi/hooks_attributes/)
+- [Landing Pages](https://apis.io/schemas/kajabi/landing_pages_attributes/)
+- [Me](https://apis.io/schemas/kajabi/me_attributes/)
+- [Offers](https://apis.io/schemas/kajabi/offers_attributes/)
+- [Orders](https://apis.io/schemas/kajabi/orders_attributes/)
+- [Podcasts](https://apis.io/schemas/kajabi/podcasts_attributes/)
+- [Products](https://apis.io/schemas/kajabi/products_attributes/)
+- [Purchases](https://apis.io/schemas/kajabi/purchases_attributes/)
+- [Sites](https://apis.io/schemas/kajabi/sites_attributes/)
+- [Transactions](https://apis.io/schemas/kajabi/transactions_attributes/)
+- [Website Pages](https://apis.io/schemas/kajabi/website_pages_attributes/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Kajabi Context](https://apis.io/jsonld/kajabi/kajabi-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Kajabi API Vocabulary](https://apis.io/vocabularies/kajabi/kajabi-vocabulary/)
+
+#### Examples (8)
+
+Example requests and responses.
+
+- [Kajabi Contacts Create Example](https://apis.io/examples/kajabi/kajabi-contacts-create-example/)
+- [Kajabi Contacts List Example](https://apis.io/examples/kajabi/kajabi-contacts-list-example/)
+- [Kajabi Offers List Example](https://apis.io/examples/kajabi/kajabi-offers-list-example/)
+- [Kajabi Orders List Example](https://apis.io/examples/kajabi/kajabi-orders-list-example/)
+- [Kajabi Products List Example](https://apis.io/examples/kajabi/kajabi-products-list-example/)
+- [Kajabi Purchases List Example](https://apis.io/examples/kajabi/kajabi-purchases-list-example/)
+- [Kajabi Transactions List Example](https://apis.io/examples/kajabi/kajabi-transactions-list-example/)
+- [Kajabi Webhooks List Example](https://apis.io/examples/kajabi/kajabi-webhooks-list-example/)
+
+#### Collections (21)
+
+Postman and Open Collection request collections.
+
+- [Kajabi API V1 Authentication API](https://apis.io/collections/kajabi/open-kajabi-authentication-api/)
+- [Kajabi API V1 Authentication Blog posts API](https://apis.io/collections/kajabi/open-kajabi-blog-posts-api/)
+- [Kajabi API V1 Authentication Contact Notes API](https://apis.io/collections/kajabi/open-kajabi-contact-notes-api/)
+- [Kajabi API V1 Authentication Contact Tags API](https://apis.io/collections/kajabi/open-kajabi-contact-tags-api/)
+- [Kajabi API V1 Authentication Contacts API](https://apis.io/collections/kajabi/open-kajabi-contacts-api/)
+- [Kajabi API V1 Authentication Courses API](https://apis.io/collections/kajabi/open-kajabi-courses-api/)
+- [Kajabi API V1 Authentication Custom Fields API](https://apis.io/collections/kajabi/open-kajabi-custom-fields-api/)
+- [Kajabi API V1 Authentication Customers API](https://apis.io/collections/kajabi/open-kajabi-customers-api/)
+- [Kajabi API V1 Authentication Forms API](https://apis.io/collections/kajabi/open-kajabi-forms-api/)
+- [Kajabi API V1 Authentication Kajabi Payments Payouts API](https://apis.io/collections/kajabi/open-kajabi-kajabi-payments-payouts-api/)
+- [Kajabi API V1 Authentication Landing pages API](https://apis.io/collections/kajabi/open-kajabi-landing-pages-api/)
+- [Kajabi API V1 Authentication Me API](https://apis.io/collections/kajabi/open-kajabi-me-api/)
+- [Kajabi API V1 Authentication Offers API](https://apis.io/collections/kajabi/open-kajabi-offers-api/)
+- [Kajabi API V1 Authentication Orders API](https://apis.io/collections/kajabi/open-kajabi-orders-api/)
+- [Kajabi API V1 Authentication Podcasts API](https://apis.io/collections/kajabi/open-kajabi-podcasts-api/)
+- [Kajabi API V1 Authentication Products API](https://apis.io/collections/kajabi/open-kajabi-products-api/)
+- [Kajabi API V1 Authentication Purchases API](https://apis.io/collections/kajabi/open-kajabi-purchases-api/)
+- [Kajabi API V1 Authentication Sites API](https://apis.io/collections/kajabi/open-kajabi-sites-api/)
+- [Kajabi API V1 Authentication Transactions API](https://apis.io/collections/kajabi/open-kajabi-transactions-api/)
+- [Kajabi API V1 Authentication Version API](https://apis.io/collections/kajabi/open-kajabi-version-api/)
+- [Kajabi API V1 Authentication Webhooks API](https://apis.io/collections/kajabi/open-kajabi-webhooks-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Kajabi — jsonschema rules](https://apis.io/rules/kajabi/kajabi-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kajabi Authentication](https://apis.io/security/kajabi/kajabi-authentication/)
+- [Kajabi Domain Security](https://apis.io/security/kajabi/kajabi-domain-security/)
+
+#### Plans and pricing (2)
+
+Published plans, tiers and prices.
+
+- [Kajabi Plans Pricing](https://apis.io/plans/kajabi/kajabi-plans-pricing/)
+- [Kajabi Price Estimates](https://apis.io/plans/kajabi/kajabi-price-estimates/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kajabi Rate Limits](https://apis.io/rate-limits/kajabi/kajabi-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Kajabi Finops](https://apis.io/finops/kajabi/kajabi-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.kajabi.com)
+- [Documentation](https://help.kajabi.com/api-reference/introduction)
+- [Pricing](https://www.kajabi.com/pricing)
+- [Blog](https://www.kajabi.com/blog)
+- [GitHub](https://github.com/Kajabi)
+- [Status](https://status.kajabi.com)
+
+## API Evangelist rating
+
+**Kin Score 40.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| Authentication | Get access token, Revoke token |
-| Contacts | List, Create, Get, Update, Delete, Tags, Offers |
-| Contact Notes | List, Create, Get, Update, Delete |
-| Contact Tags | List, Get |
-| Courses | List, Get |
-| Custom Fields | List, Get |
-| Customers | List, Get, Offers |
-| Forms | List, Get, Submit, Submissions |
-| Landing Pages | List, Get |
-| Offers | List, Get, Products |
-| Orders | List, Get, Items |
-| Products | List, Get |
-| Purchases | List, Get, Cancel, Deactivate, Reactivate |
-| Sites / Pages | List, Get |
-| Transactions | List, Get |
-| Webhooks | List, Create, Get, Delete |
-| Payments Payouts | List, Get |
+| Discoverability | 68.3 |
+| Contract quality | 66.5 |
+| Contract governance | 23.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 42.1 |
 
----
+**Agent readiness 53.0** — agent-ready (gated down from agent-native)
 
-## Plans / Rate Limits / FinOps
-
-| File | Description |
+| Agent-readiness dimension | Result |
 |---|---|
-| [plans/kajabi-plans-pricing.yml](plans/kajabi-plans-pricing.yml) | Subscription tiers — Kickstarter, Basic, Growth, Pro |
-| [rate-limits/kajabi-rate-limits.yml](rate-limits/kajabi-rate-limits.yml) | API rate limit policies and response headers |
-| [finops/kajabi-finops.yml](finops/kajabi-finops.yml) | FOCUS-aligned cost model including subscription, transaction, and contact fees |
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
 
----
+**Regulatory alignment 15.2** — Payments
 
-## Timestamps
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kajabi/](https://apis.io/providers/kajabi/).
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+## How this profile is made
 
----
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-## Common Properties
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kajabi: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-| Type | URL |
-|---|---|
-| Website | https://www.kajabi.com |
-| Documentation | https://help.kajabi.com/api-reference/introduction |
-| GitHub Organization | https://github.com/Kajabi |
-| LinkedIn | https://www.linkedin.com/company/kajabi |
-| Blog | https://www.kajabi.com/blog |
-| Pricing | https://www.kajabi.com/pricing |
-| Status Page | https://status.kajabi.com |
-| X (Twitter) | https://x.com/Kajabi |
+## Open an issue
 
----
-
-## Maintainers
-
-- **Kin Lane** — kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kajabi/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
